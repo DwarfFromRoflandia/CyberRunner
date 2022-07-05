@@ -5,7 +5,7 @@ using System;
 
 public static class EventManager 
 {
+	//пишем здесь все виды событий которые будут в игре
 	public static Action<float> EventPlay;
-	// Start is called before the first frame update
-
+	 
 }
