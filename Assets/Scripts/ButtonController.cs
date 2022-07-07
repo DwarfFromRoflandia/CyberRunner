@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class ButtonController :MonoBehaviour
+public class ButtonController :OpenAndExitStore
 {
    public float GameSpeed;
     public GameObject Main_Menu_Condition; // ссылка на главное меню
@@ -28,5 +28,13 @@ public class ButtonController :MonoBehaviour
     
     }
 
+    public  override void ExitMenu()
+    {
+        Settings_Menu.SetActive(false);
+        Main_Menu_Condition.SetActive(true);
     
+    }
+
+
+
 }

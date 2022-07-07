@@ -13,9 +13,11 @@ public class OpenAndExitStore : MonoBehaviour
         store.SetActive(true);
     }
 
-    public void ExitShop()
+    public virtual void ExitMenu() // сделал доступным для переопределения в классе ButtonController.
     {
         mainMenu.SetActive(true);
         store.SetActive(false);
     }
+
+    
 }
