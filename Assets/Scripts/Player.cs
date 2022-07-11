@@ -7,10 +7,16 @@ public class Player : MonoBehaviour
 {
 
 	private float BufferSpeed;
+	Animator Player_Anim;
+	private void Start()
+	{
+		Player_Anim = GetComponent<Animator>();
+	}
 
 	private void OnEnable()
 	{
 		EventManager.EventPlay += StartRunValues;
+		EventManager.Animation_Play += Set_Anim_Play_True;
 	}
 	private void OnDisable()
 	{
@@ -24,8 +30,8 @@ public class Player : MonoBehaviour
 	{
 		BufferSpeed = GameSpeed;
 
-		transform.Translate(0,0,GameSpeed*Time.fixedDeltaTime);
-		
+		transform.Translate(0, 0, GameSpeed * Time.fixedDeltaTime,Space.World);
+
 
 	}
 	private void FixedUpdate()
@@ -33,5 +39,11 @@ public class Player : MonoBehaviour
 		StartRunValues(BufferSpeed);
 	}
 
+	private void Set_Anim_Play_True(bool b)
+	{
+
+		Player_Anim.SetBool("PlayIsPressed",b);
+
+    }
 
 }

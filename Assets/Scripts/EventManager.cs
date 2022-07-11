@@ -6,6 +6,6 @@ using System;
 public static class EventManager 
 {
 	public static Action<float> EventPlay;
-	// Start is called before the first frame update
+	public static Action<bool> Animation_Play;
 
 }

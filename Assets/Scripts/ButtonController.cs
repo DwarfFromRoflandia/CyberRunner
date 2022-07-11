@@ -18,7 +18,7 @@ public class ButtonController :OpenAndExitStore
     {
         Main_Menu_Condition.SetActive(false);
         EventManager.EventPlay?.Invoke(GameSpeed);
-    }
+        EventManager.Animation_Play?.Invoke(true);    }
 
     public void InputSettings()
     {
