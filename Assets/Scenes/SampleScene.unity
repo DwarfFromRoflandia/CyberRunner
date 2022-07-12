@@ -655,7 +655,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 211446317}
   m_LocalRotation: {x: -0.0039307177, y: -0.005103167, z: 0.7070959, w: 0.7070884}
-  m_LocalPosition: {x: 0, y: 0, z: 0.19}
+  m_LocalPosition: {x: 0, y: 0, z: 0.19162}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1789827926}
@@ -663,8 +663,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0.095, y: -0.732, z: 90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3.541, y: 2.62}
-  m_SizeDelta: {x: 1.1499, y: 1.1499}
+  m_AnchoredPosition: {x: -3.5377722, y: 2.7421725}
+  m_SizeDelta: {x: 0.96164, y: 0.96164}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &211446319
 MonoBehaviour:
@@ -1143,9 +1143,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1437680446}
-        m_TargetAssemblyTypeName: OpenAndExitStore, Assembly-CSharp
-        m_MethodName: ExitMenu
+      - m_Target: {fileID: 1040522492}
+        m_TargetAssemblyTypeName: BuyHearts, Assembly-CSharp
+        m_MethodName: Buy
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1482,6 +1482,7 @@ GameObject:
   - component: {fileID: 621539748}
   - component: {fileID: 621539747}
   - component: {fileID: 621539746}
+  - component: {fileID: 621539749}
   m_Layer: 0
   m_Name: InfoButton
   m_TagString: Untagged
@@ -1590,6 +1591,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 621539744}
   m_CullTransparentMesh: 1
+--- !u!114 &621539749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 621539744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3a2f94178672f34997718843dc70d0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &641561390
 GameObject:
   m_ObjectHideFlags: 0
@@ -1924,9 +1937,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1437680446}
-        m_TargetAssemblyTypeName: OpenAndExitStore, Assembly-CSharp
-        m_MethodName: ExitMenu
+      - m_Target: {fileID: 1040522493}
+        m_TargetAssemblyTypeName: BuyBullets, Assembly-CSharp
+        m_MethodName: Buy
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2936,13 +2949,15 @@ GameObject:
   m_Component:
   - component: {fileID: 1040522490}
   - component: {fileID: 1040522491}
+  - component: {fileID: 1040522492}
+  - component: {fileID: 1040522493}
   m_Layer: 0
   m_Name: Store
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1040522490
 Transform:
   m_ObjectHideFlags: 0
@@ -3003,7 +3018,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 06edc4e02f9c48647adfed0a778cb8aa, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.5430272, g: 0.504717, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -3013,6 +3028,32 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1040522492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1040522489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a57421195259ad145be222913cc9133c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  quantityHeartsText: {fileID: 131315195}
+--- !u!114 &1040522493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1040522489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24b37ea616d1af147824543e86748127, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  quantityBulletsText: {fileID: 265042449}
 --- !u!1 &1042314170
 GameObject:
   m_ObjectHideFlags: 0
@@ -3879,6 +3920,7 @@ GameObject:
   - component: {fileID: 1442879041}
   - component: {fileID: 1442879040}
   - component: {fileID: 1442879039}
+  - component: {fileID: 1442879042}
   m_Layer: 0
   m_Name: 'InfoButton '
   m_TagString: Untagged
@@ -3987,6 +4029,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1442879037}
   m_CullTransparentMesh: 1
+--- !u!114 &1442879042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1442879037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3a2f94178672f34997718843dc70d0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1481054724
 GameObject:
   m_ObjectHideFlags: 0
@@ -4004,7 +4058,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1481054725
 Transform:
   m_ObjectHideFlags: 0
