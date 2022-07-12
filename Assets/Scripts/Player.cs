@@ -62,13 +62,20 @@ public class Player : MonoBehaviour
 		{
 
 			MovePerson(Input.mousePosition);
+
+
 			 
-
-
 		}
 
-		 
- 
+
+		if (Input.GetMouseButtonUp(0))
+		{
+
+
+			Player_Anim.SetBool("TurnRight", false);
+			Player_Anim.SetBool("TurnLeft", false);
+
+		}
 
 
 
@@ -92,6 +99,8 @@ public class Player : MonoBehaviour
 		{
 
 			transform.position += new Vector3(20, 0, 0);
+			Player_Anim.SetBool("TurnRight", true);
+
 		}
 
 
@@ -99,7 +108,14 @@ public class Player : MonoBehaviour
 		{
 
 			transform.position -= new Vector3(20, 0, 0);
+			Player_Anim.SetBool("TurnLeft", true);
 
+		}
+
+		else if (touch.phase == TouchPhase.Ended)
+		{
+			Player_Anim.SetBool("TurnRight", false);
+			Player_Anim.SetBool("TurnLeft",false);
 		}
 	}
 
@@ -112,8 +128,9 @@ public class Player : MonoBehaviour
 		
 			if (Pos.x > Camera.main.pixelWidth / 2)
 			{
-
-				transform.position = Vector3.Lerp(transform.position,
+		 
+			Player_Anim.SetBool("TurnRight", true);
+			transform.position = Vector3.Lerp(transform.position,
 					new Vector3(transform.position.x + 20, transform.position.y, transform.position.z),
 					20 * Time.fixedDeltaTime);
 
@@ -121,16 +138,16 @@ public class Player : MonoBehaviour
 
 			if (Pos.x < Camera.main.pixelWidth / 2)
 			{
-				transform.position = Vector3.Lerp(transform.position,
+			Player_Anim.SetBool("TurnLeft", true);
+			transform.position = Vector3.Lerp(transform.position,
 					new Vector3(transform.position.x - 20, transform.position.y, transform.position.z),
 					20 * Time.fixedDeltaTime);
 
 
 			}
-		
-		
-		 
-	 
+
+ 
+
 
 
 	}
