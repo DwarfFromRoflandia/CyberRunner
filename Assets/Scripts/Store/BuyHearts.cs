@@ -8,6 +8,7 @@ public class BuyHearts : MonoBehaviour
     [SerializeField] private Text quantityHeartsText;
    
     private int quantityHearts;
+    private const int priseForHearts = 200;
     
     public void Buy()
     {

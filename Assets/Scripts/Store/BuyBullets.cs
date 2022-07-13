@@ -7,7 +7,7 @@ public class BuyBullets : MonoBehaviour
 {
     [SerializeField] private Text quantityBulletsText;
     private int quantityBullets;
-
+    private const int priseForBullets = 50;
 
     public void Buy()
     {
