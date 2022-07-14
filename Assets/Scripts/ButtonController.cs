@@ -9,8 +9,10 @@ public class ButtonController :OpenAndExitStore
     public GameObject Main_Menu_Condition; // ссылка на главное меню
     public GameObject Settings_Menu;
 
+    
 	private void Start()
 	{
+         
         Settings_Menu.SetActive(false);
 	}
 	public void InputPlay() /* метод при использовании которого запускается игровая сессия 

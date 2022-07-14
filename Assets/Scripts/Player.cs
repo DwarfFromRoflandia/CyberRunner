@@ -9,10 +9,12 @@ public class Player : MonoBehaviour
 	private float BufferSpeed;
 	Animator Player_Anim;
 
+	private ButtonController butt_contr;
 	public float MinLenghtOfTouch = 8; // минимальная длина свайпа для перемещения игрока
 
 	private void Start()
 	{
+		butt_contr = GameObject.Find("MainMenuCanvas").GetComponent<ButtonController>();
 		Player_Anim = GetComponent<Animator>();
 	}
 
@@ -44,7 +46,7 @@ public class Player : MonoBehaviour
 	{
 		StartRunValues(BufferSpeed);
 
-		if (Input.touchCount > 0)
+		if (Input.touchCount > 0&& !butt_contr.Main_Menu_Condition.activeSelf)
 		{
 
 
@@ -58,7 +60,7 @@ public class Player : MonoBehaviour
 		}//для телефонов
 
 
-		if (Input.GetMouseButton(0)) // для пк
+		if (Input.GetMouseButton(0)&& !butt_contr.Main_Menu_Condition.activeSelf  ) // для пк
 		{
 
 			MovePerson(Input.mousePosition);
