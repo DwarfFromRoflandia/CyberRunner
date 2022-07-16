@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 
 	private float BufferSpeed;
 	Animator Player_Anim;
+	 
 
 	public float MinLenghtOfTouch = 8; // минимальная длина свайпа для перемещения игрока
 
@@ -62,9 +63,11 @@ public class Player : MonoBehaviour
 		{
 
 			MovePerson(Input.mousePosition);
+			Player_Anim.SetBool("TurnRight", true);
+			Player_Anim.SetBool("TurnLeft", true);
 
 
-			 
+
 		}
 
 
@@ -72,8 +75,10 @@ public class Player : MonoBehaviour
 		{
 
 
-			Player_Anim.SetBool("TurnRight", false);
-			Player_Anim.SetBool("TurnLeft", false);
+			Player_Anim.SetBool("",false);
+			Player_Anim.SetBool("",false);
+
+
 
 		}
 
@@ -93,32 +98,32 @@ public class Player : MonoBehaviour
 	private void MovePerson(Touch touch)
 
 	{
+	
 
 
-		if (touch.phase == TouchPhase.Moved && touch.deltaPosition.x > MinLenghtOfTouch)
-		{
+			if (touch.phase == TouchPhase.Moved && touch.deltaPosition.x > MinLenghtOfTouch)
+			{
 
-			transform.position += new Vector3(20, 0, 0);
-			Player_Anim.SetBool("TurnRight", true);
+				transform.position += new Vector3(20, 0, 0);
+			 
 
-		}
+			}
 
 
-		else if (touch.phase == TouchPhase.Moved && touch.deltaPosition.x < -MinLenghtOfTouch)
-		{
+			else if (touch.phase == TouchPhase.Moved && touch.deltaPosition.x < -MinLenghtOfTouch)
+			{
 
-			transform.position -= new Vector3(20, 0, 0);
-			Player_Anim.SetBool("TurnLeft", true);
+				transform.position -= new Vector3(20, 0, 0);
+			
 
-		}
+			}
 
-		else if (touch.phase == TouchPhase.Ended)
-		{
-			Player_Anim.SetBool("TurnRight", false);
-			Player_Anim.SetBool("TurnLeft",false);
+			else if (touch.phase == TouchPhase.Ended)
+			{
+			
+			
 		}
 	}
-
 
 
 	private  void  MovePerson(Vector2 Pos) // для пк
@@ -138,7 +143,7 @@ public class Player : MonoBehaviour
 
 			if (Pos.x < Camera.main.pixelWidth / 2)
 			{
-			Player_Anim.SetBool("TurnLeft", true);
+		 
 			transform.position = Vector3.Lerp(transform.position,
 					new Vector3(transform.position.x - 20, transform.position.y, transform.position.z),
 					20 * Time.fixedDeltaTime);
@@ -146,20 +151,25 @@ public class Player : MonoBehaviour
 
 			}
 
- 
+			 
 
 
 
 	}
 
 
+	public void Include_to_Run()
+	{
+		Player_Anim.SetBool("TurnLeft", false);
+		Player_Anim.SetBool("TurnRight",false);
+	}
 
-	
-	 
 
 
 
-	
+
+
+
 
 
 
