@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
 	{
 		StartRunValues(BufferSpeed);
 
-		if (Input.touchCount > 0)
+		if (Input.touchCount > 0 && !Physics.Linecast(transform.position, Camera.main.transform.position))
 		{
 
 
@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
 		}//для телефонов
 
 
-		if (Input.GetMouseButton(0)) // для пк
+		if (Input.GetMouseButton(0)&&!Physics.Linecast(transform.position,Camera.main.transform.position)) // для пк
 		{
 
 			MovePerson(Input.mousePosition);
