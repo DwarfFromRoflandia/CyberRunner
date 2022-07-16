@@ -13,8 +13,10 @@ public class ButtonController :OpenAndExitStore
     private Image MusicImage;
 
     public Sprite MusicOn, MusicOff;
+
+    public Slider MusicSlider;
 	private void Start()
-	{
+	{ 
         PhoneSource = GameObject.Find("MainMenuCanvas").GetComponent<AudioSource>();
         MusicImage = GameObject.Find("ButtonMusic").GetComponent<Image>();
         Settings_Menu.SetActive(false);
@@ -65,6 +67,13 @@ public class ButtonController :OpenAndExitStore
     
     
     
+    }
+
+    public void Set_Value_Music()
+    {
+        PhoneSource.volume = MusicSlider.value;
+
+
     }
 
 
