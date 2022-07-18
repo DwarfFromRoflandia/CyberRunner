@@ -50,6 +50,8 @@ public class Player : MonoBehaviour
 
 
 			Touch touch = Input.GetTouch(0);
+		 
+			transform.localRotation = Quaternion.Euler(transform.rotation.x,360, transform.rotation.z);
 
 
 			MovePerson( touch); // метод  задающий движение если палец переместился
@@ -61,10 +63,10 @@ public class Player : MonoBehaviour
 
 		if (Input.GetMouseButton(0)&&!Physics.Linecast(transform.position,Camera.main.transform.position)) // для пк
 		{
-
+		 
 			MovePerson(Input.mousePosition);
-			Player_Anim.SetBool("TurnRight", true);
-			Player_Anim.SetBool("TurnLeft", true);
+			 
+			transform.localRotation = Quaternion.Euler(transform.rotation.x, 364, transform.rotation.z);
 
 
 
@@ -75,8 +77,6 @@ public class Player : MonoBehaviour
 		{
 
 
-			Player_Anim.SetBool("",false);
-			Player_Anim.SetBool("",false);
 
 
 
@@ -104,48 +104,59 @@ public class Player : MonoBehaviour
 			if (touch.phase == TouchPhase.Moved && touch.deltaPosition.x > MinLenghtOfTouch)
 			{
 
-				transform.position += new Vector3(20, 0, 0);
-			 
+			Player_Anim.SetBool("MoveRight", true);
 
-			}
+			transform.position = Vector3.Lerp(transform.position,
+					new Vector3(transform.position.x - 20, transform.position.y, transform.position.z),
+					20 * Time.fixedDeltaTime);
 
 
-			else if (touch.phase == TouchPhase.Moved && touch.deltaPosition.x < -MinLenghtOfTouch)
+
+		}
+
+
+		else if (touch.phase == TouchPhase.Moved && touch.deltaPosition.x < -MinLenghtOfTouch)
 			{
+			Player_Anim.SetBool("MoveLeft", true);
 
-				transform.position -= new Vector3(20, 0, 0);
-			
 
-			}
+			transform.position = Vector3.Lerp(transform.position,
+					new Vector3(transform.position.x + 20, transform.position.y, transform.position.z),
+					20 * Time.fixedDeltaTime);
+
+
+		}
 
 			else if (touch.phase == TouchPhase.Ended)
 			{
 			
 			
-		}
+		    }
 	}
 
 
 	private  void  MovePerson(Vector2 Pos) // для пк
 	{
+
+
 	 
-		
-		
-			if (Pos.x > Camera.main.pixelWidth / 2)
+	 
+		if (Pos.x > Camera.main.pixelWidth / 2)
 			{
-		 
-			Player_Anim.SetBool("TurnRight", true);
+			Player_Anim.SetBool("MoveRight", true);
+
 			transform.position = Vector3.Lerp(transform.position,
-					new Vector3(transform.position.x + 20, transform.position.y, transform.position.z),
+					new Vector3(transform.position.x + 60, transform.position.y, transform.position.z),
 					20 * Time.fixedDeltaTime);
 
 			}
 
 			if (Pos.x < Camera.main.pixelWidth / 2)
 			{
-		 
+			Player_Anim.SetBool("MoveLeft", true);
+
 			transform.position = Vector3.Lerp(transform.position,
-					new Vector3(transform.position.x - 20, transform.position.y, transform.position.z),
+					new Vector3(transform.position.x - 60, transform.position.y, transform.position.z),
 					20 * Time.fixedDeltaTime);
 
 
@@ -160,8 +171,8 @@ public class Player : MonoBehaviour
 
 	public void Include_to_Run()
 	{
-		Player_Anim.SetBool("TurnLeft", false);
-		Player_Anim.SetBool("TurnRight",false);
+		Player_Anim.SetBool("MoveRight", false);
+		Player_Anim.SetBool("MoveLeft", false);
 	}
 
 
