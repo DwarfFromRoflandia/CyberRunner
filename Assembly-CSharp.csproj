@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Store\InfoButtonForProductBullets.cs" />
+    <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\TransferScripts\TransferQuantityHearts.cs" />
@@ -104,7 +105,8 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
-    <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
+    <Compile Include="Assets\Scripts\Roads\SpawnManager.cs" />
+    <Compile Include="Assets\Scripts\Roads\RoadSpawner.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -734,17 +736,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Boxophobic.SkyboxCubemapExtended.Editor.csproj">
-      <Project>{55BC4240-CB32-9200-4B8A-E99FE82C4C94}</Project>
-      <Name>Boxophobic.SkyboxCubemapExtended.Editor</Name>
+    <ProjectReference Include="Boxophobic.Utils.Scripts.csproj">
+      <Project>{9A468FD5-5DBD-3480-75F9-0BD71799F18C}</Project>
+      <Name>Boxophobic.Utils.Scripts</Name>
     </ProjectReference>
     <ProjectReference Include="Boxophobic.Utils.Editor.csproj">
       <Project>{281E19FE-245B-2B51-3D58-5A9026060E9C}</Project>
       <Name>Boxophobic.Utils.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="Boxophobic.Utils.Scripts.csproj">
-      <Project>{9A468FD5-5DBD-3480-75F9-0BD71799F18C}</Project>
-      <Name>Boxophobic.Utils.Scripts</Name>
+    <ProjectReference Include="Boxophobic.SkyboxCubemapExtended.Editor.csproj">
+      <Project>{55BC4240-CB32-9200-4B8A-E99FE82C4C94}</Project>
+      <Name>Boxophobic.SkyboxCubemapExtended.Editor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

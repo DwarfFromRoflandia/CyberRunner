@@ -5,6 +5,7 @@ using System;
 
 public class Player : MonoBehaviour
 {
+	[SerializeField] private SpawnManager spawnManager;
 
 	private float BufferSpeed;
 	Animator Player_Anim;
@@ -39,9 +40,18 @@ public class Player : MonoBehaviour
 
 	}
 
- 
-	 
-		private void FixedUpdate()
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("SpawnTrigger"))
+        {
+			spawnManager.SpawnTriggerEntered();
+        }
+            
+    }
+
+
+
+    private void FixedUpdate()
 	{
 		StartRunValues(BufferSpeed);
 
