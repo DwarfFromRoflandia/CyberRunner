@@ -13,11 +13,17 @@ public class ButtonController :OpenAndExitStore
     private Image MusicImage;
     [SerializeField]
     private List<Material> Time_Cond  = new List<Material>();
+
+    [SerializeField]
+    private List<Sprite> Time_Sprites = new List<Sprite>(3);
+    private Image Image_Time_Now;
+    
     public Sprite MusicOn, MusicOff;
 
     public Slider MusicSlider;
 	private void Start()
-	{ 
+	{
+        Image_Time_Now = gameObject.transform.GetChild(3).GetChild(4).GetComponent<Image>();
         PhoneSource = GameObject.Find("MainMenuCanvas").GetComponent<AudioSource>();
         MusicImage = GameObject.Find("ButtonMusic").GetComponent<Image>();
         Settings_Menu.SetActive(false);
@@ -77,32 +83,41 @@ public class ButtonController :OpenAndExitStore
 
 
     }
-    static int s=0;
+    static string s="Day";
     public void Change_Day_Time( )
 	{
+        Material Time_Now;
          
         switch (s)
         {
 
-            case 0:
-                RenderSettings.skybox = Time_Cond[0];
-                s = 1;
+            case "Day":
+                Time_Now = Time_Cond[0];
+                s = "Evening";
+                Image_Time_Now.sprite = Time_Sprites[0];
                 break;
-            case 1:
-                RenderSettings.skybox = Time_Cond[1];
-                s = 2;
+
+            case "Evening":
+                Time_Now = Time_Cond[1];
+                s = "Night";
+                Image_Time_Now.sprite = Time_Sprites[1];
                 break;
-            case 2:
-                RenderSettings.skybox = Time_Cond[2];
-                s = 0;
+
+            case "Night":
+                Time_Now = Time_Cond[2];
+                s = "Day";
+                Image_Time_Now.sprite = Time_Sprites[2];
                 break;
+
             default:
                 throw new Exception();
-        
-        
-        
+
+           
+
+
+
         }
-    
+        RenderSettings.skybox = Time_Now;
     }
 
 
