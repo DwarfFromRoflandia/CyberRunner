@@ -120,5 +120,9 @@ public class ButtonController :OpenAndExitStore
         RenderSettings.skybox = Time_Now;
     }
 
+    public void Vk()=>Application.OpenURL("https://vk.com/id446930815");
+    
+    
+
 
 }
