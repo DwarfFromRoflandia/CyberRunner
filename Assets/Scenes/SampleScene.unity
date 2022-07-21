@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: daba39237b351054db05e6d8329c2d60, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 1cf6f4c6e6e0518419839d3f5448dd99, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.14481458, g: 0.097049735, b: 0.18444818, a: 1}
+  m_IndirectSpecularColor: {r: 0.31287304, g: 0.29351738, b: 0.51397943, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4383,6 +4383,10 @@ MonoBehaviour:
   GameSpeed: 40
   Main_Menu_Condition: {fileID: 1481054724}
   Settings_Menu: {fileID: 1489722421}
+  Time_Cond:
+  - {fileID: 2100000, guid: 2bd8959f5fbd3644aa33af1a155fc147, type: 2}
+  - {fileID: 2100000, guid: daba39237b351054db05e6d8329c2d60, type: 2}
+  - {fileID: 2100000, guid: 1cf6f4c6e6e0518419839d3f5448dd99, type: 2}
   MusicOn: {fileID: 21300000, guid: 2dcc619a49088ab4599cc7e3b756a1ed, type: 3}
   MusicOff: {fileID: 21300000, guid: 11e3d102a51b3e1409ff67d202690d8b, type: 3}
   MusicSlider: {fileID: 1012883378}
@@ -4776,7 +4780,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1489722421}
   m_LocalRotation: {x: -0.0176183, y: 0.017618323, z: -0.7068873, w: 0.7068873}
-  m_LocalPosition: {x: -11, y: 6, z: -91}
+  m_LocalPosition: {x: -7, y: 6, z: -91}
   m_LocalScale: {x: 28.693417, y: 27.600534, z: 27.289768}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5665,16 +5669,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1437680448}
         m_TargetAssemblyTypeName: ButtonController, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: Change_Day_Time
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Day
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1766978793

@@ -11,7 +11,8 @@ public class ButtonController :OpenAndExitStore
 
     private AudioSource PhoneSource;
     private Image MusicImage;
-
+    [SerializeField]
+    private List<Material> Time_Cond  = new List<Material>();
     public Sprite MusicOn, MusicOff;
 
     public Slider MusicSlider;
@@ -23,6 +24,7 @@ public class ButtonController :OpenAndExitStore
         PlayerPrefs.SetString("MusicCondition","On");
         Music();
 	}
+	
 	public void InputPlay() /* метод при использовании которого запускаетс€ игрова€ сесси€ 
                               (ѕри нажатии на кнопку Play в главном меню)*/
     {
@@ -74,6 +76,33 @@ public class ButtonController :OpenAndExitStore
         PhoneSource.volume = MusicSlider.value;
 
 
+    }
+    static int s=0;
+    public void Change_Day_Time( )
+	{
+         
+        switch (s)
+        {
+
+            case 0:
+                RenderSettings.skybox = Time_Cond[0];
+                s = 1;
+                break;
+            case 1:
+                RenderSettings.skybox = Time_Cond[1];
+                s = 2;
+                break;
+            case 2:
+                RenderSettings.skybox = Time_Cond[2];
+                s = 0;
+                break;
+            default:
+                throw new Exception();
+        
+        
+        
+        }
+    
     }
 
 
