@@ -19,10 +19,15 @@ public class Player : MonoBehaviour
 	}
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.CompareTag("SpawnTrigger"))
+		if (other.tag == "SpawnTrigger")
 		{
 			spawnManager.SpawnTriggerEntered();
 		}
+		
+		if(other.tag == "Coin")
+        {
+			Destroy(other.gameObject);
+        }
 
 	}
 	private void OnEnable()
