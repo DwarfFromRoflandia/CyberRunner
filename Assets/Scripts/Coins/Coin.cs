@@ -5,23 +5,17 @@ using UnityEngine.UI;
 
 public class Coin : MonoBehaviour
 {
-    [SerializeField] private Text textCoin;
-    private int coins;
+    private int quantityCoins;//переменная, которая отвечает за количество монет у игрока
+    public int Coins { get => quantityCoins; }
 
-    void Start()
+    private void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        EventManager.PickUpCoinEvent.AddListener(AddingCoin);
     }
 
     private void AddingCoin()
-    {
-        coins++;
-        textCoin.text = coins.ToString();
+    { 
+        quantityCoins++;
     }
+
 }

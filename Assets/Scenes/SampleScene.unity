@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.04334849, g: 0.09233693, b: 0.16971424, a: 1}
+  m_IndirectSpecularColor: {r: 0.043347657, g: 0.09233732, b: 0.16971421, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -132,6 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 32600468}
+  - component: {fileID: 32600469}
   m_Layer: 0
   m_Name: 'Coins '
   m_TagString: Untagged
@@ -155,6 +156,18 @@ Transform:
   m_Father: {fileID: 1437680445}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &32600469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 32600467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60d1fcbdfe51257448734259124f9eda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &54710658
 GameObject:
   m_ObjectHideFlags: 0
@@ -2869,6 +2882,7 @@ GameObject:
   - component: {fileID: 889057406}
   - component: {fileID: 889057408}
   - component: {fileID: 889057407}
+  - component: {fileID: 889057409}
   m_Layer: 5
   m_Name: QuantityCoins
   m_TagString: Untagged
@@ -2937,6 +2951,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 889057405}
   m_CullTransparentMesh: 1
+--- !u!114 &889057409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 889057405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb6c0efd0bd90ae498fd9ccfd580e512, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &916232617
 GameObject:
   m_ObjectHideFlags: 0
@@ -7703,42 +7729,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 78112164778922939, guid: 7bf8eadbc39810244a540707830ed2fb, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -79
-      objectReference: {fileID: 0}
-    - target: {fileID: 78112164778922939, guid: 7bf8eadbc39810244a540707830ed2fb, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -268.59998
-      objectReference: {fileID: 0}
-    - target: {fileID: 80895259697427869, guid: 7bf8eadbc39810244a540707830ed2fb, type: 3}
-      propertyPath: m_Name
-      value: 'SilverCoin '
-      objectReference: {fileID: 0}
-    - target: {fileID: 1843332936519296400, guid: 7bf8eadbc39810244a540707830ed2fb, type: 3}
-      propertyPath: m_Name
-      value: SilverCoin
-      objectReference: {fileID: 0}
-    - target: {fileID: 1845968821702968246, guid: 7bf8eadbc39810244a540707830ed2fb, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -79
-      objectReference: {fileID: 0}
-    - target: {fileID: 1845968821702968246, guid: 7bf8eadbc39810244a540707830ed2fb, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -228.79999
-      objectReference: {fileID: 0}
-    - target: {fileID: 3058232562486633599, guid: 7bf8eadbc39810244a540707830ed2fb, type: 3}
-      propertyPath: m_Name
-      value: 'SilverCoin '
-      objectReference: {fileID: 0}
-    - target: {fileID: 3061287869479092825, guid: 7bf8eadbc39810244a540707830ed2fb, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -79
-      objectReference: {fileID: 0}
-    - target: {fileID: 3061287869479092825, guid: 7bf8eadbc39810244a540707830ed2fb, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -148.49997
-      objectReference: {fileID: 0}
     - target: {fileID: 3714746167210190218, guid: 7bf8eadbc39810244a540707830ed2fb, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -7782,38 +7772,6 @@ PrefabInstance:
     - target: {fileID: 3714746167210190218, guid: 7bf8eadbc39810244a540707830ed2fb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509452909344383483, guid: 7bf8eadbc39810244a540707830ed2fb, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -79
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509452909344383483, guid: 7bf8eadbc39810244a540707830ed2fb, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -108.69998
-      objectReference: {fileID: 0}
-    - target: {fileID: 4512093155262007261, guid: 7bf8eadbc39810244a540707830ed2fb, type: 3}
-      propertyPath: m_Name
-      value: SilverCoin
-      objectReference: {fileID: 0}
-    - target: {fileID: 4993038679773250636, guid: 7bf8eadbc39810244a540707830ed2fb, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -79
-      objectReference: {fileID: 0}
-    - target: {fileID: 4993038679773250636, guid: 7bf8eadbc39810244a540707830ed2fb, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -308
-      objectReference: {fileID: 0}
-    - target: {fileID: 5360471425670549401, guid: 7bf8eadbc39810244a540707830ed2fb, type: 3}
-      propertyPath: m_Name
-      value: 'SilverCoin '
-      objectReference: {fileID: 0}
-    - target: {fileID: 5363469443168364991, guid: 7bf8eadbc39810244a540707830ed2fb, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -79
-      objectReference: {fileID: 0}
-    - target: {fileID: 5363469443168364991, guid: 7bf8eadbc39810244a540707830ed2fb, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -187.9
       objectReference: {fileID: 0}
     - target: {fileID: 9021230700723618113, guid: 7bf8eadbc39810244a540707830ed2fb, type: 3}
       propertyPath: m_Name

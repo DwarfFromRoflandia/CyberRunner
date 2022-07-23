@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -25,9 +26,10 @@ public class Player : MonoBehaviour
 		}
 		
 		if(other.tag == "Coin")
-        {
+        {    		
 			Destroy(other.gameObject);
-        }
+			if (EventManager.PickUpCoinEvent != null) EventManager.PickUpCoinEvent.Invoke();
+		}
 
 	}
 	private void OnEnable()

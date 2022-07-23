@@ -45,7 +45,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8036540400162032602, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_Name
-      value: SilverCoin (3)
+      value: 'SilverCoin '
       objectReference: {fileID: 0}
     - target: {fileID: 8038188373878517244, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_RootOrder
@@ -61,7 +61,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8038188373878517244, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 18.4
+      value: -79
       objectReference: {fileID: 0}
     - target: {fileID: 8038188373878517244, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_LocalPosition.y
@@ -69,7 +69,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8038188373878517244, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -444
+      value: -187.9
       objectReference: {fileID: 0}
     - target: {fileID: 8038188373878517244, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_LocalRotation.w
@@ -131,7 +131,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8038188373878517244, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 18.4
+      value: -79
       objectReference: {fileID: 0}
     - target: {fileID: 8038188373878517244, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_LocalPosition.y
@@ -139,7 +139,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8038188373878517244, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -444
+      value: -308
       objectReference: {fileID: 0}
     - target: {fileID: 8038188373878517244, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_LocalRotation.w
@@ -185,7 +185,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8036540400162032602, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_Name
-      value: SilverCoin (4)
+      value: 'SilverCoin '
       objectReference: {fileID: 0}
     - target: {fileID: 8038188373878517244, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_RootOrder
@@ -201,7 +201,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8038188373878517244, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 18.4
+      value: -79
       objectReference: {fileID: 0}
     - target: {fileID: 8038188373878517244, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_LocalPosition.y
@@ -209,7 +209,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8038188373878517244, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -404.6
+      value: -148.49997
       objectReference: {fileID: 0}
     - target: {fileID: 8038188373878517244, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_LocalRotation.w
@@ -255,7 +255,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8036540400162032602, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_Name
-      value: SilverCoin (5)
+      value: SilverCoin
       objectReference: {fileID: 0}
     - target: {fileID: 8038188373878517244, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_RootOrder
@@ -271,7 +271,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8038188373878517244, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 18.4
+      value: -79
       objectReference: {fileID: 0}
     - target: {fileID: 8038188373878517244, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_LocalPosition.y
@@ -279,7 +279,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8038188373878517244, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -364.8
+      value: -108.69998
       objectReference: {fileID: 0}
     - target: {fileID: 8038188373878517244, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_LocalRotation.w
@@ -325,7 +325,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8036540400162032602, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_Name
-      value: SilverCoin (1)
+      value: 'SilverCoin '
       objectReference: {fileID: 0}
     - target: {fileID: 8038188373878517244, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_RootOrder
@@ -341,7 +341,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8038188373878517244, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 18.4
+      value: -79
       objectReference: {fileID: 0}
     - target: {fileID: 8038188373878517244, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_LocalPosition.y
@@ -349,7 +349,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8038188373878517244, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -404.6
+      value: -268.59998
       objectReference: {fileID: 0}
     - target: {fileID: 8038188373878517244, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_LocalRotation.w
@@ -395,7 +395,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8036540400162032602, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_Name
-      value: SilverCoin (2)
+      value: SilverCoin
       objectReference: {fileID: 0}
     - target: {fileID: 8038188373878517244, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_RootOrder
@@ -411,7 +411,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8038188373878517244, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 18.4
+      value: -79
       objectReference: {fileID: 0}
     - target: {fileID: 8038188373878517244, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_LocalPosition.y
@@ -419,7 +419,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8038188373878517244, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -364.8
+      value: -228.79999
       objectReference: {fileID: 0}
     - target: {fileID: 8038188373878517244, guid: 0e57a21f78406264cb22036e59248643, type: 3}
       propertyPath: m_LocalRotation.w
