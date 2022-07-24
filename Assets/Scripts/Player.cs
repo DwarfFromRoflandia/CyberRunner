@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-
+	public float MaxDistance, MinDistance;
 	private float BufferSpeed;
 	public Transform StartPoint;
 	Animator Player_Anim;
@@ -78,9 +78,9 @@ public class Player : MonoBehaviour
 
 		if (Input.GetMouseButton(0) && !Physics.Linecast(StartPoint.position, Camera.main.transform.position)) // для пк
 		{
-			print("!");
-
+		
 			MovePerson(Input.mousePosition);
+
 
 			transform.localRotation = Quaternion.Euler(transform.rotation.x, 364, transform.rotation.z);
 
@@ -115,14 +115,14 @@ public class Player : MonoBehaviour
 
 	{
 
-
+		Vector3 Moving = Vector3.zero;
 
 		if (touch.phase == TouchPhase.Moved && touch.deltaPosition.x > MinLenghtOfTouch)
 		{
 
 			Player_Anim.SetBool("MoveRight", true);
 
-			transform.position = Vector3.Lerp(transform.position,
+			Moving = Vector3.Lerp(transform.position,
 					new Vector3(transform.position.x - 10, transform.position.y, transform.position.z),
 					20 * Time.fixedDeltaTime);
 
@@ -136,7 +136,7 @@ public class Player : MonoBehaviour
 			Player_Anim.SetBool("MoveLeft", true);
 
 
-			transform.position = Vector3.Lerp(transform.position,
+			Moving = Vector3.Lerp(transform.position,
 					new Vector3(transform.position.x + 10, transform.position.y, transform.position.z),
 					20 * Time.fixedDeltaTime);
 
@@ -148,6 +148,9 @@ public class Player : MonoBehaviour
 
 
 		}
+		Moving.x = Mathf.Clamp(Moving.x, MinDistance, MaxDistance);
+
+		transform.position = Moving;
 	}
 
 
@@ -155,32 +158,38 @@ public class Player : MonoBehaviour
 	{
 
 
-
+		Vector3 Moving = Vector3.zero;
 
 		if (Pos.x > Camera.main.pixelWidth / 2)
 		{
 			Player_Anim.SetBool("MoveRight", true);
 
-			transform.position = Vector3.Lerp(transform.position,
-					new Vector3(transform.position.x + 20, transform.position.y, transform.position.z),
-					20 * Time.fixedDeltaTime);
+			 Moving = Vector3.MoveTowards(transform.position,
+					new Vector3(transform.position.x + 1000, transform.position.y, transform.position.z),
+					1000 * Time.fixedDeltaTime);
 
 		}
 
 		if (Pos.x < Camera.main.pixelWidth / 2)
 		{
+			
 			Player_Anim.SetBool("MoveLeft", true);
 
-			transform.position = Vector3.Lerp(transform.position,
-					new Vector3(transform.position.x - 20, transform.position.y, transform.position.z),
-					20 * Time.fixedDeltaTime);
+			
 
+			 Moving = Vector3.MoveTowards(transform.position,
+					new Vector3(transform.position.x - 1000, transform.position.y, transform.position.z),
+					1000* Time.fixedDeltaTime);
+
+			 
 
 		}
+		Moving.x = Mathf.Clamp(Moving.x, MinDistance, MaxDistance);
+	
+		transform.position = Moving;
 
 
-
-
+		
 
 	}
 
