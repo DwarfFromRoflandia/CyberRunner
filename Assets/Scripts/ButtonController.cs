@@ -21,16 +21,23 @@ public class ButtonController :OpenAndExitStore
     public Sprite MusicOn, MusicOff;
 
     public Slider MusicSlider;
+
+    public GameObject Change_Name_Button;
+    private GameObject Input_Field;
+    
 	private void Start()
 	{
+
         Image_Time_Now = gameObject.transform.GetChild(3).GetChild(4).GetComponent<Image>();
         PhoneSource = GameObject.Find("MainMenuCanvas").GetComponent<AudioSource>();
         MusicImage = GameObject.Find("ButtonMusic").GetComponent<Image>();
         Settings_Menu.SetActive(false);
         PlayerPrefs.SetString("MusicCondition","On");
         Music();
-	}
-	
+      
+      
+    }
+
 	public void InputPlay() /* метод при использовании которого запускаетс€ игрова€ сесси€ 
                               (ѕри нажатии на кнопку Play в главном меню)*/
     {
@@ -40,10 +47,15 @@ public class ButtonController :OpenAndExitStore
 
     public void InputSettings()
     {
+       
         Main_Menu_Condition.SetActive(false);
         Settings_Menu.SetActive(true);
-    
-    
+   
+
+
+
+
+
     }
 
     public  override void ExitMenu()
@@ -121,6 +133,23 @@ public class ButtonController :OpenAndExitStore
     }
 
     public void Vk()=>Application.OpenURL("https://vk.com/id446930815");
+
+    Animation Input_Field_Anim;
+    public void Button_Change_Name()
+    {
+
+ 
+
+        Animation Animation_Disapearing = Change_Name_Button.GetComponent<Animation>();
+        Animation_Disapearing.Play();
+
+        Input_Field = gameObject.transform.GetChild(2).GetChild(0).transform.GetComponent<GameObject>();
+
+        Input_Field_Anim = Input_Field.GetComponent<Animation>();
+        Input_Field_Anim.Play();
+ 
+    
+    }
     
     
 
