@@ -8,7 +8,7 @@ public class ButtonController :OpenAndExitStore
    public float GameSpeed;
     public GameObject Main_Menu_Condition; // ссылка на главное меню
     public GameObject Settings_Menu;
-
+    public Text TextWarnings;// предупреждение текста дл€ ввода имени
     private AudioSource PhoneSource;
     private Image MusicImage;
     [SerializeField]
@@ -23,9 +23,13 @@ public class ButtonController :OpenAndExitStore
     public Slider MusicSlider;
 
     public GameObject Change_Name_Button;
-    private GameObject Input_Field;
-    
-	private void Start()
+    private   InputField  Input_Field;
+
+    private Animation Animation_Disapearing;
+
+    Animation Input_Field_Anim;
+    Transform Input_Field_Trans;
+    private void Start()
 	{
 
         Image_Time_Now = gameObject.transform.GetChild(3).GetChild(4).GetComponent<Image>();
@@ -34,8 +38,9 @@ public class ButtonController :OpenAndExitStore
         Settings_Menu.SetActive(false);
         PlayerPrefs.SetString("MusicCondition","On");
         Music();
-      
-      
+
+        Animation_Disapearing = Change_Name_Button.GetComponent<Animation>();
+
     }
 
 	public void InputPlay() /* метод при использовании которого запускаетс€ игрова€ сесси€ 
@@ -50,19 +55,27 @@ public class ButtonController :OpenAndExitStore
        
         Main_Menu_Condition.SetActive(false);
         Settings_Menu.SetActive(true);
-   
-
+        Input_Field_Trans = gameObject.transform.GetChild(2).GetChild(0).transform.GetComponent<Transform>();
+        Input_Field = Input_Field_Trans.GetComponent<InputField>(); // инициализируем переменные перед переходом в настройки
+        InputName();
 
 
 
 
     }
 
-    public  override void ExitMenu()
+	public  override void ExitMenu()
     {
         Settings_Menu.SetActive(false);
         Main_Menu_Condition.SetActive(true);
-    
+        Change_Name_Button.GetComponent<Image>().color = new Color(67, 180, 170,255);
+        
+        Input_Field.gameObject.SetActive(false);
+        TextWarnings.text = "";
+        Change_Name_Button.gameObject.SetActive(true);
+        
+
+
     }
 
     public void Music()
@@ -134,24 +147,67 @@ public class ButtonController :OpenAndExitStore
 
     public void Vk()=>Application.OpenURL("https://vk.com/id446930815");
 
-    Animation Input_Field_Anim;
-    public void Button_Change_Name()
+     
+   
+    public void Button_Change_Name_Down()
     {
 
  
-
-        Animation Animation_Disapearing = Change_Name_Button.GetComponent<Animation>();
+         
         Animation_Disapearing.Play();
 
-        Input_Field = gameObject.transform.GetChild(2).GetChild(0).transform.GetComponent<GameObject>();
+        
 
-        Input_Field_Anim = Input_Field.GetComponent<Animation>();
+        Input_Field_Trans.gameObject.SetActive(true);
+
+        Input_Field_Anim = Input_Field_Trans.GetComponent<Animation>();
+  
         Input_Field_Anim.Play();
- 
+        
+
+
     
     }
-    
-    
 
+
+
+
+     
+    public void InputName()
+    {
+      
+
+
+        if (Input_Field.text.Length > 17|| Input_Field.text.Length < 4)
+        {
+            TextWarnings.color = Color.red;
+      
+            TextWarnings.text = "” кибервоина слишком длинное или короткое им€.\n Ќе больше 17 и не меньше 4 знаков,»змените его!";
+            TextWarnings.gameObject.SetActive(true);
+            
+
+
+
+        }
+
+       
+		else
+		{
+
+            print("¬се ровно!");
+            TextWarnings.color = Color.green;
+            TextWarnings.text = "»м€ подходит!";
+
+
+        }
+        Animation Anim_Text = TextWarnings.GetComponent<Animation>();
+        Anim_Text.Play();
+
+
+
+    }
+
+
+   
 
 }
