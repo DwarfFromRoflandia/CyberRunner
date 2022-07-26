@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
 	public float MaxDistance, MinDistance;
-	private float BufferSpeed;
+	public float PlayerSpeed;
 	public Transform StartPoint;
 	Animator Player_Anim;
 
@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
 
 	private void StartRunValues(float GameSpeed)
 	{
-		BufferSpeed = GameSpeed;
+		PlayerSpeed = GameSpeed;
 
 		transform.Translate(0, 0, GameSpeed * Time.fixedDeltaTime, Space.World);
 
@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		StartRunValues(BufferSpeed);
+		StartRunValues(PlayerSpeed);
 
 		if (Input.touchCount > 0 && !Physics.Linecast(StartPoint.position, Camera.main.transform.position))
 		{

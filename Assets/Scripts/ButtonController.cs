@@ -29,7 +29,9 @@ public class ButtonController :OpenAndExitStore
 
     Animation Input_Field_Anim;
     Transform Input_Field_Trans;
-    private void Start()
+
+	 
+	private void Start()
 	{
 
         Image_Time_Now = gameObject.transform.GetChild(3).GetChild(4).GetComponent<Image>();
@@ -197,6 +199,7 @@ public class ButtonController :OpenAndExitStore
             print("Все ровно!");
             TextWarnings.color = Color.green;
             TextWarnings.text = "Имя подходит!";
+            EventManager.ChangeNameEvent?.Invoke(Input_Field.text);
 
 
         }
@@ -204,10 +207,10 @@ public class ButtonController :OpenAndExitStore
         Anim_Text.Play();
 
 
-
+       
     }
 
+ 
 
-   
 
 }
