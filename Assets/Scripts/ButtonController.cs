@@ -5,6 +5,7 @@ using System;
 using UnityEngine.UI;
 public class ButtonController :OpenAndExitStore
 {
+   
    public float GameSpeed;
     public GameObject Main_Menu_Condition; // ссылка на главное меню
     public GameObject Settings_Menu;
@@ -29,12 +30,13 @@ public class ButtonController :OpenAndExitStore
 
     Animation Input_Field_Anim;
     Transform Input_Field_Trans;
+    Material Time_Now;
 
-	 
-	private void Start()
+
+    private void Start()
 	{
 
-        Image_Time_Now = gameObject.transform.GetChild(3).GetChild(4).GetComponent<Image>();
+        Image_Time_Now = gameObject.transform.GetChild(2).GetChild(5).GetComponent<Image>();
         PhoneSource = GameObject.Find("MainMenuCanvas").GetComponent<AudioSource>();
         MusicImage = GameObject.Find("ButtonMusic").GetComponent<Image>();
         Settings_Menu.SetActive(false);
@@ -42,6 +44,7 @@ public class ButtonController :OpenAndExitStore
         Music();
 
         Animation_Disapearing = Change_Name_Button.GetComponent<Animation>();
+        Time_Now = Time_Cond[0];
 
     }
 
@@ -65,7 +68,7 @@ public class ButtonController :OpenAndExitStore
 
 
     }
-
+    
 	public  override void ExitMenu()
     {
         Settings_Menu.SetActive(false);
@@ -79,7 +82,24 @@ public class ButtonController :OpenAndExitStore
 
 
     }
+    bool paused = true;
+    public void Pause()
+    {
 
+        if (paused)
+        {
+            Time.timeScale = 0;
+
+            paused = false;
+        }
+        else
+        {
+            Time.timeScale = 1;
+
+            paused = true;
+        }
+
+    }
     public void Music()
     {
         if (PlayerPrefs.GetString("MusicCondition") == "On")
@@ -111,43 +131,49 @@ public class ButtonController :OpenAndExitStore
 
     }
     static string s="Day";
+   
     public void Change_Day_Time( )
 	{
-        Material Time_Now;
+    
          
         switch (s)
         {
 
             case "Day":
-                Time_Now = Time_Cond[0];
                 s = "Evening";
                 Image_Time_Now.sprite = Time_Sprites[0];
+                Time_Now = Time_Cond[0];
+           
+              
                 break;
 
             case "Evening":
-                Time_Now = Time_Cond[1];
                 s = "Night";
                 Image_Time_Now.sprite = Time_Sprites[1];
+                Time_Now = Time_Cond[1];
+ 
                 break;
 
             case "Night":
-                Time_Now = Time_Cond[2];
                 s = "Day";
                 Image_Time_Now.sprite = Time_Sprites[2];
+                Time_Now = Time_Cond[2];
+           
+      
+
                 break;
 
             default:
                 throw new Exception();
-
-           
-
-
+                 
 
         }
         RenderSettings.skybox = Time_Now;
     }
 
-    public void Vk()=>Application.OpenURL("https://vk.com/id446930815");
+
+
+	public void Vk()=>Application.OpenURL("https://vk.com/id446930815");
 
      
    

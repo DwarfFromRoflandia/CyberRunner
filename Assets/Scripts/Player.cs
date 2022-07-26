@@ -5,7 +5,7 @@ using System;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
-{
+{	
 	public float MaxDistance, MinDistance;
 	public float PlayerSpeed;
 	public Transform StartPoint;
@@ -53,8 +53,24 @@ public class Player : MonoBehaviour
 
 
 	}
+	bool paused = true;
+	public void Pause()
+	{
+		 
+		if (paused)
+		{
+			Time.timeScale = 0;
+			Player_Anim.SetBool("PauseGame",true);
+			paused = false;
+		}
+		else
+		{
+			Time.timeScale = 1;
+			Player_Anim.SetBool("PauseGame",false);
+			paused = true;
+		}
 
-
+	}
 
 	private void FixedUpdate()
 	{
