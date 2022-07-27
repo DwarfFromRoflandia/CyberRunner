@@ -15,6 +15,9 @@ public class Player : MonoBehaviour
 	public float MinLenghtOfTouch = 8; // минимальная длина свайпа для перемещения игрока
 
 	public Text TextTimeToStart;
+
+	[SerializeField] private Sprite Play, Stop;
+	public Image PauseImage;
 	private void Start()
 	{
 		Player_Anim = GetComponent<Animator>();
@@ -70,6 +73,7 @@ public class Player : MonoBehaviour
 			EventManager.EventPlay?.Invoke(0);
 			Player_Anim.SetFloat("Speed",0);
 			paused = false;
+			PauseImage.sprite = Stop;
 
 		}
 		else
@@ -77,13 +81,20 @@ public class Player : MonoBehaviour
 
 			StartCoroutine(PauseReset());
 			TextTimeToStart.gameObject.SetActive(true);
-			 
-			 
+			PauseImage.sprite = Play;
+
 			paused = true;
 
 		}
 
 	}
+	public void Include_to_Run()
+	{
+		Player_Anim.SetBool("MoveRight", false);
+		Player_Anim.SetBool("MoveLeft", false);
+		print("Было");
+	}
+
 	IEnumerator PauseReset()
 	{
 		float TimeStart = Time.time;
@@ -172,9 +183,9 @@ public class Player : MonoBehaviour
 
 			Player_Anim.SetBool("MoveRight", true);
 
-			Moving = Vector3.Lerp(transform.position,
-					new Vector3(transform.position.x - 10, transform.position.y, transform.position.z),
-					20 * Time.fixedDeltaTime);
+			//Moving = Vector3.Lerp(transform.position,
+			//		new Vector3(transform.position.x - 10, transform.position.y, transform.position.z),
+			//		20 * Time.fixedDeltaTime);
 
 
 
@@ -186,9 +197,9 @@ public class Player : MonoBehaviour
 			Player_Anim.SetBool("MoveLeft", true);
 
 
-			Moving = Vector3.Lerp(transform.position,
-					new Vector3(transform.position.x + 10, transform.position.y, transform.position.z),
-					20 * Time.fixedDeltaTime);
+			//Moving = Vector3.Lerp(transform.position,
+			//		new Vector3(transform.position.x + 10, transform.position.y, transform.position.z),
+			//		20 * Time.fixedDeltaTime);
 
 
 		}
@@ -244,12 +255,7 @@ public class Player : MonoBehaviour
 	}
 
 
-	public void Include_to_Run()
-	{
-		Player_Anim.SetBool("MoveRight", false);
-		Player_Anim.SetBool("MoveLeft", false);
-	}
-
+ 
 
 
 
