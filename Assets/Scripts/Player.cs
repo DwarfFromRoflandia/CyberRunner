@@ -5,18 +5,25 @@ using System;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
-{	
+{
 	public float MaxDistance, MinDistance;
 	public float PlayerSpeed;
 	public Transform StartPoint;
 	Animator Player_Anim;
-
+	public float TimeBeReady = 3;
 	[SerializeField] private SpawnManager spawnManager;
 	public float MinLenghtOfTouch = 8; // минимальная длина свайпа для перемещения игрока
 
+	public Text TextTimeToStart;
 	private void Start()
 	{
 		Player_Anim = GetComponent<Animator>();
+		 
+	}
+	public void False()
+	{
+		Player_Anim.SetBool("PlayIsPressed", false);
+		Player_Anim.SetFloat("Speed", 40);
 	}
 	private void OnTriggerEnter(Collider other)
 	{
@@ -24,9 +31,9 @@ public class Player : MonoBehaviour
 		{
 			spawnManager.SpawnTriggerEntered();
 		}
-		
-		if(other.tag == "Coin")
-        {    		
+
+		if (other.tag == "Coin")
+		{
 			Destroy(other.gameObject);
 			if (EventManager.PickUpCoinEvent != null) EventManager.PickUpCoinEvent.Invoke();
 		}
@@ -36,6 +43,7 @@ public class Player : MonoBehaviour
 	{
 		EventManager.EventPlay += StartRunValues;
 		EventManager.Animation_Play += Set_Anim_Play_True;
+
 	}
 	private void OnDisable()
 	{
@@ -56,19 +64,45 @@ public class Player : MonoBehaviour
 	bool paused = true;
 	public void Pause()
 	{
-		 
+
 		if (paused)
 		{
-			Time.timeScale = 0;
-			Player_Anim.SetBool("PauseGame",true);
+			EventManager.EventPlay?.Invoke(0);
+			Player_Anim.SetFloat("Speed",0);
 			paused = false;
+
 		}
 		else
 		{
-			Time.timeScale = 1;
-			Player_Anim.SetBool("PauseGame",false);
+
+			StartCoroutine(PauseReset());
+			TextTimeToStart.gameObject.SetActive(true);
+			 
+			 
 			paused = true;
+
 		}
+
+	}
+	IEnumerator PauseReset()
+	{
+		float TimeStart = Time.time;
+		float TimeToGo = Time.time + TimeBeReady;
+		while (TimeStart < TimeToGo) //3 секунды до старта игры
+		{
+			TimeStart = Time.time;
+			TextTimeToStart.text = (TimeToGo - TimeStart).ToString();
+
+
+			yield return null;
+		}
+
+
+		TextTimeToStart.gameObject.SetActive(false) ;
+		StopCoroutine(PauseReset());
+		EventManager.EventPlay?.Invoke(50);
+		Player_Anim.SetFloat("Speed", 50);
+
 
 	}
 
@@ -94,7 +128,7 @@ public class Player : MonoBehaviour
 
 		if (Input.GetMouseButton(0) && !Physics.Linecast(StartPoint.position, Camera.main.transform.position)) // для пк
 		{
-		
+
 			MovePerson(Input.mousePosition);
 
 
@@ -180,32 +214,32 @@ public class Player : MonoBehaviour
 		{
 			Player_Anim.SetBool("MoveRight", true);
 
-			 Moving = Vector3.MoveTowards(transform.position,
-					new Vector3(transform.position.x + 1000, transform.position.y, transform.position.z),
-					1000 * Time.fixedDeltaTime);
+			Moving = Vector3.MoveTowards(transform.position,
+				   new Vector3(transform.position.x + 1000, transform.position.y, transform.position.z),
+				   1000 * Time.fixedDeltaTime);
 
 		}
 
 		if (Pos.x < Camera.main.pixelWidth / 2)
 		{
-			
+
 			Player_Anim.SetBool("MoveLeft", true);
 
-			
 
-			 Moving = Vector3.MoveTowards(transform.position,
-					new Vector3(transform.position.x - 1000, transform.position.y, transform.position.z),
-					1000* Time.fixedDeltaTime);
 
-			 
+			Moving = Vector3.MoveTowards(transform.position,
+				   new Vector3(transform.position.x - 1000, transform.position.y, transform.position.z),
+				   1000 * Time.fixedDeltaTime);
+
+
 
 		}
 		Moving.x = Mathf.Clamp(Moving.x, MinDistance, MaxDistance);
-	
+
 		transform.position = Moving;
 
 
-		
+
 
 	}
 

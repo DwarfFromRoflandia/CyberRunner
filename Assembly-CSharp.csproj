@@ -57,11 +57,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Coins\Coin.cs" />
+    <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\ButtonController.cs" />
     <Compile Include="Assets\Scripts\Store\InfoButtonForProductBullets.cs" />
     <Compile Include="Assets\Scripts\InformationFollow.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
-    <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\TransferScripts\TransferQuantityHearts.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
