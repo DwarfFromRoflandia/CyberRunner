@@ -17,6 +17,7 @@ public class ButtonController :OpenAndExitStore
 
     [SerializeField]
     private List<Sprite> Time_Sprites = new List<Sprite>(3);
+    [SerializeField]
     private Image Image_Time_Now;
     
     public Sprite MusicOn, MusicOff;
@@ -28,25 +29,28 @@ public class ButtonController :OpenAndExitStore
 
     private Animation Animation_Disapearing;
 
+    public bool MusicIsPressed = false; 
+
     Animation Input_Field_Anim;
     Transform Input_Field_Trans;
     Material Time_Now;
 
-
+    public bool PauseIsPressed;
     private void Start()
 	{
 
-        Image_Time_Now = gameObject.transform.GetChild(2).GetChild(5).GetComponent<Image>();
+    
         PhoneSource = GameObject.Find("MainMenuCanvas").GetComponent<AudioSource>();
         MusicImage = GameObject.Find("ButtonMusic").GetComponent<Image>();
         Settings_Menu.SetActive(false);
         PlayerPrefs.SetString("MusicCondition","On");
         Music();
-
+       
         Animation_Disapearing = Change_Name_Button.GetComponent<Animation>();
         Time_Now = Time_Cond[0];
 
     }
+	 
 
 	public void InputPlay() /* метод при использовании которого запускается игровая сессия 
                               (При нажатии на кнопку Play в главном меню)*/
@@ -60,7 +64,7 @@ public class ButtonController :OpenAndExitStore
        
         Main_Menu_Condition.SetActive(false);
         Settings_Menu.SetActive(true);
-        Input_Field_Trans = gameObject.transform.GetChild(2).GetChild(0).transform.GetComponent<Transform>();
+        Input_Field_Trans = gameObject.transform.GetChild(3).GetChild(0).transform.GetComponent<Transform>();
         Input_Field = Input_Field_Trans.GetComponent<InputField>(); // инициализируем переменные перед переходом в настройки
         InputName();
 
@@ -82,26 +86,17 @@ public class ButtonController :OpenAndExitStore
 
 
     }
-    bool paused = true;
-    public void Pause()
+ 
+   
+ 
+    
+
+
+    public void Music( )
     {
+    
 
-        if (paused)
-        {
-            Time.timeScale = 0;
 
-            paused = false;
-        }
-        else
-        {
-            Time.timeScale = 1;
-
-            paused = true;
-        }
-
-    }
-    public void Music()
-    {
         if (PlayerPrefs.GetString("MusicCondition") == "On")
         {
 
@@ -123,7 +118,7 @@ public class ButtonController :OpenAndExitStore
     
     
     }
-
+ 
     public void Set_Value_Music()
     {
         PhoneSource.volume = MusicSlider.value;
@@ -173,11 +168,15 @@ public class ButtonController :OpenAndExitStore
 
 
 
-	public void Vk()=>Application.OpenURL("https://vk.com/id446930815");
+    public void Vk()
+    {
+        Application.OpenURL("https://vk.com/id446930815");
+        Application.OpenURL("https://vk.com/dwarffromroflandia");
+    }
 
-     
-   
-    public void Button_Change_Name_Down()
+
+
+        public void Button_Change_Name_Down()
     {
 
  

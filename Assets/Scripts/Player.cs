@@ -16,12 +16,18 @@ public class Player : MonoBehaviour
 
 	public Text TextTimeToStart;
 
+	 
+
+	private ButtonController ButtonPress;
+
 	[SerializeField] private Sprite Play, Stop;
 	public Image PauseImage;
 	private void Start()
 	{
 		Player_Anim = GetComponent<Animator>();
-		 
+	ButtonPress = 	GameObject.Find("MainMenuCanvas").GetComponent<ButtonController>();
+
+
 	}
 	public void False()
 	{
@@ -54,12 +60,15 @@ public class Player : MonoBehaviour
 
 	}
 
-
+	private void FixedUpdate()
+	{
+		StartRunValues(PlayerSpeed);
+	}
 
 	private void StartRunValues(float GameSpeed)
 	{
 		PlayerSpeed = GameSpeed;
-
+		print("fdjhgvid");
 		transform.Translate(0, 0, GameSpeed * Time.fixedDeltaTime, Space.World);
 
 
@@ -67,7 +76,7 @@ public class Player : MonoBehaviour
 	bool paused = true;
 	public void Pause()
 	{
-
+ 
 		if (paused)
 		{
 			EventManager.EventPlay?.Invoke(0);
@@ -79,6 +88,7 @@ public class Player : MonoBehaviour
 		else
 		{
 
+
 			StartCoroutine(PauseReset());
 			TextTimeToStart.gameObject.SetActive(true);
 			PauseImage.sprite = Play;
@@ -88,11 +98,15 @@ public class Player : MonoBehaviour
 		}
 
 	}
+
+
+
+	 
 	public void Include_to_Run()
 	{
 		Player_Anim.SetBool("MoveRight", false);
 		Player_Anim.SetBool("MoveLeft", false);
-		print("Было");
+		 
 	}
 
 	IEnumerator PauseReset()
@@ -117,53 +131,7 @@ public class Player : MonoBehaviour
 
 	}
 
-	private void FixedUpdate()
-	{
-		StartRunValues(PlayerSpeed);
 
-		if (Input.touchCount > 0 && !Physics.Linecast(StartPoint.position, Camera.main.transform.position))
-		{
-
-
-			Touch touch = Input.GetTouch(0);
-
-			transform.localRotation = Quaternion.Euler(transform.rotation.x, 360, transform.rotation.z);
-
-
-			MovePerson(touch); // метод  задающий движение если палец переместился
-
-
-
-		}//для телефонов
-
-
-		if (Input.GetMouseButton(0) && !Physics.Linecast(StartPoint.position, Camera.main.transform.position)) // для пк
-		{
-
-			MovePerson(Input.mousePosition);
-
-
-			transform.localRotation = Quaternion.Euler(transform.rotation.x, 364, transform.rotation.z);
-
-
-
-		}
-
-
-		if (Input.GetMouseButtonUp(0))
-		{
-
-
-
-
-
-		}
-
-
-
-
-
-	}
 
 	private void Set_Anim_Play_True(bool b)
 	{
@@ -172,90 +140,137 @@ public class Player : MonoBehaviour
 
 	}
 
-	private void MovePerson(Touch touch)
+	//public void MovePerson(Touch touch)
 
+	//{
+		 
+	//		Vector3 Moving = Vector3.zero;
+
+	//		if (touch.phase == TouchPhase.Moved && touch.deltaPosition.x > MinLenghtOfTouch)
+	//		{
+
+	//			Player_Anim.SetBool("MoveRight", true);
+
+	//			//Moving = Vector3.Lerp(transform.position,
+	//			//		new Vector3(transform.position.x - 10, transform.position.y, transform.position.z),
+	//			//		20 * Time.fixedDeltaTime);
+
+
+
+	//		}
+
+
+	//		else if (touch.phase == TouchPhase.Moved && touch.deltaPosition.x < -MinLenghtOfTouch)
+	//		{
+	//			Player_Anim.SetBool("MoveLeft", true);
+
+
+	//			//Moving = Vector3.Lerp(transform.position,
+	//			//		new Vector3(transform.position.x + 10, transform.position.y, transform.position.z),
+	//			//		20 * Time.fixedDeltaTime);
+
+
+	//		}
+
+	//		else if (touch.phase == TouchPhase.Ended)
+	//		{
+
+
+	//		}
+	//		Moving.x = Mathf.Clamp(Moving.x, MinDistance, MaxDistance);
+
+	//		transform.position = Moving;
+		 
+	//}
+
+
+	public void MovePerson(Vector2 Pos) // для пк
 	{
 
-		Vector3 Moving = Vector3.zero;
-
-		if (touch.phase == TouchPhase.Moved && touch.deltaPosition.x > MinLenghtOfTouch)
+		if(!ButtonPress.Main_Menu_Condition.activeSelf)
 		{
 
-			Player_Anim.SetBool("MoveRight", true);
+			 
 
-			//Moving = Vector3.Lerp(transform.position,
-			//		new Vector3(transform.position.x - 10, transform.position.y, transform.position.z),
-			//		20 * Time.fixedDeltaTime);
+			if (Pos.x > Camera.main.pixelWidth / 2)
+			{
+				Player_Anim.SetBool("MoveRight", true);
+
+				StartCoroutine(StartRollingRight());
+
+			}
+
+			if (Pos.x < Camera.main.pixelWidth / 2)
+			{
+
+				Player_Anim.SetBool("MoveLeft", true);
+
+
+				StartCoroutine(StartRollingLeft());
 
 
 
+
+
+
+			}
+		 
 		}
 
+		 
 
-		else if (touch.phase == TouchPhase.Moved && touch.deltaPosition.x < -MinLenghtOfTouch)
-		{
-			Player_Anim.SetBool("MoveLeft", true);
-
-
-			//Moving = Vector3.Lerp(transform.position,
-			//		new Vector3(transform.position.x + 10, transform.position.y, transform.position.z),
-			//		20 * Time.fixedDeltaTime);
-
-
-		}
-
-		else if (touch.phase == TouchPhase.Ended)
-		{
-
-
-		}
-		Moving.x = Mathf.Clamp(Moving.x, MinDistance, MaxDistance);
-
-		transform.position = Moving;
 	}
-
-
-	private void MovePerson(Vector2 Pos) // для пк
+	Vector3 Moving = Vector3.zero;
+	public IEnumerator StartRollingRight()
 	{
+	 
 
+		float TimeStart = Time.time;
 
-		Vector3 Moving = Vector3.zero;
+		float TimeToGo = Time.time + 0.8f;
 
-		if (Pos.x > Camera.main.pixelWidth / 2)
+		while (TimeStart < TimeToGo) 
 		{
-			Player_Anim.SetBool("MoveRight", true);
-
+			TimeStart = Time.time;
+		
 			Moving = Vector3.MoveTowards(transform.position,
-				   new Vector3(transform.position.x + 1000, transform.position.y, transform.position.z),
-				   1000 * Time.fixedDeltaTime);
+					   new Vector3(transform.position.x + 66.2f, transform.position.y, transform.position.z),
+					   100 * Time.fixedDeltaTime);
 
+			Moving.x = Mathf.Clamp(Moving.x, MinDistance, MaxDistance);
+
+			transform.position = Moving;
+			yield return null;
 		}
+	
+	}
 
-		if (Pos.x < Camera.main.pixelWidth / 2)
-		{
+	public IEnumerator StartRollingLeft()
+	{
+		 
 
-			Player_Anim.SetBool("MoveLeft", true);
+			float TimeStart = Time.time;
 
-
-
+			float TimeToGo = Time.time + 0.8f;
+		
+			while (TimeStart < TimeToGo)  
+			{
+				TimeStart = Time.time;
+			
 			Moving = Vector3.MoveTowards(transform.position,
-				   new Vector3(transform.position.x - 1000, transform.position.y, transform.position.z),
-				   1000 * Time.fixedDeltaTime);
+						   new Vector3(transform.position.x - 66.2f, transform.position.y, transform.position.z),
+						   100 * Time.fixedDeltaTime);
 
+			Moving.x = Mathf.Clamp(Moving.x, MinDistance, MaxDistance);
 
+			transform.position = Moving;
 
-		}
-		Moving.x = Mathf.Clamp(Moving.x, MinDistance, MaxDistance);
+			yield return null;
 
-		transform.position = Moving;
-
-
+			}
 
 
 	}
-
-
- 
 
 
 
