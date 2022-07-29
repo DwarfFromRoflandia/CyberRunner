@@ -9,7 +9,7 @@ public class ShotGun : MonoBehaviour
     [SerializeField] private float FireRate=1; // врем€ средующего выстрела
     [SerializeField] private GameObject  BulletPrefab; // лет€щий снар€д
     [SerializeField] private ParticleSystem  ParticleBullet; // столкновение
-
+    [SerializeField] private Animator Player_Anim;
     [SerializeField] private int PatronQuantity; // количество патрон
     void Start()
     {
@@ -19,14 +19,18 @@ public class ShotGun : MonoBehaviour
     {
         print("—трел€ет");
         StartCoroutine(Shot());
+        Player_Anim.SetBool("Shot",true);
+        return;
 
     }
     public void ShotFinish()
     {
         print("ѕерестал стрел€ть ");
         StopAllCoroutines();
-    
-    
+        Player_Anim.SetBool("Shot", false);
+        return;
+
+
     }    // Update is called once per frame
 
     public IEnumerator Shot()
