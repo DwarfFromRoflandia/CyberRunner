@@ -6,17 +6,33 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-
-	private float BufferSpeed;
+	public float MaxDistance, MinDistance;
+	public float PlayerSpeed;
 	public Transform StartPoint;
 	Animator Player_Anim;
-
+	public float TimeBeReady = 3;
 	[SerializeField] private SpawnManager spawnManager;
 	public float MinLenghtOfTouch = 8; // минимальная длина свайпа для перемещения игрока
 
+	public Text TextTimeToStart;
+
+	 
+
+	private ButtonController ButtonPress;
+
+	[SerializeField] private Sprite Play, Stop;
+	public Image PauseImage;
 	private void Start()
 	{
 		Player_Anim = GetComponent<Animator>();
+	ButtonPress = 	GameObject.Find("MainMenuCanvas").GetComponent<ButtonController>();
+
+
+	}
+	public void False()
+	{
+		Player_Anim.SetBool("PlayIsPressed", false);
+		Player_Anim.SetFloat("Speed", 40);
 	}
 	private void OnTriggerEnter(Collider other)
 	{
@@ -24,9 +40,9 @@ public class Player : MonoBehaviour
 		{
 			spawnManager.SpawnTriggerEntered();
 		}
-		
-		if(other.tag == "Coin")
-        {    		
+
+		if (other.tag == "Coin")
+		{
 			Destroy(other.gameObject);
 			if (EventManager.PickUpCoinEvent != null) EventManager.PickUpCoinEvent.Invoke();
 		}
@@ -36,6 +52,7 @@ public class Player : MonoBehaviour
 	{
 		EventManager.EventPlay += StartRunValues;
 		EventManager.Animation_Play += Set_Anim_Play_True;
+
 	}
 	private void OnDisable()
 	{
@@ -43,66 +60,78 @@ public class Player : MonoBehaviour
 
 	}
 
-
+	private void FixedUpdate()
+	{
+		StartRunValues(PlayerSpeed);
+	}
 
 	private void StartRunValues(float GameSpeed)
 	{
-		BufferSpeed = GameSpeed;
-
+		PlayerSpeed = GameSpeed;
+		print("fdjhgvid");
 		transform.Translate(0, 0, GameSpeed * Time.fixedDeltaTime, Space.World);
 
 
 	}
-
-
-
-	private void FixedUpdate()
+	bool paused = true;
+	public void Pause()
 	{
-		StartRunValues(BufferSpeed);
+ 
+		if (paused)
+		{
+			EventManager.EventPlay?.Invoke(0);
+			Player_Anim.SetFloat("Speed",0);
+			paused = false;
+			PauseImage.sprite = Stop;
 
-		if (Input.touchCount > 0 && !Physics.Linecast(StartPoint.position, Camera.main.transform.position))
+		}
+		else
 		{
 
 
-			Touch touch = Input.GetTouch(0);
+			StartCoroutine(PauseReset());
+			TextTimeToStart.gameObject.SetActive(true);
+			PauseImage.sprite = Play;
 
-			transform.localRotation = Quaternion.Euler(transform.rotation.x, 360, transform.rotation.z);
-
-
-			MovePerson(touch); // метод  задающий движение если палец переместился
-
-
-
-		}//для телефонов
-
-
-		if (Input.GetMouseButton(0) && !Physics.Linecast(StartPoint.position, Camera.main.transform.position)) // для пк
-		{
-			print("!");
-
-			MovePerson(Input.mousePosition);
-
-			transform.localRotation = Quaternion.Euler(transform.rotation.x, 364, transform.rotation.z);
-
-
+			paused = true;
 
 		}
 
+	}
 
-		if (Input.GetMouseButtonUp(0))
+
+
+	 
+	public void Include_to_Run()
+	{
+		Player_Anim.SetBool("MoveRight", false);
+		Player_Anim.SetBool("MoveLeft", false);
+		 
+	}
+
+	IEnumerator PauseReset()
+	{
+		float TimeStart = Time.time;
+		float TimeToGo = Time.time + TimeBeReady;
+		while (TimeStart < TimeToGo) //3 секунды до старта игры
 		{
+			TimeStart = Time.time;
+			TextTimeToStart.text = (TimeToGo - TimeStart).ToString();
 
 
-
-
-
+			yield return null;
 		}
 
 
-
+		TextTimeToStart.gameObject.SetActive(false) ;
+		StopCoroutine(PauseReset());
+		EventManager.EventPlay?.Invoke(50);
+		Player_Anim.SetFloat("Speed", 50);
 
 
 	}
+
+
 
 	private void Set_Anim_Play_True(bool b)
 	{
@@ -111,86 +140,137 @@ public class Player : MonoBehaviour
 
 	}
 
-	private void MovePerson(Touch touch)
+	//public void MovePerson(Touch touch)
 
+	//{
+		 
+	//		Vector3 Moving = Vector3.zero;
+
+	//		if (touch.phase == TouchPhase.Moved && touch.deltaPosition.x > MinLenghtOfTouch)
+	//		{
+
+	//			Player_Anim.SetBool("MoveRight", true);
+
+	//			//Moving = Vector3.Lerp(transform.position,
+	//			//		new Vector3(transform.position.x - 10, transform.position.y, transform.position.z),
+	//			//		20 * Time.fixedDeltaTime);
+
+
+
+	//		}
+
+
+	//		else if (touch.phase == TouchPhase.Moved && touch.deltaPosition.x < -MinLenghtOfTouch)
+	//		{
+	//			Player_Anim.SetBool("MoveLeft", true);
+
+
+	//			//Moving = Vector3.Lerp(transform.position,
+	//			//		new Vector3(transform.position.x + 10, transform.position.y, transform.position.z),
+	//			//		20 * Time.fixedDeltaTime);
+
+
+	//		}
+
+	//		else if (touch.phase == TouchPhase.Ended)
+	//		{
+
+
+	//		}
+	//		Moving.x = Mathf.Clamp(Moving.x, MinDistance, MaxDistance);
+
+	//		transform.position = Moving;
+		 
+	//}
+
+
+	public void MovePerson(Vector2 Pos) // для пк
 	{
 
-
-
-		if (touch.phase == TouchPhase.Moved && touch.deltaPosition.x > MinLenghtOfTouch)
+		if(!ButtonPress.Main_Menu_Condition.activeSelf)
 		{
 
-			Player_Anim.SetBool("MoveRight", true);
+			 
 
-			transform.position = Vector3.Lerp(transform.position,
-					new Vector3(transform.position.x - 10, transform.position.y, transform.position.z),
-					20 * Time.fixedDeltaTime);
+			if (Pos.x > Camera.main.pixelWidth / 2)
+			{
+				Player_Anim.SetBool("MoveRight", true);
+
+				StartCoroutine(StartRollingRight());
+
+			}
+
+			if (Pos.x < Camera.main.pixelWidth / 2)
+			{
+
+				Player_Anim.SetBool("MoveLeft", true);
+
+
+				StartCoroutine(StartRollingLeft());
 
 
 
+
+
+
+			}
+		 
 		}
 
+		 
 
-		else if (touch.phase == TouchPhase.Moved && touch.deltaPosition.x < -MinLenghtOfTouch)
-		{
-			Player_Anim.SetBool("MoveLeft", true);
-
-
-			transform.position = Vector3.Lerp(transform.position,
-					new Vector3(transform.position.x + 10, transform.position.y, transform.position.z),
-					20 * Time.fixedDeltaTime);
-
-
-		}
-
-		else if (touch.phase == TouchPhase.Ended)
-		{
-
-
-		}
 	}
-
-
-	private void MovePerson(Vector2 Pos) // для пк
+	Vector3 Moving = Vector3.zero;
+	public IEnumerator StartRollingRight()
 	{
+	 
 
+		float TimeStart = Time.time;
 
+		float TimeToGo = Time.time + 0.8f;
 
-
-		if (Pos.x > Camera.main.pixelWidth / 2)
+		while (TimeStart < TimeToGo) 
 		{
-			Player_Anim.SetBool("MoveRight", true);
+			TimeStart = Time.time;
+		
+			Moving = Vector3.MoveTowards(transform.position,
+					   new Vector3(transform.position.x + 66.2f, transform.position.y, transform.position.z),
+					   100 * Time.fixedDeltaTime);
 
-			transform.position = Vector3.Lerp(transform.position,
-					new Vector3(transform.position.x + 20, transform.position.y, transform.position.z),
-					20 * Time.fixedDeltaTime);
+			Moving.x = Mathf.Clamp(Moving.x, MinDistance, MaxDistance);
 
+			transform.position = Moving;
+			yield return null;
 		}
-
-		if (Pos.x < Camera.main.pixelWidth / 2)
-		{
-			Player_Anim.SetBool("MoveLeft", true);
-
-			transform.position = Vector3.Lerp(transform.position,
-					new Vector3(transform.position.x - 20, transform.position.y, transform.position.z),
-					20 * Time.fixedDeltaTime);
-
-
-		}
-
-
-
-
-
+	
 	}
 
-
-	public void Include_to_Run()
+	public IEnumerator StartRollingLeft()
 	{
-		Player_Anim.SetBool("MoveRight", false);
-		Player_Anim.SetBool("MoveLeft", false);
-	}
+		 
 
+			float TimeStart = Time.time;
+
+			float TimeToGo = Time.time + 0.8f;
+		
+			while (TimeStart < TimeToGo)  
+			{
+				TimeStart = Time.time;
+			
+			Moving = Vector3.MoveTowards(transform.position,
+						   new Vector3(transform.position.x - 66.2f, transform.position.y, transform.position.z),
+						   100 * Time.fixedDeltaTime);
+
+			Moving.x = Mathf.Clamp(Moving.x, MinDistance, MaxDistance);
+
+			transform.position = Moving;
+
+			yield return null;
+
+			}
+
+
+	}
 
 
 

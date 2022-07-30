@@ -10,4 +10,6 @@ public static class EventManager
 	public static Action<float> EventPlay;
 	public static Action<bool> Animation_Play;
 	public static UnityEvent PickUpCoinEvent = new UnityEvent();
+	public static Action<string> ChangeNameEvent;
+	 
 }
