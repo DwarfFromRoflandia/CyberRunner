@@ -132,6 +132,11 @@ public class Player : MonoBehaviour
 	}
 
 
+	public void Clic()
+	{
+		MovePerson(Input.mousePosition);
+
+	}
 
 	private void Set_Anim_Play_True(bool b)
 	{

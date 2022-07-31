@@ -66,6 +66,7 @@ public class ButtonController :OpenAndExitStore
         Settings_Menu.SetActive(true);
         Input_Field_Trans = gameObject.transform.GetChild(3).GetChild(0).transform.GetComponent<Transform>();
         Input_Field = Input_Field_Trans.GetComponent<InputField>(); // инициализируем переменные перед переходом в настройки
+        Input_Field.text = PlayerPrefs.GetString("Name");
         InputName();
 
 
@@ -202,8 +203,8 @@ public class ButtonController :OpenAndExitStore
      
     public void InputName()
     {
-      
 
+ 
 
         if (Input_Field.text.Length > 17|| Input_Field.text.Length < 4)
         {

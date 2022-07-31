@@ -11,7 +11,9 @@ public class InformationFollow:CameraFollow
     public Text Name;
 	void Start()
     {
-        
+        Name.text = PlayerPrefs.GetString("Name");
+
+
     }
     private void OnEnable()
     {
@@ -32,8 +34,9 @@ public class InformationFollow:CameraFollow
 
     void GetInfo(string name)
     {
+        PlayerPrefs.SetString("Name",name);
 
-       Name.text = name;
+       Name.text = PlayerPrefs.GetString("Name");
     
     }
 }
