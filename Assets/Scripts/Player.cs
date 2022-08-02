@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 
+
 public class Player : MonoBehaviour
 {
 	public float MaxDistance, MinDistance;
@@ -21,6 +22,7 @@ public class Player : MonoBehaviour
 	private ButtonController ButtonPress;
 
 	[SerializeField] private Sprite Play, Stop;
+	[SerializeField] private ParticleSystem smokeParticleInCoin;
 	public Image PauseImage;
 	private void Start()
 	{
@@ -44,7 +46,8 @@ public class Player : MonoBehaviour
 		if (other.tag == "Coin")
 		{
 			Destroy(other.gameObject);
-			if (EventManager.PickUpCoinEvent != null) EventManager.PickUpCoinEvent.Invoke();
+			Instantiate(smokeParticleInCoin, other.transform.position + new Vector3(0, 25.3f, 0), other.transform.rotation);//при соприкосновении коллайдера игрока с монеткой появляется дымка от исчезнувшей монеты
+			if (EventManager.PickUpCoinEvent != null) EventManager.PickUpCoinEvent.Invoke(); 
 		}
 
 	}
