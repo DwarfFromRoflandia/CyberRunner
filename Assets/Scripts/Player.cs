@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
 	private ButtonController ButtonPress;
 
 	[SerializeField] private Sprite Play, Stop;
-	[SerializeField] private ParticleSystem smokeParticleInCoin;
+	[SerializeField] private ParticleSystem ParticleInCoin;
 	public Image PauseImage;
 	private void Start()
 	{
@@ -36,22 +36,22 @@ public class Player : MonoBehaviour
 		Player_Anim.SetBool("PlayIsPressed", false);
 		Player_Anim.SetFloat("Speed", 40);
 	}
-	private void OnTriggerEnter(Collider other)
-	{
-		if (other.tag == "SpawnTrigger")
-		{
-			spawnManager.SpawnTriggerEntered();
-		}
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "SpawnTrigger")
+        {
+            spawnManager.SpawnTriggerEntered();
+        }
 
-		if (other.tag == "Coin")
-		{
+        if (other.tag == "Coin")
+        { 
+            Instantiate(ParticleInCoin, other.transform.position + new Vector3(0, 8f, 0), other.transform.rotation);//при соприкосновении коллайдера игрока с монеткой появляется дымка от исчезнувшей монеты
 			Destroy(other.gameObject);
-			Instantiate(smokeParticleInCoin, other.transform.position + new Vector3(0, 25.3f, 0), other.transform.rotation);//при соприкосновении коллайдера игрока с монеткой появляется дымка от исчезнувшей монеты
-			if (EventManager.PickUpCoinEvent != null) EventManager.PickUpCoinEvent.Invoke(); 
-		}
+            if (EventManager.PickUpCoinEvent != null) EventManager.PickUpCoinEvent.Invoke();
+        }
 
-	}
-	private void OnEnable()
+    }
+    private void OnEnable()
 	{
 		EventManager.EventPlay += StartRunValues;
 		EventManager.Animation_Play += Set_Anim_Play_True;

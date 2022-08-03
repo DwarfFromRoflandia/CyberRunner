@@ -12374,7 +12374,7 @@ MonoBehaviour:
   TextTimeToStart: {fileID: 984720882}
   Play: {fileID: 21300000, guid: d42cfe7bed8439c439378d1a7e76f4e3, type: 3}
   Stop: {fileID: 21300000, guid: a1bda28f797f71c4db09f6a0d4af4759, type: 3}
-  smokeParticleInCoin: {fileID: 5413565038102559658, guid: f08180504a9484240887fc04eb414b2c, type: 3}
+  ParticleInCoin: {fileID: 4154548249226513299, guid: 8b619e9d8377dc04bafd4c1d1bdf350b, type: 3}
   PauseImage: {fileID: 1312608579}
 --- !u!1 &92917910009981122
 GameObject:
@@ -14021,10 +14021,6 @@ PrefabInstance:
     - target: {fileID: 2199778417700394605, guid: 8f7456c9c9b8ec64ca741212ca062c85, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4996298461380410530, guid: 8f7456c9c9b8ec64ca741212ca062c85, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -571.1
       objectReference: {fileID: 0}
     - target: {fileID: 5781384573236425382, guid: 8f7456c9c9b8ec64ca741212ca062c85, type: 3}
       propertyPath: m_Name
@@ -16241,6 +16237,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 415676268333145653, guid: dd76ac78342719445b08cfb4a5541d3b, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 598956409686481294, guid: dd76ac78342719445b08cfb4a5541d3b, type: 3}
       propertyPath: m_Name
       value: 'PackOfSixCoins '

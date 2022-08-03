@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7205863969732603614}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.0001, y: -5.16, z: 0}
   m_LocalScale: {x: 48.51932, y: 48.51932, z: 48.51932}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &5413565038102559658
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -40,7 +40,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7205863969732603614}
   serializedVersion: 7
-  lengthInSec: 0.5
+  lengthInSec: 0.05
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -115,7 +115,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 0.3
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -168,7 +168,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.2
+      scalar: 2
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -220,9 +220,9 @@ ParticleSystem:
         m_RotationOrder: 4
     startColor:
       serializedVersion: 2
-      minMaxState: 2
-      minColor: {r: 0.14117648, g: 0.9333334, b: 1, a: 1}
-      maxColor: {r: 0.14117648, g: 0.5372549, b: 0.9450981, a: 1}
+      minMaxState: 0
+      minColor: {r: 1, g: 0.16509432, b: 0.831421, a: 1}
+      maxColor: {r: 0.14901961, g: 0.49803925, b: 0.79215693, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -606,7 +606,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: -1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -4816,7 +4816,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0aeaa96c3b3bc094fa6e69344c254129, type: 2}
+  - {fileID: 2100000, guid: e6c192ef0424e284d9dd7ad2ea70b2ab, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4839,8 +4839,8 @@ ParticleSystemRenderer:
   m_SortingOrder: 0
   m_RenderMode: 0
   m_SortMode: 0
-  m_MinParticleSize: 0.25
-  m_MaxParticleSize: 0.25
+  m_MinParticleSize: 0.01
+  m_MaxParticleSize: 0.2
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
   m_LengthScale: 2

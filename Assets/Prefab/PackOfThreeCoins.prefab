@@ -54,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5587865065826822395, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -571.2
+      value: -571.1
       objectReference: {fileID: 0}
     - target: {fileID: 5587865065826822395, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -87,6 +87,10 @@ PrefabInstance:
     - target: {fileID: 6154952848337150276, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
       propertyPath: m_Name
       value: 'Coin '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6154952848337150276, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
@@ -150,6 +154,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'Coin '
       objectReference: {fileID: 0}
+    - target: {fileID: 6154952848337150276, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
 --- !u!4 &9020016054002138678 stripped
@@ -211,6 +219,10 @@ PrefabInstance:
     - target: {fileID: 6154952848337150276, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
       propertyPath: m_Name
       value: 'Coin '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6154952848337150276, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
