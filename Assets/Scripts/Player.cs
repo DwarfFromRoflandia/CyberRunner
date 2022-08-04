@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+	 
 	public float MaxDistance, MinDistance;
 	public float PlayerSpeed;
 	public Transform StartPoint;
@@ -16,9 +17,7 @@ public class Player : MonoBehaviour
 	public float MinLenghtOfTouch = 8; // минимальная длина свайпа для перемещения игрока
 
 	public Text TextTimeToStart;
-
-	 
-
+	[SerializeField] private Slider HealthSlider;
 	private ButtonController ButtonPress;
 
 	[SerializeField] private Sprite Play, Stop;
@@ -55,11 +54,13 @@ public class Player : MonoBehaviour
 	{
 		EventManager.EventPlay += StartRunValues;
 		EventManager.Animation_Play += Set_Anim_Play_True;
+		EventManager.IsPunched += GetDamage;
 
 	}
 	private void OnDisable()
 	{
 		EventManager.EventPlay -= StartRunValues;
+		EventManager.IsPunched -= GetDamage;
 
 	}
 
@@ -101,10 +102,9 @@ public class Player : MonoBehaviour
 		}
 
 	}
+ 
 
 
-
-	 
 	public void Include_to_Run()
 	{
 		Player_Anim.SetBool("MoveRight", false);
@@ -280,7 +280,12 @@ public class Player : MonoBehaviour
 
 	}
 
+	public void GetDamage(float damage)
+	{
 
+		HealthSlider.value -= damage;
+
+	}
 
 
 

@@ -13,5 +13,5 @@ public static class EventManager
 	public static Action<string> ChangeNameEvent;
 	public static UnityEvent BuyHealth = new UnityEvent();
 	public static UnityEvent BuyBullets = new UnityEvent();
-	 
+	public static Action<float> IsPunched;
 }
