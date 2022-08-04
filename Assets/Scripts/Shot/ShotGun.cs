@@ -8,7 +8,7 @@ public class ShotGun : MonoBehaviour
     [SerializeField] private AudioClip ClipShot; // клип выстрела
     [SerializeField] private float FireRate=1; // время средующего выстрела
     [SerializeField] private GameObject  BulletPrefab; // летящий снаряд
-    [SerializeField] private ParticleSystem  ParticleBullet; // столкновение
+   
     [SerializeField] private Animator Player_Anim;
     [SerializeField] private int PatronQuantity; // количество патрон
     void Start()

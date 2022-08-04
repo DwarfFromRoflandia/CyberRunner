@@ -71,7 +71,7 @@ public class Player : MonoBehaviour
 	private void StartRunValues(float GameSpeed)
 	{
 		PlayerSpeed = GameSpeed;
-		print("fdjhgvid");
+	
 		transform.Translate(0, 0, GameSpeed * Time.fixedDeltaTime, Space.World);
 
 
@@ -194,7 +194,7 @@ public class Player : MonoBehaviour
 
 	public void MovePerson(Vector2 Pos) // для пк
 	{
-
+		transform.rotation = Quaternion.Euler(0,360,0);
 		if(!ButtonPress.Main_Menu_Condition.activeSelf)
 		{
 

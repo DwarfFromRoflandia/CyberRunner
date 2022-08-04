@@ -91,3 +91,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ForceBullet: 300
+  Force: 500000
+  ParticleBullet: {fileID: 198435890141970726, guid: 8333d50130027574ca8b4e0268fdd047, type: 3}
