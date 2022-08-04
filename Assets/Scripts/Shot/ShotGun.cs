@@ -13,7 +13,7 @@ public class ShotGun : MonoBehaviour
     [SerializeField] private int PatronQuantity; // количество патрон
     void Start()
     {
-        
+         
     }
     public void ShotStart()
     {
@@ -39,7 +39,7 @@ public class ShotGun : MonoBehaviour
         {
             GameObject bullet = Instantiate(BulletPrefab, transform.position, Quaternion.Euler(90, 0, 0));
 
-
+            SourceShot.PlayOneShot(ClipShot);
             yield return new WaitForSeconds(FireRate);
         }
     
