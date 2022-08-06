@@ -17,7 +17,7 @@ public class ShotGun : MonoBehaviour
     }
     public void ShotStart()
     {
-        print("Стреляет");
+        
         StartCoroutine(Shot());
         Player_Anim.SetBool("Shot",true);
         return;
@@ -25,7 +25,7 @@ public class ShotGun : MonoBehaviour
     }
     public void ShotFinish()
     {
-        print("Перестал стрелять ");
+       
         StopAllCoroutines();
         Player_Anim.SetBool("Shot", false);
         return;

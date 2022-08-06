@@ -15076,6 +15076,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2513fe2b4f028b43ae7bab945c6beaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ObstacleDamage: 0.2
 --- !u!4 &3253134744967093025
 Transform:
   m_ObjectHideFlags: 0
@@ -17280,6 +17281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2513fe2b4f028b43ae7bab945c6beaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ObstacleDamage: 0.2
 --- !u!54 &5849661433473301129
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -17912,6 +17914,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2513fe2b4f028b43ae7bab945c6beaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ObstacleDamage: 0.2
 --- !u!33 &7072656060133526250
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -18376,6 +18379,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2513fe2b4f028b43ae7bab945c6beaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ObstacleDamage: 0.2
 --- !u!54 &7820087097632391893
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -18452,6 +18456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2513fe2b4f028b43ae7bab945c6beaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ObstacleDamage: 0.2
 --- !u!1 &7897458679337567790
 GameObject:
   m_ObjectHideFlags: 0
@@ -18508,6 +18513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2513fe2b4f028b43ae7bab945c6beaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ObstacleDamage: 0.2
 --- !u!4 &7920672377194719619
 Transform:
   m_ObjectHideFlags: 0
@@ -18535,6 +18541,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2513fe2b4f028b43ae7bab945c6beaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ObstacleDamage: 0.2
 --- !u!1 &7976648005828691766
 GameObject:
   m_ObjectHideFlags: 0
@@ -18898,7 +18905,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8356104788453605052}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.43, y: 1.59, z: 0.52}
@@ -18930,6 +18937,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2513fe2b4f028b43ae7bab945c6beaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ObstacleDamage: 0.2
 --- !u!1 &8453763124852731729
 GameObject:
   m_ObjectHideFlags: 0
@@ -19204,6 +19212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2513fe2b4f028b43ae7bab945c6beaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ObstacleDamage: 0.2
 --- !u!1 &8751821256663255718
 GameObject:
   m_ObjectHideFlags: 0
@@ -19541,6 +19550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2513fe2b4f028b43ae7bab945c6beaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ObstacleDamage: 0.2
 --- !u!4 &9087220440773963593
 Transform:
   m_ObjectHideFlags: 0

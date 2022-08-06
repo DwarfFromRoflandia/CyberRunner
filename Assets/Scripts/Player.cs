@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
 	 
 	public float MaxDistance, MinDistance;
 	public float PlayerSpeed;
+	 
 	public Transform StartPoint;
 	Animator Player_Anim;
 	public float TimeBeReady = 3;
@@ -49,19 +50,25 @@ public class Player : MonoBehaviour
             if (EventManager.PickUpCoinEvent != null) EventManager.PickUpCoinEvent.Invoke();
         }
 
+		if (other.tag == "Obstacle")
+		{
+
+			HealthSlider.value -= EventManager.IsPunched.Invoke(0);
+
+
+		}
     }
     private void OnEnable()
 	{
 		EventManager.EventPlay += StartRunValues;
 		EventManager.Animation_Play += Set_Anim_Play_True;
-		EventManager.IsPunched += GetDamage;
+		 
 
 	}
 	private void OnDisable()
 	{
 		EventManager.EventPlay -= StartRunValues;
-		EventManager.IsPunched -= GetDamage;
-
+	 
 	}
 
 	private void FixedUpdate()
@@ -194,11 +201,11 @@ public class Player : MonoBehaviour
 
 	public void MovePerson(Vector2 Pos) // для пк
 	{
-		transform.rotation = Quaternion.Euler(0,360,0);
+		 
 		if(!ButtonPress.Main_Menu_Condition.activeSelf)
 		{
+			transform.rotation = Quaternion.Euler(0, 360, 0);
 
-			 
 
 			if (Pos.x > Camera.main.pixelWidth / 2)
 			{
@@ -279,13 +286,7 @@ public class Player : MonoBehaviour
 
 
 	}
-
-	public void GetDamage(float damage)
-	{
-
-		HealthSlider.value -= damage;
-
-	}
+ 
 
 
 
