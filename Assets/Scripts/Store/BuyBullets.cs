@@ -5,28 +5,22 @@ using UnityEngine.UI;
 
 public class BuyBullets : MonoBehaviour
 {
-    [SerializeField] private Text quantityBulletsText;
     private int quantityBullets;
-    private const int priseForBullets = 50;
+    public int QuantityBullets { get => quantityBullets; }
+
+    private void Start()
+    {
+        EventManager.BuyBullets.AddListener(AddBullets);
+    }
 
     public void Buy()
     {
+        if (EventManager.BuyBullets != null) EventManager.BuyBullets.Invoke();
+    }
+
+    public void AddBullets()
+    {
         quantityBullets++;
-        TransferQuantityBullets.transferQuantityBullets = quantityBullets;
-        quantityBulletsText.text = quantityBullets.ToString();
-        Debug.Log("Количество патрон: " + TransferQuantityBullets.transferQuantityBullets);
     }
 
-    private void OnEnable()
-    {
-        if (TransferQuantityBullets.transferQuantityBullets != 0)
-        {
-            quantityBullets = TransferQuantityBullets.transferQuantityBullets;
-        }
-    }
-
-    private void OnDestroy()
-    {
-        TransferQuantityBullets.transferQuantityBullets = quantityBullets;
-    }
 }

@@ -4,10 +4,14 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 
+
 public class Player : MonoBehaviour
 {
+	 
 	public float MaxDistance, MinDistance;
 	public float PlayerSpeed;
+
+	 
 	public Transform StartPoint;
 	Animator Player_Anim;
 	public float TimeBeReady = 3;
@@ -15,17 +19,17 @@ public class Player : MonoBehaviour
 	public float MinLenghtOfTouch = 8; // минимальная длина свайпа для перемещения игрока
 
 	public Text TextTimeToStart;
-
-	 
-
+	[SerializeField] private Slider HealthSlider;
 	private ButtonController ButtonPress;
 
 	[SerializeField] private Sprite Play, Stop;
+	[SerializeField] private ParticleSystem ParticleInCoin;
 	public Image PauseImage;
 	private void Start()
 	{
 		Player_Anim = GetComponent<Animator>();
 	ButtonPress = 	GameObject.Find("MainMenuCanvas").GetComponent<ButtonController>();
+		 
 
 
 	}
@@ -34,30 +38,50 @@ public class Player : MonoBehaviour
 		Player_Anim.SetBool("PlayIsPressed", false);
 		Player_Anim.SetFloat("Speed", 40);
 	}
-	private void OnTriggerEnter(Collider other)
-	{
-		if (other.tag == "SpawnTrigger")
-		{
-			spawnManager.SpawnTriggerEntered();
-		}
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.transform.tag == "SpawnTrigger")
+        {
+            spawnManager.SpawnTriggerEntered();
+        }
 
-		if (other.tag == "Coin")
-		{
+        if (other.transform.tag == "Coin")
+        { 
+            Instantiate(ParticleInCoin, other.transform.position + new Vector3(0, 8f, 0), other.transform.rotation);//при соприкосновении коллайдера игрока с монеткой появляется дымка от исчезнувшей монеты
 			Destroy(other.gameObject);
-			if (EventManager.PickUpCoinEvent != null) EventManager.PickUpCoinEvent.Invoke();
-		}
+            if (EventManager.PickUpCoinEvent != null) EventManager.PickUpCoinEvent.Invoke();
+        }
 
-	}
-	private void OnEnable()
+		if (other.transform.tag == "Obstacle")
+		{
+
+			HealthSlider.value -= EventManager.IsPunched.Invoke(0);// меняем значение здоровья игрока вызывая событие
+
+			Enemy enemy = other.transform.GetComponent<Enemy>();
+
+			StartCoroutine(enemy.Object_Disapear(enemy.gameObject));//передаем параметр предмета столкновения
+
+			Destroy(other.gameObject, 1f);// удаляем врага через 3 секунды
+
+			Player_Anim.SetTrigger("Punched"); // запускаем анимацию спотыкания
+
+			
+		
+
+
+		}
+    }
+    private void OnEnable()
 	{
 		EventManager.EventPlay += StartRunValues;
 		EventManager.Animation_Play += Set_Anim_Play_True;
+		 
 
 	}
 	private void OnDisable()
 	{
 		EventManager.EventPlay -= StartRunValues;
-
+	 
 	}
 
 	private void FixedUpdate()
@@ -68,7 +92,8 @@ public class Player : MonoBehaviour
 	private void StartRunValues(float GameSpeed)
 	{
 		PlayerSpeed = GameSpeed;
-		print("fdjhgvid");
+		
+	
 		transform.Translate(0, 0, GameSpeed * Time.fixedDeltaTime, Space.World);
 
 
@@ -98,10 +123,9 @@ public class Player : MonoBehaviour
 		}
 
 	}
+ 
 
 
-
-	 
 	public void Include_to_Run()
 	{
 		Player_Anim.SetBool("MoveRight", false);
@@ -132,6 +156,11 @@ public class Player : MonoBehaviour
 	}
 
 
+	public void Clic()
+	{
+		MovePerson(Input.mousePosition);
+
+	}
 
 	private void Set_Anim_Play_True(bool b)
 	{
@@ -186,11 +215,11 @@ public class Player : MonoBehaviour
 
 	public void MovePerson(Vector2 Pos) // для пк
 	{
-
+		 
 		if(!ButtonPress.Main_Menu_Condition.activeSelf)
 		{
+			
 
-			 
 
 			if (Pos.x > Camera.main.pixelWidth / 2)
 			{
@@ -275,7 +304,8 @@ public class Player : MonoBehaviour
 
 
 
-
+	
+	
 
 
 

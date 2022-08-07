@@ -5,28 +5,21 @@ using UnityEngine.UI;
 
 public class BuyHearts : MonoBehaviour
 {
-    [SerializeField] private Text quantityHeartsText;
-   
     private int quantityHearts;
-    private const int priseForHearts = 200;
-    
+    public int QuantityHearts { get => quantityHearts; }
+    private void Start()
+    {
+        EventManager.BuyHealth.AddListener(AddHearts);
+    }
+
     public void Buy()
     {
+        if (EventManager.BuyHealth != null) EventManager.BuyHealth.Invoke();
+    }
+
+    public void AddHearts()
+    {
         quantityHearts++;
-        TransferQuantityHearts.transferQuantityHearts = quantityHearts;
-        quantityHeartsText.text = quantityHearts.ToString();
-        Debug.Log("Количество сердец: " + TransferQuantityHearts.transferQuantityHearts);
     }
-    
-    private void OnEnable()
-    {
-        if (TransferQuantityHearts.transferQuantityHearts != 0)
-        {
-            quantityHearts = TransferQuantityHearts.transferQuantityHearts;
-        }
-    }
-    private void OnDestroy()
-    {
-        TransferQuantityHearts.transferQuantityHearts = quantityHearts; 
-    }
+
 }
