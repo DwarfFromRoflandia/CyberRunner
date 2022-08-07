@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
 	{
 		Player_Anim = GetComponent<Animator>();
 	ButtonPress = 	GameObject.Find("MainMenuCanvas").GetComponent<ButtonController>();
-	 
+		 
 
 
 	}
@@ -38,31 +38,35 @@ public class Player : MonoBehaviour
 		Player_Anim.SetBool("PlayIsPressed", false);
 		Player_Anim.SetFloat("Speed", 40);
 	}
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
-        if (other.tag == "SpawnTrigger")
+        if (other.transform.tag == "SpawnTrigger")
         {
             spawnManager.SpawnTriggerEntered();
         }
 
-        if (other.tag == "Coin")
+        if (other.transform.tag == "Coin")
         { 
             Instantiate(ParticleInCoin, other.transform.position + new Vector3(0, 8f, 0), other.transform.rotation);//при соприкосновении коллайдера игрока с монеткой появляется дымка от исчезнувшей монеты
 			Destroy(other.gameObject);
             if (EventManager.PickUpCoinEvent != null) EventManager.PickUpCoinEvent.Invoke();
         }
 
-		if (other.tag == "Obstacle")
+		if (other.transform.tag == "Obstacle")
 		{
 
 			HealthSlider.value -= EventManager.IsPunched.Invoke(0);// меняем значение здоровья игрока вызывая событие
 
-			Enemy enemy = other.GetComponent<Enemy>();
+			Enemy enemy = other.transform.GetComponent<Enemy>();
 
 			StartCoroutine(enemy.Object_Disapear(enemy.gameObject));//передаем параметр предмета столкновения
 
 			Destroy(other.gameObject, 1f);// удаляем врага через 3 секунды
 
+			Player_Anim.SetTrigger("Punched"); // запускаем анимацию спотыкания
+
+			
+		
 
 
 		}
@@ -88,6 +92,7 @@ public class Player : MonoBehaviour
 	private void StartRunValues(float GameSpeed)
 	{
 		PlayerSpeed = GameSpeed;
+		
 	
 		transform.Translate(0, 0, GameSpeed * Time.fixedDeltaTime, Space.World);
 
@@ -213,7 +218,7 @@ public class Player : MonoBehaviour
 		 
 		if(!ButtonPress.Main_Menu_Condition.activeSelf)
 		{
-			transform.rotation = Quaternion.Euler(0, 360, 0);
+			
 
 
 			if (Pos.x > Camera.main.pixelWidth / 2)
@@ -299,7 +304,8 @@ public class Player : MonoBehaviour
 
 
 
-	 
+	
+	
 
 
 
