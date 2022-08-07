@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
 	 
 	public float MaxDistance, MinDistance;
 	public float PlayerSpeed;
+
 	 
 	public Transform StartPoint;
 	Animator Player_Anim;
@@ -28,6 +29,7 @@ public class Player : MonoBehaviour
 	{
 		Player_Anim = GetComponent<Animator>();
 	ButtonPress = 	GameObject.Find("MainMenuCanvas").GetComponent<ButtonController>();
+	 
 
 
 	}
@@ -53,7 +55,14 @@ public class Player : MonoBehaviour
 		if (other.tag == "Obstacle")
 		{
 
-			HealthSlider.value -= EventManager.IsPunched.Invoke(0);
+			HealthSlider.value -= EventManager.IsPunched.Invoke(0);// меняем значение здоровья игрока вызывая событие
+
+			Enemy enemy = other.GetComponent<Enemy>();
+
+			StartCoroutine(enemy.Object_Disapear(enemy.gameObject));//передаем параметр предмета столкновения
+
+			Destroy(other.gameObject, 1f);// удаляем врага через 3 секунды
+
 
 
 		}
@@ -286,10 +295,11 @@ public class Player : MonoBehaviour
 
 
 	}
- 
 
 
 
+
+	 
 
 
 
