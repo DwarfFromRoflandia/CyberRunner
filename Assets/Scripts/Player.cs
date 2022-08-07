@@ -50,6 +50,7 @@ public class Player : MonoBehaviour
             Instantiate(ParticleInCoin, other.transform.position + new Vector3(0, 8f, 0), other.transform.rotation);//при соприкосновении коллайдера игрока с монеткой появляется дымка от исчезнувшей монеты
 			Destroy(other.gameObject);
             if (EventManager.PickUpCoinEvent != null) EventManager.PickUpCoinEvent.Invoke();
+			if (EventManager.AudioCoinEvent != null) EventManager.AudioCoinEvent.Invoke();
         }
 
 		if (other.transform.tag == "Obstacle")
