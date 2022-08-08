@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
 	public float MaxDistance, MinDistance;
 	public float PlayerSpeed;
 
-	 
+	[SerializeField] private ShotGun shot;
 	public Transform StartPoint;
 	Animator Player_Anim;
 	public float TimeBeReady = 3;
@@ -37,6 +37,12 @@ public class Player : MonoBehaviour
 	{
 		Player_Anim.SetBool("PlayIsPressed", false);
 		Player_Anim.SetFloat("Speed", 40);
+
+		gameObject.AddComponent<Rigidbody>();
+
+		Rigidbody rb = gameObject.GetComponent<Rigidbody>();
+		rb.freezeRotation = true;
+
 	}
     private void OnCollisionEnter(Collision other)
     {
@@ -97,8 +103,9 @@ public class Player : MonoBehaviour
 	
 		transform.Translate(0, 0, GameSpeed * Time.fixedDeltaTime, Space.World);
 
-
+	 
 	}
+	 
 	bool paused = true;
 	public void Pause()
 	{
@@ -302,11 +309,15 @@ public class Player : MonoBehaviour
 
 	}
 
+	 
+	public void StartShot()
+	{
+		shot.Shot();
+	}
+	 
 
 
 
-	
-	
 
 
 

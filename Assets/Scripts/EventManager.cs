@@ -15,4 +15,5 @@ public static class EventManager
 	public static UnityEvent BuyBullets = new UnityEvent();
 	public static Func<float,float> IsPunched;
 	public static UnityEvent AudioCoinEvent = new UnityEvent();
+	public static Func<IEnumerator> Shoted;
 }
