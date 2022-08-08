@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class Player : MonoBehaviour
@@ -72,7 +73,7 @@ public class Player : MonoBehaviour
 
 			Player_Anim.SetTrigger("Punched"); // запускаем анимацию спотыкания
 
-			
+			 
 		
 
 
@@ -166,7 +167,9 @@ public class Player : MonoBehaviour
 
 	public void Clic()
 	{
+	 
 		MovePerson(Input.mousePosition);
+
 
 	}
 
@@ -224,7 +227,7 @@ public class Player : MonoBehaviour
 	public void MovePerson(Vector2 Pos) // для пк
 	{
 		 
-		if(!ButtonPress.Main_Menu_Condition.activeSelf)
+		if(!ButtonPress.Main_Menu_Condition.activeSelf &&  PlayerSpeed > 0)
 		{
 			
 

@@ -34,7 +34,7 @@ public class ButtonController :OpenAndExitStore
     Animation Input_Field_Anim;
     Transform Input_Field_Trans;
     Material Time_Now;
-
+    public Canvas PersonalCanvas;
     public bool PauseIsPressed;
     private void Start()
 	{
@@ -57,7 +57,10 @@ public class ButtonController :OpenAndExitStore
     {
         Main_Menu_Condition.SetActive(false);
         EventManager.EventPlay?.Invoke(GameSpeed);
-        EventManager.Animation_Play?.Invoke(true);    }
+        EventManager.Animation_Play?.Invoke(true);
+        PersonalCanvas.gameObject.SetActive(true);
+         
+    }
 
     public void InputSettings()
     {
