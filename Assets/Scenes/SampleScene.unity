@@ -9460,7 +9460,7 @@ GameObject:
   - component: {fileID: 8141116290591020257}
   m_Layer: 0
   m_Name: FirstRoad
-  m_TagString: Untagged
+  m_TagString: Road
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10178,6 +10178,7 @@ GameObject:
   - component: {fileID: 1264928191}
   - component: {fileID: 1264928190}
   - component: {fileID: 1264928189}
+  - component: {fileID: 1264928193}
   m_Layer: 5
   m_Name: ButtonClick
   m_TagString: Untagged
@@ -10325,6 +10326,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1264928187}
   m_CullTransparentMesh: 1
+--- !u!114 &1264928193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264928187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6de5e3843aac09e459a293d1350c61f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 8356104788453605052}
+  JumpHeight: 60
+  anim: {fileID: 3109598177099375061}
 --- !u!1 &1267975956
 GameObject:
   m_ObjectHideFlags: 0
@@ -13218,6 +13234,10 @@ PrefabInstance:
     - target: {fileID: 2772572095436756795, guid: ef29f15f28442664a9bc83d190e427d1, type: 3}
       propertyPath: m_Name
       value: 'SecondRoad '
+      objectReference: {fileID: 0}
+    - target: {fileID: 2772572095436756795, guid: ef29f15f28442664a9bc83d190e427d1, type: 3}
+      propertyPath: m_TagString
+      value: Road
       objectReference: {fileID: 0}
     - target: {fileID: 3134692217505334591, guid: ef29f15f28442664a9bc83d190e427d1, type: 3}
       propertyPath: m_Constraints
@@ -16252,7 +16272,7 @@ GameObject:
   - component: {fileID: 3521791350057136079}
   m_Layer: 0
   m_Name: FirstRoad (1)
-  m_TagString: Untagged
+  m_TagString: Road
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16726,8 +16746,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8356104788453605052}
-  m_LocalRotation: {x: -0, y: -0.99664074, z: -0, w: -0.08189868}
-  m_LocalPosition: {x: 18.2, y: 2.2, z: -860.39}
+  m_LocalRotation: {x: -0, y: -0.98990035, z: 0, w: -0.14176533}
+  m_LocalPosition: {x: -47.6, y: 2.2000008, z: -851.8}
   m_LocalScale: {x: 23.637, y: 23.637, z: 23.637}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16741,7 +16761,7 @@ Transform:
   - {fileID: 5737145247459347971}
   m_Father: {fileID: 0}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 530.605, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 523.7, z: 0}
 --- !u!4 &5106901806393103251
 Transform:
   m_ObjectHideFlags: 0
@@ -18119,6 +18139,10 @@ PrefabInstance:
     - target: {fileID: 1022858812390534222, guid: 5547be754cdf8ed4b8de52e3de5910f9, type: 3}
       propertyPath: m_Name
       value: ThirdRoad
+      objectReference: {fileID: 0}
+    - target: {fileID: 1022858812390534222, guid: 5547be754cdf8ed4b8de52e3de5910f9, type: 3}
+      propertyPath: m_TagString
+      value: Road
       objectReference: {fileID: 0}
     - target: {fileID: 5951731497183333602, guid: 5547be754cdf8ed4b8de52e3de5910f9, type: 3}
       propertyPath: m_LocalPosition.z

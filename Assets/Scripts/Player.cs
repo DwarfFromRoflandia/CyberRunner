@@ -4,9 +4,9 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
-
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour,IBeginDragHandler,IDragHandler
 {
 	 
 	public float MaxDistance, MinDistance;
@@ -167,7 +167,7 @@ public class Player : MonoBehaviour
 
 	public void Clic()
 	{
-	 
+
 		MovePerson(Input.mousePosition);
 
 
@@ -183,53 +183,45 @@ public class Player : MonoBehaviour
 	//public void MovePerson(Touch touch)
 
 	//{
-		 
-	//		Vector3 Moving = Vector3.zero;
 
-	//		if (touch.phase == TouchPhase.Moved && touch.deltaPosition.x > MinLenghtOfTouch)
-	//		{
-
-	//			Player_Anim.SetBool("MoveRight", true);
-
-	//			//Moving = Vector3.Lerp(transform.position,
-	//			//		new Vector3(transform.position.x - 10, transform.position.y, transform.position.z),
-	//			//		20 * Time.fixedDeltaTime);
+	//	Vector3 Moving = Vector3.zero;
 
 
 
-	//		}
+	//		Player_Anim.SetBool("MoveRight", true);
+
+	//		Moving = Vector3.Lerp(transform.position,
+	//				new Vector3(transform.position.x - 10, transform.position.y, transform.position.z),
+	//				20 * Time.fixedDeltaTime);
 
 
-	//		else if (touch.phase == TouchPhase.Moved && touch.deltaPosition.x < -MinLenghtOfTouch)
-	//		{
-	//			Player_Anim.SetBool("MoveLeft", true);
 
 
-	//			//Moving = Vector3.Lerp(transform.position,
-	//			//		new Vector3(transform.position.x + 10, transform.position.y, transform.position.z),
-	//			//		20 * Time.fixedDeltaTime);
+
+	//		Player_Anim.SetBool("MoveLeft", true);
 
 
-	//		}
+	//		Moving = Vector3.Lerp(transform.position,
+	//				new Vector3(transform.position.x + 10, transform.position.y, transform.position.z),
+	//				20 * Time.fixedDeltaTime);
 
-	//		else if (touch.phase == TouchPhase.Ended)
-	//		{
 
 
-	//		}
-	//		Moving.x = Mathf.Clamp(Moving.x, MinDistance, MaxDistance);
 
-	//		transform.position = Moving;
-		 
+
+	//	Moving.x = Mathf.Clamp(Moving.x, MinDistance, MaxDistance);
+
+	//	transform.position = Moving;
+
 	//}
 
 
 	public void MovePerson(Vector2 Pos) // для пк
 	{
-		 
-		if(!ButtonPress.Main_Menu_Condition.activeSelf &&  PlayerSpeed > 0)
+
+		if (!ButtonPress.Main_Menu_Condition.activeSelf && PlayerSpeed > 0)
 		{
-			
+
 
 
 			if (Pos.x > Camera.main.pixelWidth / 2)
@@ -254,10 +246,10 @@ public class Player : MonoBehaviour
 
 
 			}
-		 
+
 		}
 
-		 
+
 
 	}
 	Vector3 Moving = Vector3.zero;
@@ -317,16 +309,30 @@ public class Player : MonoBehaviour
 	{
 		shot.Shot();
 	}
-	 
 
+	public void OnBeginDrag(PointerEventData eventData)
+	{
+		print("Вызывается");
+		if ((eventData.delta.y) > 0)
+		{
 
+			print("прыжок вверх!");
 
+		}
+		else
+		{
 
+			print("Кувырок вниз");
+		
+		
+		}
+	}
+	
 
-
-
-
-
+	public void OnDrag(PointerEventData eventData)
+	{
+		throw new NotImplementedException();
+	}
 }
 
 

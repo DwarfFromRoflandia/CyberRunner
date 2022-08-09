@@ -11,7 +11,6 @@ public   class Enemy : MonoBehaviour
 	}
 	public float GetDamage(float s )
 	{
-		print("было");
 		return ObstacleDamage;
 	}
 
