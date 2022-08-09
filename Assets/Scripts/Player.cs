@@ -29,12 +29,16 @@ public class Player : MonoBehaviour,IBeginDragHandler,IDragHandler
 	private void Start()
 	{
 		Player_Anim = GetComponent<Animator>();
-	ButtonPress = 	GameObject.Find("MainMenuCanvas").GetComponent<ButtonController>();
-		 
+	    ButtonPress = GameObject.Find("MainMenuCanvas").GetComponent<ButtonController>();	 
+	}
 
+    private void Update()
+    {
+		GameOver();
 
 	}
-	public void False()
+
+    public void False()
 	{
 		Player_Anim.SetBool("PlayIsPressed", false);
 		Player_Anim.SetFloat("Speed", 40);
@@ -79,6 +83,18 @@ public class Player : MonoBehaviour,IBeginDragHandler,IDragHandler
 
 		}
     }
+
+	private void GameOver()//метод, отвечающий за конец игры
+    {
+        if (HealthSlider.value <= 0.1)
+        {
+			Debug.Log(StartPoint);
+			Player_Anim.SetFloat("Speed", 0);
+			EventManager.EventPlay?.Invoke(0);
+		}
+
+	}
+
     private void OnEnable()
 	{
 		EventManager.EventPlay += StartRunValues;
