@@ -16,20 +16,30 @@ public class TouchController : MonoBehaviour, IBeginDragHandler, IDragHandler
 	}
 	public void OnBeginDrag(PointerEventData eventData) // срабатывает когда палец начинает перемещаться
 	{
-		if (eventData.delta.y> 0&&hit.distance<1)
+		if (eventData.delta.y > 0 && hit.distance < 1)
 		{
 
 
 			anim.SetTrigger("Jump");
 
-			PlayerRb = Player?.GetComponent<Rigidbody>(); 
+			PlayerRb = Player?.GetComponent<Rigidbody>();
 
 
 			PlayerRb.velocity = Vector3.up * Time.deltaTime * 8000;// придаем силу вверх персонажу когда свайпнули вверх
 
-			
-		
+
+
 		}
+
+		else if (eventData.delta.y < 0 && hit.distance < 1)
+		{
+
+			anim.SetTrigger("Scroll");
+
+
+		}
+
+		 
 	}
 	void FixedUpdate()
 	{
