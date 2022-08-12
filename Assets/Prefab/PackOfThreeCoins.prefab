@@ -110,7 +110,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6154952848337150276, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
       propertyPath: m_TagString
-      value: Coin
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
@@ -200,7 +200,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6154952848337150276, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
       propertyPath: m_TagString
-      value: Coin
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
@@ -290,7 +290,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6154952848337150276, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
       propertyPath: m_TagString
-      value: Coin
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}

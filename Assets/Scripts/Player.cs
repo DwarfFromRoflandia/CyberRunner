@@ -8,6 +8,11 @@ using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour,IBeginDragHandler,IDragHandler
 {
+	[SerializeField] private GameObject gameOverMenu;
+	[SerializeField] private GameObject mainMenu;
+	[SerializeField] private GameObject secondStartPoint;
+	private Transform playerÑoordinates;
+
 	 
 	public float MaxDistance, MinDistance;
 	public float PlayerSpeed;
@@ -29,13 +34,15 @@ public class Player : MonoBehaviour,IBeginDragHandler,IDragHandler
 	private void Start()
 	{
 		Player_Anim = GetComponent<Animator>();
-	    ButtonPress = GameObject.Find("MainMenuCanvas").GetComponent<ButtonController>();	 
+	    ButtonPress = GameObject.Find("MainMenuCanvas").GetComponent<ButtonController>();
+		playerÑoordinates = GetComponent<Transform>();
+
+		//EventManager.GameOverEvent.AddListener(GameOver);
 	}
 
     private void Update()
     {
 		GameOver();
-
 	}
 
     public void False()
@@ -49,7 +56,29 @@ public class Player : MonoBehaviour,IBeginDragHandler,IDragHandler
 		rb.freezeRotation = true;
 
 	}
-    private void OnCollisionEnter(Collision other)
+
+	public void GameOver()//ìåòîä, îòâå÷àşùèé çà êîíåö èãğû
+	{
+		if (HealthSlider.value <= 0.1)
+		{
+			Debug.Log(playerÑoordinates.transform.position);
+			Player_Anim.SetFloat("Speed", 0);
+			EventManager.EventPlay?.Invoke(0);
+			gameOverMenu.SetActive(true);
+		}
+
+	}
+
+	public void ButtonExitToMainMenu()
+	{
+		mainMenu.SetActive(true);
+		gameOverMenu.SetActive(false);
+		playerÑoordinates.transform.position = secondStartPoint.transform.position;
+		HealthSlider.value = 1;
+		SceneManager.LoadScene(0);
+	}
+
+	private void OnCollisionEnter(Collision other)
     {
         if (other.transform.tag == "SpawnTrigger")
         {
@@ -84,16 +113,8 @@ public class Player : MonoBehaviour,IBeginDragHandler,IDragHandler
 		}
     }
 
-	private void GameOver()//ìåòîä, îòâå÷àşùèé çà êîíåö èãğû
-    {
-        if (HealthSlider.value <= 0.1)
-        {
-			Debug.Log(StartPoint);
-			Player_Anim.SetFloat("Speed", 0);
-			EventManager.EventPlay?.Invoke(0);
-		}
+	
 
-	}
 
     private void OnEnable()
 	{
