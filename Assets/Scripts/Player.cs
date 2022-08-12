@@ -19,30 +19,30 @@ public class Player : MonoBehaviour,IBeginDragHandler,IDragHandler
 
 	[SerializeField] private ShotGun shot;
 	public Transform StartPoint;
-	Animator Player_Anim;
+	public Animator Player_Anim;
 	public float TimeBeReady = 3;
 	[SerializeField] private SpawnManager spawnManager;
 	public float MinLenghtOfTouch = 8; // минимальная длина свайпа для перемещения игрока
 
 	public Text TextTimeToStart;
 	[SerializeField] private Slider HealthSlider;
-	private ButtonController ButtonPress;
+	[SerializeField] private ButtonController ButtonPress;
 
 	[SerializeField] private Sprite Play, Stop;
 	[SerializeField] private ParticleSystem ParticleInCoin;
 	public Image PauseImage;
 	private void Start()
 	{
-		Player_Anim = GetComponent<Animator>();
-	    ButtonPress = GameObject.Find("MainMenuCanvas").GetComponent<ButtonController>();
+		
+	   
 		playerСoordinates = GetComponent<Transform>();
+		EventManager.Animation_Play += Set_Anim_Play_True;
+		EventManager.EventPlay += StartRunValues;
+		EventManager.EventPlay?.Invoke(50);
+		EventManager.Animation_Play?.Invoke(true);
+
 
 		//EventManager.GameOverEvent.AddListener(GameOver);
-	}
-
-    private void Update()
-    {
-		GameOver();
 	}
 
     public void False()
@@ -59,23 +59,31 @@ public class Player : MonoBehaviour,IBeginDragHandler,IDragHandler
 
 	public void GameOver()//метод, отвечающий за конец игры
 	{
-		if (HealthSlider.value <= 0.1)
-		{
+		 
+		
 			Debug.Log(playerСoordinates.transform.position);
 			Player_Anim.SetFloat("Speed", 0);
 			EventManager.EventPlay?.Invoke(0);
 			gameOverMenu.SetActive(true);
-		}
+			EventManager.EventPlay += StartRunValues;
+
 
 	}
 
 	public void ButtonExitToMainMenu()
 	{
+		 
+		SceneManager.LoadScene(0);
 		mainMenu.SetActive(true);
 		gameOverMenu.SetActive(false);
 		playerСoordinates.transform.position = secondStartPoint.transform.position;
 		HealthSlider.value = 1;
-		SceneManager.LoadScene(0);
+
+		DontDestroyOnLoad(gameObject); /* юнити ссылается на события из скрипта которые в выключенном состоянии во время добавления новой сцены.
+		                                * Поэтому мы не удаляем игрока а переносим его на новую сцену чтобы не возникало ошибок.Однако в новой сцене у нас будет 2 персонажа одновременно.
+		                              * Поэтому удаляем лишнего из них*/
+		Destroy(gameObject, 0.1f);
+	
 	}
 
 	private void OnCollisionEnter(Collision other)
@@ -105,9 +113,11 @@ public class Player : MonoBehaviour,IBeginDragHandler,IDragHandler
 			Destroy(other.gameObject, 1f);// удаляем врага через 3 секунды
 
 			Player_Anim.SetTrigger("Punched"); // запускаем анимацию спотыкания
+			if (HealthSlider.value <= 0.1) GameOver(); // проверяем уровень жизни чтобы понять завершать ли игровую сессию
 
-			 
-		
+
+
+
 
 
 		}
@@ -119,16 +129,15 @@ public class Player : MonoBehaviour,IBeginDragHandler,IDragHandler
     private void OnEnable()
 	{
 		EventManager.EventPlay += StartRunValues;
-		EventManager.Animation_Play += Set_Anim_Play_True;
+		 
 		 
 
 	}
-	private void OnDisable()
+	void OnDisable()
 	{
 		EventManager.EventPlay -= StartRunValues;
-	 
 	}
-
+	 
 	private void FixedUpdate()
 	{
 		StartRunValues(PlayerSpeed);
@@ -137,12 +146,12 @@ public class Player : MonoBehaviour,IBeginDragHandler,IDragHandler
 	private void StartRunValues(float GameSpeed)
 	{
 		PlayerSpeed = GameSpeed;
-		
-	
+ 
 		transform.Translate(0, 0, GameSpeed * Time.fixedDeltaTime, Space.World);
 
 	 
 	}
+
 	 
 	bool paused = true;
 	public void Pause()

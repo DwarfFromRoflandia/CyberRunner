@@ -68,6 +68,7 @@ public class ButtonController :OpenAndExitStore
                               (При нажатии на кнопку Play в главном меню)*/
     {
         SceneManager.LoadScene(1);
+        EventManager.Animation_Play?.Invoke(true);
         
     }
 
