@@ -3,55 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class TouchController : MonoBehaviour, IBeginDragHandler, IDragHandler
+public class TouchController : MonoBehaviour, IDragHandler,IEndDragHandler
 {
+	public float MaxDistance, MinDistance;
+	//[SerializeField] private ButtonController ButtonPress;
 	[SerializeField] private GameObject Player;
 	private Rigidbody PlayerRb;
 	[SerializeField] private float JumpHeight=60; //высота прыжка
 	private RaycastHit hit;
 	[SerializeField] private Animator anim;
+	public float PlayerSpeed;
 	void Awake()
 	{
 		 
 	}
-	public void OnBeginDrag(PointerEventData eventData) // срабатывает когда палец начинает перемещаться
-	{
-		if (eventData.delta.y > 0 && hit.distance < 1)
-		{
 
-
-			anim.SetTrigger("Jump");
-
-			PlayerRb = Player?.GetComponent<Rigidbody>();
-
-
-			PlayerRb.velocity = Vector3.up * Time.deltaTime * 8000;// придаем силу вверх персонажу когда свайпнули вверх
-
-
-
-		}
-
-		else if (eventData.delta.y < 0 && hit.distance < 1)
-		{
-
-			anim.SetTrigger("Scroll");
-
-
-		}
-
-		 
-	}
 	void FixedUpdate()
 	{
+		//блок гравитации
 		Physics.Raycast(Player.transform.position, Vector3.down, out hit); //создаем луч для проверки
 
 		if ((hit.distance > JumpHeight&&(hit.transform.tag.Equals("Road") || hit.transform.tag.Equals("Obstacle"))) ) // если мы прыгнули выше высоты
 																													  // прыжка и под нами дорога или препятствие - тогда падаем
 		{
+			
 			print("Апдейт");
 			PlayerRb.velocity = Vector3.zero;
 			PlayerRb.velocity += Vector3.down * Time.deltaTime * 4000;
-			PlayerRb.velocity += Vector3.forward * Time.deltaTime * 2000;
+			 
 		 
 		
 		}
@@ -60,6 +39,115 @@ public class TouchController : MonoBehaviour, IBeginDragHandler, IDragHandler
 	}
 	public void OnDrag(PointerEventData eventData)
 	{
-		print("");
+		bool XGreatherY = Mathf.Abs(eventData.delta.y) < Mathf.Abs(eventData.delta.x); //переменная проверяющая какой свайп больше по длине
+		PlayerRb = Player?.GetComponent<Rigidbody>();
+		if (eventData.delta.y > 0 && hit.distance < 1 && XGreatherY == false) // если свайпнули вверх
+		{
+
+			anim.SetBool("Scroll",true);
+
+
+			 
+
+
+			PlayerRb.velocity = Vector3.up * Time.deltaTime * 8000;// придаем силу вверх персонажу когда свайпнули вверх
+			PlayerRb.velocity += Vector3.forward * Time.deltaTime * 2000;
+
+			
+
+		}
+
+		else if (eventData.delta.x > 0 &&  XGreatherY == true)
+		//тоесть если  длина перемещения пальца по x больше длины перемещения по y - тода поворачиваемся . Избавляет от багов
+		{
+			anim.SetBool("MoveRight", true);
+
+			StartCoroutine(StartRollingRight());
+		}
+		else if (eventData.delta.x < 0 && XGreatherY == true)
+		{
+
+
+			anim.SetBool("MoveLeft", true);
+
+
+			StartCoroutine(StartRollingLeft());
+		}
+
+
+
+
+
+
+
+
+
+
+	}
+
+		 
+
+		
+
+
+
+	
+	Vector3 Moving = Vector3.zero;
+	public IEnumerator StartRollingRight()
+	{
+
+
+		float TimeStart = Time.time;
+
+		float TimeToGo = Time.time + 0.8f;
+
+		while (TimeStart < TimeToGo)
+		{
+			TimeStart = Time.time;
+
+			Moving = Vector3.MoveTowards(Player.transform.position,
+					   new Vector3(Player.transform.position.x + 66.2f, Player.transform.position.y, transform.position.z),
+					   100 * Time.fixedDeltaTime);
+
+			Moving.x = Mathf.Clamp(Moving.x, MinDistance, MaxDistance);
+
+			Player.transform.position = Moving;
+			yield return null;
+		}
+
+	}
+
+	public IEnumerator StartRollingLeft()
+	{
+
+
+		float TimeStart = Time.time;
+
+		float TimeToGo = Time.time + 0.8f;
+
+		while (TimeStart < TimeToGo)
+		{
+			TimeStart = Time.time;
+
+			Moving = Vector3.MoveTowards(Player.transform.position,
+						   new Vector3(Player.transform.position.x - 66.2f, Player.transform.position.y, transform.position.z),
+						   100 * Time.fixedDeltaTime);
+
+			Moving.x = Mathf.Clamp(Moving.x, MinDistance, MaxDistance);
+
+			Player.transform.position = Moving;
+
+			yield return null;
+
+		}
+
+
+	}
+
+	 
+
+	public void OnEndDrag(PointerEventData eventData)
+	{
+		anim.SetBool("Scroll", false);
 	}
 }
