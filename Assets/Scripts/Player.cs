@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 
-public class Player : MonoBehaviour,IBeginDragHandler,IDragHandler
+public class Player : MonoBehaviour
 {
 	[SerializeField] private GameObject gameOverMenu;
 	[SerializeField] private GameObject mainMenu;
@@ -14,7 +14,7 @@ public class Player : MonoBehaviour,IBeginDragHandler,IDragHandler
 	private Transform playerСoordinates;
 
 	 
-	public float MaxDistance, MinDistance;
+ 
 	public float PlayerSpeed;
 
 	[SerializeField] private ShotGun shot;
@@ -26,10 +26,11 @@ public class Player : MonoBehaviour,IBeginDragHandler,IDragHandler
 
 	public Text TextTimeToStart;
 	[SerializeField] private Slider HealthSlider;
-	[SerializeField] private ButtonController ButtonPress;
+	 
 
 	[SerializeField] private Sprite Play, Stop;
 	[SerializeField] private ParticleSystem ParticleInCoin;
+	private Rigidbody rb;
 	public Image PauseImage;
 	private void Start()
 	{
@@ -52,7 +53,7 @@ public class Player : MonoBehaviour,IBeginDragHandler,IDragHandler
 
 		gameObject.AddComponent<Rigidbody>();
 
-		Rigidbody rb = gameObject.GetComponent<Rigidbody>();
+		rb = gameObject.GetComponent<Rigidbody>();
 		rb.freezeRotation = true;
 
 	}
@@ -147,7 +148,7 @@ public class Player : MonoBehaviour,IBeginDragHandler,IDragHandler
 	{
 		PlayerSpeed = GameSpeed;
  
-		transform.Translate(0, 0, GameSpeed * Time.fixedDeltaTime, Space.World);
+		transform.Translate(0, 0, GameSpeed * Time.deltaTime, Space.World);
 
 	 
 	}
@@ -211,10 +212,11 @@ public class Player : MonoBehaviour,IBeginDragHandler,IDragHandler
 	}
 
 
-	public void Clic()
+	public void StartJump()
 	{
 
-		MovePerson(Input.mousePosition);
+		rb.velocity = Vector3.up * Time.deltaTime * 20_000;// придаем силу вверх персонажу когда свайпнули вверх
+		rb.velocity += Vector3.forward * Time.deltaTime * 2000;
 
 
 	}
@@ -262,117 +264,13 @@ public class Player : MonoBehaviour,IBeginDragHandler,IDragHandler
 	//}
 
 
-	public void MovePerson(Vector2 Pos) // для пк
-	{
-
-		if (!ButtonPress.Main_Menu_Condition.activeSelf && PlayerSpeed > 0)
-		{
-
-
-
-			if (Pos.x > Camera.main.pixelWidth / 2)
-			{
-				Player_Anim.SetBool("MoveRight", true);
-
-				StartCoroutine(StartRollingRight());
-
-			}
-
-			if (Pos.x < Camera.main.pixelWidth / 2)
-			{
-
-				Player_Anim.SetBool("MoveLeft", true);
-
-
-				StartCoroutine(StartRollingLeft());
-
-
-
-
-
-
-			}
-
-		}
-
-
-
-	}
-	Vector3 Moving = Vector3.zero;
-	public IEnumerator StartRollingRight()
-	{
 	 
-
-		float TimeStart = Time.time;
-
-		float TimeToGo = Time.time + 0.8f;
-
-		while (TimeStart < TimeToGo) 
-		{
-			TimeStart = Time.time;
-		
-			Moving = Vector3.MoveTowards(transform.position,
-					   new Vector3(transform.position.x + 66.2f, transform.position.y, transform.position.z),
-					   100 * Time.fixedDeltaTime);
-
-			Moving.x = Mathf.Clamp(Moving.x, MinDistance, MaxDistance);
-
-			transform.position = Moving;
-			yield return null;
-		}
-	
-	}
-
-	public IEnumerator StartRollingLeft()
-	{
-		 
-
-			float TimeStart = Time.time;
-
-			float TimeToGo = Time.time + 0.8f;
-		
-			while (TimeStart < TimeToGo)  
-			{
-				TimeStart = Time.time;
-			
-			Moving = Vector3.MoveTowards(transform.position,
-						   new Vector3(transform.position.x - 66.2f, transform.position.y, transform.position.z),
-						   100 * Time.fixedDeltaTime);
-
-			Moving.x = Mathf.Clamp(Moving.x, MinDistance, MaxDistance);
-
-			transform.position = Moving;
-
-			yield return null;
-
-			}
-
-
-	}
-
 	 
 	public void StartShot()
 	{
 		shot.Shot();
 	}
 
-	public void OnBeginDrag(PointerEventData eventData)
-	{
-		print("Вызывается");
-		if ((eventData.delta.y) > 0)
-		{
-
-			print("прыжок вверх!");
-
-		}
-		else
-		{
-
-			print("Кувырок вниз");
-		
-		
-		}
-	}
 	
 
 	public void OnDrag(PointerEventData eventData)

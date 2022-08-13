@@ -29,7 +29,7 @@ public class TouchController : MonoBehaviour, IDragHandler,IEndDragHandler
 			
 			print("Апдейт");
 			PlayerRb.velocity = Vector3.zero;
-			PlayerRb.velocity += Vector3.down * Time.deltaTime * 4000;
+			PlayerRb.velocity += Vector3.down * Time.deltaTime * 15_000;
 			 
 		 
 		
@@ -44,20 +44,19 @@ public class TouchController : MonoBehaviour, IDragHandler,IEndDragHandler
 		if (eventData.delta.y > 0 && hit.distance < 1 && XGreatherY == false) // если свайпнули вверх
 		{
 
-			anim.SetBool("Scroll",true);
+			anim.SetBool("Scroll", true);
 
 
-			 
 
 
-			PlayerRb.velocity = Vector3.up * Time.deltaTime * 8000;// придаем силу вверх персонажу когда свайпнули вверх
-			PlayerRb.velocity += Vector3.forward * Time.deltaTime * 2000;
 
-			
+
+
+
 
 		}
 
-		else if (eventData.delta.x > 0 &&  XGreatherY == true)
+		else if (eventData.delta.x > 0 && XGreatherY == true)
 		//тоесть если  длина перемещения пальца по x больше длины перемещения по y - тода поворачиваемся . Избавляет от багов
 		{
 			anim.SetBool("MoveRight", true);
@@ -78,16 +77,25 @@ public class TouchController : MonoBehaviour, IDragHandler,IEndDragHandler
 
 
 
+		else if (eventData.delta.y < 0 && XGreatherY == false)
+		{
 
+			anim.SetBool("RollForw", true);
+		
+		
+		}
 
 
 
 
 	}
 
-		 
 
-		
+
+
+ 
+
+
 
 
 
@@ -106,8 +114,8 @@ public class TouchController : MonoBehaviour, IDragHandler,IEndDragHandler
 			TimeStart = Time.time;
 
 			Moving = Vector3.MoveTowards(Player.transform.position,
-					   new Vector3(Player.transform.position.x + 66.2f, Player.transform.position.y, transform.position.z),
-					   100 * Time.fixedDeltaTime);
+					   new Vector3(Player.transform.position.x + 20f, Player.transform.position.y, transform.position.z),
+					   100 * Time.deltaTime);
 
 			Moving.x = Mathf.Clamp(Moving.x, MinDistance, MaxDistance);
 
@@ -130,8 +138,8 @@ public class TouchController : MonoBehaviour, IDragHandler,IEndDragHandler
 			TimeStart = Time.time;
 
 			Moving = Vector3.MoveTowards(Player.transform.position,
-						   new Vector3(Player.transform.position.x - 66.2f, Player.transform.position.y, transform.position.z),
-						   100 * Time.fixedDeltaTime);
+						   new Vector3(Player.transform.position.x - 20f, Player.transform.position.y, transform.position.z),
+						   100 * Time.deltaTime);
 
 			Moving.x = Mathf.Clamp(Moving.x, MinDistance, MaxDistance);
 
@@ -149,5 +157,7 @@ public class TouchController : MonoBehaviour, IDragHandler,IEndDragHandler
 	public void OnEndDrag(PointerEventData eventData)
 	{
 		anim.SetBool("Scroll", false);
+
+		anim.SetBool("RollForw", false);
 	}
 }
