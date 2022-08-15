@@ -21,7 +21,7 @@ public class Bullet : MonoBehaviour
 
 			Destroy(ParticleUnit,2f); //удаляем проигранный эффект и префаб пули 
 
-			Destroy(gameObject,0.5f);
+			Destroy(gameObject,0.1f);
 			Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>(); /* придаем силу нашему врагу
 			                                                                * для отталкивания */
 			rb.AddForce(Vector3.forward*Time.deltaTime*Force); //Time.deltaTime нужен для того чтобы сила была одинаковой на всех устройствах

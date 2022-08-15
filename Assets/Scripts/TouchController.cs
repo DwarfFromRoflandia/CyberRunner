@@ -58,7 +58,7 @@ public class TouchController : MonoBehaviour, IDragHandler,IEndDragHandler
 		{
 
 			anim.SetBool("Scroll", true);
-			player.rb.velocity = Vector3.forward * Time.deltaTime * 15_00;
+			player.rb.velocity = Vector3.forward * Time.fixedDeltaTime * 15_00;
 
 
 			 
@@ -67,14 +67,14 @@ public class TouchController : MonoBehaviour, IDragHandler,IEndDragHandler
 
 		}
 
-		else if (eventData.delta.x > 0 && XGreatherY == true)
+		 if (eventData.delta.x > 0 && XGreatherY == true)
 		//тоесть если  длина перемещения пальца по x больше длины перемещения по y - тода поворачиваемся . Избавляет от багов
 		{
 			anim.SetBool("MoveRight", true);
 
 			StartCoroutine(StartRollingRight());
 		}
-		else if (eventData.delta.x < 0 && XGreatherY == true)
+		 if (eventData.delta.x < 0 && XGreatherY == true)
 		{
 
 
@@ -88,12 +88,14 @@ public class TouchController : MonoBehaviour, IDragHandler,IEndDragHandler
 
 
 
-		else if (eventData.delta.y < 0 && XGreatherY == false)
+		else if (eventData.delta.y < 0 && XGreatherY == false)//перекат 
 		{
 
 			anim.SetBool("RollForw", true);
-		
-		
+
+			player.rb.velocity = Vector3.forward * Time.fixedDeltaTime * 15_00;
+
+
 		}
 
 		 

@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
 	public Animator Player_Anim;
 	public float TimeBeReady = 3;
 	[SerializeField] private SpawnManager spawnManager;
-	public float MinLenghtOfTouch = 8; // минимальная длина свайпа для перемещения игрока
+	 
 
 	public Text TextTimeToStart;
 	[SerializeField] private Slider HealthSlider;
@@ -221,40 +221,7 @@ public class Player : MonoBehaviour
 
 	}
 
-	//public void MovePerson(Touch touch)
-
-	//{
-
-	//	Vector3 Moving = Vector3.zero;
-
-
-
-	//		Player_Anim.SetBool("MoveRight", true);
-
-	//		Moving = Vector3.Lerp(transform.position,
-	//				new Vector3(transform.position.x - 10, transform.position.y, transform.position.z),
-	//				20 * Time.fixedDeltaTime);
-
-
-
-
-
-	//		Player_Anim.SetBool("MoveLeft", true);
-
-
-	//		Moving = Vector3.Lerp(transform.position,
-	//				new Vector3(transform.position.x + 10, transform.position.y, transform.position.z),
-	//				20 * Time.fixedDeltaTime);
-
-
-
-
-
-	//	Moving.x = Mathf.Clamp(Moving.x, MinDistance, MaxDistance);
-
-	//	transform.position = Moving;
-
-	//}
+	
 
 
 	 
