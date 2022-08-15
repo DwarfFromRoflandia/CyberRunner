@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
 
 	[SerializeField] private Sprite Play, Stop;
 	[SerializeField] private ParticleSystem ParticleInCoin;
-	private Rigidbody rb;
+	[HideInInspector] public Rigidbody rb;
 	public Image PauseImage;
 	private void Start()
 	{
@@ -56,6 +56,7 @@ public class Player : MonoBehaviour
 
 		rb = gameObject.GetComponent<Rigidbody>();
 		rb.freezeRotation = true;
+		rb.useGravity = false;
 
 	}
 
@@ -211,14 +212,7 @@ public class Player : MonoBehaviour
 	}
 
 
-	public void StartJump()
-	{
-
-		rb.velocity = Vector3.up * Time.deltaTime * 20_000;// придаем силу вверх персонажу когда свайпнули вверх
-		rb.velocity += Vector3.forward * Time.deltaTime * 2000;
-
-
-	}
+	
 
 	private void Set_Anim_Play_True(bool b)
 	{
