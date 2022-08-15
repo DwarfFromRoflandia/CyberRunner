@@ -46,6 +46,7 @@ public class Player : MonoBehaviour
 		//EventManager.GameOverEvent.AddListener(GameOver);
 	}
 
+
     public void False()
 	{
 		Player_Anim.SetBool("PlayIsPressed", false);
@@ -60,14 +61,12 @@ public class Player : MonoBehaviour
 
 	public void GameOver()//метод, отвечающий за конец игры
 	{
-		 
-		
-			Debug.Log(playerСoordinates.transform.position);
-			Player_Anim.SetFloat("Speed", 0);
-			EventManager.EventPlay?.Invoke(0);
-			gameOverMenu.SetActive(true);
-			EventManager.EventPlay += StartRunValues;
-
+		Debug.Log(playerСoordinates.transform.position);
+		Player_Anim.SetFloat("Speed", 0);
+		EventManager.EventPlay?.Invoke(0);
+		gameOverMenu.SetActive(true);
+		EventManager.EventPlay += StartRunValues;
+		Debug.Log("GameOver");
 
 	}
 
@@ -116,7 +115,7 @@ public class Player : MonoBehaviour
 			Player_Anim.SetTrigger("Punched"); // запускаем анимацию спотыкания
 			if (HealthSlider.value <= 0.1) GameOver(); // проверяем уровень жизни чтобы понять завершать ли игровую сессию
 
-
+			
 
 
 

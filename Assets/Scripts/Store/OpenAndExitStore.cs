@@ -11,6 +11,8 @@ public class OpenAndExitStore : MonoBehaviour
     {
         mainMenu.SetActive(false);
         store.SetActive(true);
+
+        Debug.Log("TransferQuantityCoin.transferQuantityCoin: " + TransferQuantityCoin.transferQuantityCoin);
     }
 
     public virtual void ExitMenu() // сделал доступным для переопределения в классе ButtonController.
