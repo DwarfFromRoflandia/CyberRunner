@@ -11,6 +11,7 @@ public class InformationFollow:CameraFollow
 	void Start()
     {
         Name.text = PlayerPrefs.GetString("Name");
+        gameObject.SetActive(true);
         
 
     }

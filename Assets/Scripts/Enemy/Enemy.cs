@@ -11,7 +11,6 @@ public   class Enemy : MonoBehaviour
 	}
 	public float GetDamage(float s )
 	{
-		print("было");
 		return ObstacleDamage;
 	}
 
@@ -24,27 +23,27 @@ public   class Enemy : MonoBehaviour
 	{
 		EventManager.IsPunched -= GetDamage;
 	}
-	public IEnumerator Object_Disapear( GameObject Body)
-	{
+    public IEnumerator Object_Disapear(GameObject Body)
+    {
 
-		Renderer rend = Body.GetComponent<Renderer>();//получаем компонент рендеринга обьекта
+        Renderer rend = Body.GetComponent<Renderer>();//получаем компонент рендеринга обьекта
 
-		Color color = rend.material.color;
-
-
-		while (color.a>0)
-		{
+        Color color = rend.material.color;
 
 
-
-			color.a -= 2f * Time.deltaTime;
-
-
-			rend.material.color = color;
-			yield return null;
-		}
+        while (color.a > 0)
+        {
 
 
 
-	}
+            color.a -= 2f * Time.deltaTime;
+
+
+            rend.material.color = color;
+            yield return null;
+        }
+
+
+
+    }
 }

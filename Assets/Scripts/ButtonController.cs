@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class ButtonController :OpenAndExitStore
 {
    
@@ -34,8 +35,10 @@ public class ButtonController :OpenAndExitStore
     Animation Input_Field_Anim;
     Transform Input_Field_Trans;
     Material Time_Now;
-
+    public Canvas PersonalCanvas;
     public bool PauseIsPressed;
+
+
     private void Start()
 	{
 
@@ -49,15 +52,25 @@ public class ButtonController :OpenAndExitStore
         Animation_Disapearing = Change_Name_Button.GetComponent<Animation>();
         Time_Now = Time_Cond[0];
 
+
+
+
+        Main_Menu_Condition.SetActive(false);
+        EventManager.EventPlay?.Invoke(GameSpeed);
+        EventManager.Animation_Play?.Invoke(true);
+        PersonalCanvas.gameObject.SetActive(true);
+
+
     }
 	 
 
 	public void InputPlay() /* метод при использовании которого запускаетс€ игрова€ сесси€ 
                               (ѕри нажатии на кнопку Play в главном меню)*/
     {
-        Main_Menu_Condition.SetActive(false);
-        EventManager.EventPlay?.Invoke(GameSpeed);
-        EventManager.Animation_Play?.Invoke(true);    }
+        SceneManager.LoadScene(1);
+        EventManager.Animation_Play?.Invoke(true);
+        
+    }
 
     public void InputSettings()
     {

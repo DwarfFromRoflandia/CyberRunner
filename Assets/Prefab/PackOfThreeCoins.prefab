@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2199778417700394605}
   m_Layer: 0
   m_Name: PackOfThreeCoins
-  m_TagString: Untagged
+  m_TagString: Coin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40,6 +40,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2199778417700394605}
     m_Modifications:
+    - target: {fileID: 375388649, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 483277709963139372, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 483277709963139372, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 483277709963139372, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2373316082405212201, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5587865065826822395, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -106,6 +126,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2199778417700394605}
     m_Modifications:
+    - target: {fileID: 375388649, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 483277709963139372, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 483277709963139372, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 483277709963139372, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1139183954543056221, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2373316082405212201, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5587865065826822395, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -172,6 +216,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2199778417700394605}
     m_Modifications:
+    - target: {fileID: 375388649, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 483277709963139372, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 483277709963139372, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 483277709963139372, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1139183954543056221, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2373316082405212201, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5587865065826822395, guid: aafefb4bc230bb048a54a7814f2772e0, type: 3}
       propertyPath: m_RootOrder
       value: 2
