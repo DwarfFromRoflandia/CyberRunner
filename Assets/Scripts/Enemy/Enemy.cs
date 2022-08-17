@@ -4,7 +4,7 @@ using UnityEngine;
 
 public   class Enemy : MonoBehaviour
 {
-	[SerializeField] public float ObstacleDamage = 0.2f;
+	[SerializeField] public float ObstacleDamage = 0.0f;
 	private void Start()
 	{
 		 
@@ -12,6 +12,7 @@ public   class Enemy : MonoBehaviour
 	public float GetDamage(float s )
 	{
 		return ObstacleDamage;
+		
 	}
 
 	private void OnEnable()

@@ -9,6 +9,7 @@ public class OpenAndExitStore : MonoBehaviour
 
     public void OpenShop()
     {
+        EventManager.ButtonClicked.Invoke();// вызываем звук нажати€ 
         mainMenu.SetActive(false);
         store.SetActive(true);
 
@@ -17,6 +18,7 @@ public class OpenAndExitStore : MonoBehaviour
 
     public virtual void ExitMenu() // сделал доступным дл€ переопределени€ в классе ButtonController.
     {
+        EventManager.ButtonClicked.Invoke();// вызываем звук нажати€ 
         mainMenu.SetActive(true);
         store.SetActive(false);
     }

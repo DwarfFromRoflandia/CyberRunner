@@ -12,14 +12,14 @@ public class InfoButtonForProductBullets : MonoBehaviour, IPointerDownHandler, I
     public void OnPointerDown(PointerEventData pointerEventData)
     {
         Debug.Log("+");
-
+        EventManager.ButtonClicked.Invoke();// вызываем звук нажатия 
         animationBuyButton.SetTrigger("DisappearingBuyButtonBullets"); //анимация исчезновения кнопки покупки патрон
         animationInfoText.SetTrigger("AppearanceInfoTextForBullets"); //анимация появления текста с информацией о патронах
     }
     public void OnPointerUp(PointerEventData pointerEventData)
     {
         Debug.Log("-");
-
+        
         animationBuyButton.SetTrigger("AppearanceBuyButtonBullets"); //анимация повления кнопки покупки патрон
         animationInfoText.SetTrigger("DisappearingInfoTextForBullets"); //анимация текста с информацией о патронах
     }

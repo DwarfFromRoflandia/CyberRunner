@@ -14,7 +14,11 @@ public class BuyHearts : MonoBehaviour
 
     public void Buy()
     {
-        if (EventManager.BuyHealth != null) EventManager.BuyHealth.Invoke();
+        if (EventManager.BuyHealth != null)
+        {
+            EventManager.ButtonClicked.Invoke();// вызываем звук нажатия 
+            EventManager.BuyHealth.Invoke();
+        }
     }
 
     public void AddHearts()

@@ -60,7 +60,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: RollForward
-  m_Speed: 2
+  m_Speed: 1.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -6450435786015445739}
@@ -136,7 +136,7 @@ AnimatorStateMachine:
     m_Position: {x: 690, y: 70, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2906752282239168109}
-    m_Position: {x: 40, y: -110, z: 0}
+    m_Position: {x: 50, y: -120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2497675065816462258}
     m_Position: {x: -90, y: 210, z: 0}
@@ -459,7 +459,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: e43e631b7bff50c46b49d398ea160f10, type: 2}
+  m_Motion: {fileID: 7400000, guid: 255a759ddf72a3e478171557e30b2234, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

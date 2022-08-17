@@ -12,9 +12,11 @@ public class Player : MonoBehaviour
 	[SerializeField] private GameObject mainMenu;
 	[SerializeField] private GameObject secondStartPoint;
 	private Transform playerСoordinates;
+	private float speed;
+	[SerializeField] private float distanceGravit = 3;
 
-	 
  
+
 	public float PlayerSpeed;
 
 	[SerializeField] private ShotGun shot;
@@ -22,7 +24,8 @@ public class Player : MonoBehaviour
 	public Animator Player_Anim;
 	public float TimeBeReady = 3;
 	[SerializeField] private SpawnManager spawnManager;
-	 
+	private RaycastHit hit;
+
 
 	public Text TextTimeToStart;
 	[SerializeField] private Slider HealthSlider;
@@ -34,7 +37,8 @@ public class Player : MonoBehaviour
 	public Image PauseImage;
 	private void Start()
 	{
-		
+
+		PauseImage.gameObject.SetActive(false);	
 	   
 		playerСoordinates = GetComponent<Transform>();
 		EventManager.Animation_Play += Set_Anim_Play_True;
@@ -70,10 +74,10 @@ public class Player : MonoBehaviour
 		Debug.Log("GameOver");
 
 	}
-
+	
 	public void ButtonExitToMainMenu()
 	{
-		 
+	 	 
 		SceneManager.LoadScene(0);
 		mainMenu.SetActive(true);
 		gameOverMenu.SetActive(false);
@@ -107,22 +111,25 @@ public class Player : MonoBehaviour
 
 			HealthSlider.value -= EventManager.IsPunched.Invoke(0);// меняем значение здоровья игрока вызывая событие
 
-			Enemy enemy = other.transform.GetComponent<Enemy>();
+			 
 
-			StartCoroutine(enemy.Object_Disapear(enemy.gameObject));//передаем параметр предмета столкновения
+			 
 
 			Destroy(other.gameObject, 1f);// удаляем врага через 3 секунды
 
 			Player_Anim.SetTrigger("Punched"); // запускаем анимацию спотыкания
 			if (HealthSlider.value <= 0.1) GameOver(); // проверяем уровень жизни чтобы понять завершать ли игровую сессию
 
-			
 
 
 
+			 
 
 		}
-    }
+		Enemy enemy = other.transform.GetComponent<Enemy>();
+
+		StartCoroutine(enemy.Object_Disapear(other.gameObject));//передаем параметр предмета столкновения
+	}
 
 	
 
@@ -142,6 +149,27 @@ public class Player : MonoBehaviour
 	private void FixedUpdate()
 	{
 		StartRunValues(PlayerSpeed);
+
+		Physics.Raycast(transform.position, Vector3.down, out hit); //создаем луч для проверки
+
+		if (hit.distance > distanceGravit && (hit.transform.tag.Equals("Road") || hit.transform.tag.Equals("Obstacle"))
+			&& rb != null) // если мы прыгнули выше высоты
+								  // прыжка и под нами дорога или препятствие - тогда падаем
+		{
+
+
+			rb.velocity = Vector3.zero;
+			rb.velocity = -transform.up * Time.deltaTime * 15_000;
+
+
+
+		}
+		else if (rb != null && hit.distance < distanceGravit)
+		{
+
+			rb.velocity= new Vector3(rb.velocity.x, 0, speed);// обнуляем ускорение
+
+		}
 	}
 
 	private void StartRunValues(float GameSpeed)
@@ -157,7 +185,8 @@ public class Player : MonoBehaviour
 	bool paused = true;
 	public void Pause()
 	{
- 
+
+		EventManager.ButtonClicked.Invoke();
 		if (paused)
 		{
 			EventManager.EventPlay?.Invoke(0);
@@ -237,6 +266,16 @@ public class Player : MonoBehaviour
 	{
 		throw new NotImplementedException();
 	}
+	void Get_Speed()
+
+
+		=> speed = 300;
+
+
+
+	void ResetSpeed()
+
+		=> speed = 0;
 }
 
 

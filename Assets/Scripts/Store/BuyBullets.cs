@@ -15,7 +15,11 @@ public class BuyBullets : MonoBehaviour
 
     public void Buy()
     {
-        if (EventManager.BuyBullets != null) EventManager.BuyBullets.Invoke();
+
+        if (EventManager.BuyBullets != null)
+        { EventManager.BuyBullets.Invoke();
+          EventManager.ButtonClicked.Invoke();// вызываем звук нажатия 
+        }
     }
 
     public void AddBullets()
