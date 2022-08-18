@@ -12,12 +12,20 @@ public class TextCoin : MonoBehaviour
     {
         textQuantityCoin = GetComponent<Text>();
         _coin = transform.parent.GetComponent<Coin>();
+        
 
-        EventManager.PickUpCoinEvent.AddListener(QuantityCoinText);
+    }
+
+    private void Update()
+    {
+        QuantityCoinText();
     }
 
     private void QuantityCoinText()
     {
-        textQuantityCoin.text = _coin.Coins.ToString();
+        textQuantityCoin.text = TransferQuantityCoin.transferQuantityCoin.ToString();
     }
+
+    
+
 }

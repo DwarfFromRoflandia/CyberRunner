@@ -9207,6 +9207,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a57421195259ad145be222913cc9133c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ButtonBuyHearts: {fileID: 147610693}
+  _coin: {fileID: 32600469}
 --- !u!114 &1040522493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9219,6 +9221,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24b37ea616d1af147824543e86748127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonBuyBullets: {fileID: 378175134}
+  _coin: {fileID: 32600469}
 --- !u!61 &1040522494
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10902,6 +10906,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenu: {fileID: 1481054724}
   store: {fileID: 1040522489}
+  _coin: {fileID: 32600469}
 --- !u!114 &1437680447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10929,6 +10934,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenu: {fileID: 0}
   store: {fileID: 0}
+  _coin: {fileID: 0}
   GameSpeed: 40
   Main_Menu_Condition: {fileID: 1481054724}
   Settings_Menu: {fileID: 1489722421}
@@ -11324,6 +11330,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenu: {fileID: 1481054724}
   store: {fileID: 1040522489}
+  _coin: {fileID: 0}
 --- !u!61 &1481054728
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11405,6 +11412,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenu: {fileID: 1489722421}
   store: {fileID: 1040522489}
+  _coin: {fileID: 0}
 --- !u!212 &1489722424
 SpriteRenderer:
   m_ObjectHideFlags: 0

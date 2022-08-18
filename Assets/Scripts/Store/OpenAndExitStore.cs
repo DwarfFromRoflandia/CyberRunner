@@ -6,6 +6,7 @@ public class OpenAndExitStore : MonoBehaviour
 {
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject store;
+    [SerializeField] private Coin _coin;
 
     public void OpenShop()
     {
@@ -14,6 +15,7 @@ public class OpenAndExitStore : MonoBehaviour
         store.SetActive(true);
 
         Debug.Log("TransferQuantityCoin.transferQuantityCoin: " + TransferQuantityCoin.transferQuantityCoin);
+        Debug.Log("Coin: " + _coin.Coins);
     }
 
     public virtual void ExitMenu() // сделал доступным для переопределения в классе ButtonController.

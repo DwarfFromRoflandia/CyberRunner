@@ -23,6 +23,7 @@ public class Coin : MonoBehaviour
     private void AddingCoin()
     { 
         quantityCoins++;
+        //TransferQuantityCoin.transferQuantityCoin++;
     }
 
     private void OnEnable()
@@ -37,4 +38,6 @@ public class Coin : MonoBehaviour
     {
         TransferQuantityCoin.transferQuantityCoin = Coins;
     }
+
+
 }
