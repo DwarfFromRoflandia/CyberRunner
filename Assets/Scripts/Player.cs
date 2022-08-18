@@ -36,10 +36,7 @@ public class Player : MonoBehaviour
 	[HideInInspector] public Rigidbody rb;
 	public Image PauseImage;
 	private void Start()
-	{
-
-		PauseImage.gameObject.SetActive(false);	
-	   
+	{	   
 		player—oordinates = GetComponent<Transform>();
 		EventManager.Animation_Play += Set_Anim_Play_True;
 		EventManager.EventPlay += StartRunValues;
@@ -79,7 +76,7 @@ public class Player : MonoBehaviour
 	{
 	 	 
 		SceneManager.LoadScene(0);
-		mainMenu.SetActive(true);
+		//mainMenu.SetActive(true);
 		gameOverMenu.SetActive(false);
 		player—oordinates.transform.position = secondStartPoint.transform.position;
 		HealthSlider.value = 1;

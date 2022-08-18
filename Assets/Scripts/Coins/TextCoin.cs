@@ -18,6 +18,6 @@ public class TextCoin : MonoBehaviour
 
     private void QuantityCoinText()
     {
-        textQuantityCoin.text = TransferQuantityCoin.transferQuantityCoin.ToString();
+        textQuantityCoin.text = _coin.Coins.ToString();
     }
 }

@@ -46,7 +46,7 @@ public class ButtonController :OpenAndExitStore
     
         PhoneSource = GameObject.Find("MainMenuCanvas").GetComponent<AudioSource>();
         MusicImage = GameObject.Find("ButtonMusic").GetComponent<Image>();
-        Settings_Menu.SetActive(false);
+       // Settings_Menu.SetActive(false);
         PlayerPrefs.SetString("MusicCondition","On");
         Music();
        
@@ -56,7 +56,7 @@ public class ButtonController :OpenAndExitStore
 
 
 
-        Main_Menu_Condition.SetActive(false);
+       // Main_Menu_Condition.SetActive(false);
         EventManager.EventPlay?.Invoke(GameSpeed);
         EventManager.Animation_Play?.Invoke(true);
         PersonalCanvas.gameObject.SetActive(true);
