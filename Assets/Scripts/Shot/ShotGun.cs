@@ -40,6 +40,7 @@ public class ShotGun : MonoBehaviour
             GameObject bullet = Instantiate(BulletPrefab, transform.position, Quaternion.Euler(90, 0, 0));
 
             SourceShot.PlayOneShot(ClipShot);
+        Destroy(bullet, 20f);
             
         
     

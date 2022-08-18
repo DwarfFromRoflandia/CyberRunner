@@ -59,7 +59,7 @@ public class ButtonController :OpenAndExitStore
        // Main_Menu_Condition.SetActive(false);
         EventManager.EventPlay?.Invoke(GameSpeed);
         EventManager.Animation_Play?.Invoke(true);
-        PersonalCanvas.gameObject.SetActive(true);
+        PersonalCanvas?.gameObject.SetActive(true);
 
 
     }
@@ -222,7 +222,7 @@ public class ButtonController :OpenAndExitStore
     public void InputName()
     {
 
- 
+        TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default, false, false, true, true);
 
         if (Input_Field.text.Length > 17|| Input_Field.text.Length < 4)
         {
