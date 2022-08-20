@@ -17,10 +17,12 @@ public class BuyHearts : MonoBehaviour
 
     private int numberOfMissingCoins;//переменна€, котора€ отвечает за количество недостающих монет дл€ покупки сердец
     public int NumberOfMissingCoins { get => numberOfMissingCoins; }
+
+    private bool isThePurchaseHeartsAvailable = true;
+    public bool IsThePurchaseHeartsAvailable { get => isThePurchaseHeartsAvailable; }
     private void Start()
     {
         EventManager.BuyHealth.AddListener(AddHearts);
-        numberOfMissingCoins = priceHearts - _coin.Coins;
     }
 
     private void Update()
@@ -30,8 +32,10 @@ public class BuyHearts : MonoBehaviour
             //ButtonBuyHearts.enabled = false;//ѕозже изменить эту строчку на по€вление текста о недоступности покупки
             ButtonBuyHearts.gameObject.SetActive(false);
             textTheUnavailabilityPurchaseHearts.gameObject.SetActive(true);
+            isThePurchaseHeartsAvailable = false;
         }
-        
+
+        numberOfMissingCoins = priceHearts - _coin.Coins;
     }
 
     public void Buy()

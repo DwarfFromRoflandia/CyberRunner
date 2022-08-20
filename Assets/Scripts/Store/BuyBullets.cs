@@ -17,11 +17,14 @@ public class BuyBullets : MonoBehaviour
 
 
     private int numberOfMissingCoins; //переменна€, котора€ отвечает за количество недостающих монет дл€ покупки патрон
-    public int NumberOfMissingCoins { get => numberOfMissingCoins;}
+    public int NumberOfMissingCoins { get => numberOfMissingCoins; }
+    
+    private bool isThePurchaseBulletsAvailable = true;
+    public bool IsThePurchaseBulletsAvailable { get => isThePurchaseBulletsAvailable; }
     private void Start()
     {
         EventManager.BuyBullets.AddListener(AddBullets);
-        numberOfMissingCoins = priceBullets - _coin.Coins;
+        
     }
 
     private void Update()
@@ -31,7 +34,10 @@ public class BuyBullets : MonoBehaviour
             //buttonBuyBullets.enabled = false;//ѕозже изменить эту строчку на по€вление текста о недоступности покупки
             buttonBuyBullets.gameObject.SetActive(false);
             textTheUnavailabilityPurchaseBullets.gameObject.SetActive(true);
-        }     
+            isThePurchaseBulletsAvailable = false;
+        }
+
+        numberOfMissingCoins = priceBullets - _coin.Coins;
     }
 
     public void Buy()

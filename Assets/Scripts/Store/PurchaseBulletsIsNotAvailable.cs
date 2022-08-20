@@ -16,6 +16,22 @@ public class PurchaseBulletsIsNotAvailable : MonoBehaviour
 
     private void Update()
     {
-        text.text = "Для покупки не хватает " + buyBullets.NumberOfMissingCoins + " монет.";
+        NoCoinsToBuyBullets();
+    }
+
+    private void NoCoinsToBuyBullets()
+    {
+        if (buyBullets.NumberOfMissingCoins % 10 == 1 && buyBullets.NumberOfMissingCoins != 11)
+        {
+            text.text = "Для покупки не хватает " + buyBullets.NumberOfMissingCoins + " монеты.";
+        }
+        else if ((buyBullets.NumberOfMissingCoins % 10 >= 2 && buyBullets.NumberOfMissingCoins % 10 <= 4) && (buyBullets.NumberOfMissingCoins % 100 != 12 && buyBullets.NumberOfMissingCoins % 100 != 13 && buyBullets.NumberOfMissingCoins % 100 != 14))
+        {
+            text.text = "Для покупки не хватает " + buyBullets.NumberOfMissingCoins + " монеты.";
+        }
+        else
+        {
+            text.text = "Для покупки не хватает " + buyBullets.NumberOfMissingCoins + " монет.";
+        }
     }
 }

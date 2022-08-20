@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\Coins\AudioCoin.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
     <Compile Include="Assets\Scripts\Store\OpenAndExitStore.cs" />
+    <Compile Include="Assets\Scripts\Store\PurchaseBulletsIsNotAvailable.cs" />
     <Compile Include="Assets\Scripts\Store\BuyHearts.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\ButtonController.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\Scripts\GameOver.cs" />
+    <Compile Include="Assets\Scripts\Store\PurchaseHeartsIsNotAvailable.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\Scripts\Coins\Rotate.cs" />
     <Compile Include="Assets\Scripts\Roads\RoadSpawner.cs" />
@@ -116,8 +118,6 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\Scripts\MusicPlay.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
-    <Compile Include="Assets\Scripts\Store\PurchaseBulletsIsNotAvailable.cs" />
-    <Compile Include="Assets\Scripts\Store\PurchaseHeartsIsNotAvailable.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Toon Gas Station\ToonShading\Shaders\ToonBasicOutline.shader" />
