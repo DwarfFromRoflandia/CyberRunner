@@ -10966,7 +10966,7 @@ RectTransform:
   - {fileID: 958023917}
   m_Father: {fileID: 0}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 3.387, y: -0.994, z: -0.183}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -11036,6 +11036,7 @@ MonoBehaviour:
   PersonalCanvas: {fileID: 0}
   PauseIsPressed: 0
   PauseImage: {fileID: 1312608579}
+  Light: {fileID: 705507994}
 --- !u!82 &1437680449
 AudioSource:
   m_ObjectHideFlags: 0

@@ -7,12 +7,13 @@ public class Coin : MonoBehaviour
 {
     private int quantityCoins;//переменная, которая отвечает за количество монет у игрока
     //public int Coins { get => quantityCoins; }
-
+ 
     public int Coins { get { return quantityCoins; } set { quantityCoins = value; } }
 
     private void Start()
     {
         EventManager.PickUpCoinEvent.AddListener(AddingCoin);
+       quantityCoins = PlayerPrefs.GetInt("Coin"); 
     }
 
     private void Update()
@@ -21,8 +22,10 @@ public class Coin : MonoBehaviour
     }
 
     private void AddingCoin()
-    { 
+    {
+         
         quantityCoins++;
+        PlayerPrefs.SetInt("Coin", quantityCoins);
         //TransferQuantityCoin.transferQuantityCoin++;
     }
 
