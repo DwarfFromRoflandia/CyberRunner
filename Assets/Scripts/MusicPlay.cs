@@ -8,8 +8,8 @@ public class MusicPlay : MonoBehaviour
     [SerializeField] private AudioClip ButtonClip;
     void ButtonClic()
     {
-        print("слЫЮ");
-        ButtonSource.volume = 1;
+       
+        ButtonSource.volume = 0.8f;
        
         ButtonSource.PlayOneShot(ButtonClip);
     

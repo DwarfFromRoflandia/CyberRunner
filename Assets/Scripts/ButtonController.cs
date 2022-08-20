@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class ButtonController :OpenAndExitStore
 {
    
-   public float GameSpeed;
+   public float GameSpeed=100;
     public GameObject Main_Menu_Condition; // ссылка на главное меню
     public GameObject Settings_Menu;
     public Text TextWarnings;// предупреждение текста дл€ ввода имени
@@ -34,15 +34,15 @@ public class ButtonController :OpenAndExitStore
 
     Animation Input_Field_Anim;
     Transform Input_Field_Trans;
-    Material Time_Now;
+    static Material Time_Now;
     public Canvas PersonalCanvas;
     public bool PauseIsPressed;
     [SerializeField] private Image PauseImage;
-
-
+    [SerializeField] private Light Light;
+    public TouchScreenKeyboard keyboard;
     private void Start()
 	{
-
+       
     
         PhoneSource = GameObject.Find("MainMenuCanvas").GetComponent<AudioSource>();
         MusicImage = GameObject.Find("ButtonMusic").GetComponent<Image>();
@@ -51,10 +51,10 @@ public class ButtonController :OpenAndExitStore
         Music();
        
         Animation_Disapearing = Change_Name_Button.GetComponent<Animation>();
-        Time_Now = Time_Cond[0];
+      
 
-
-
+       if(SceneManager.GetActiveScene().buildIndex==1&& Time_Now!=null)
+        RenderSettings.skybox = Time_Now;
 
        // Main_Menu_Condition.SetActive(false);
         EventManager.EventPlay?.Invoke(GameSpeed);
@@ -63,7 +63,8 @@ public class ButtonController :OpenAndExitStore
 
 
     }
-	 
+ 
+
 
 	public void InputPlay() /* метод при использовании которого запускаетс€ игрова€ сесси€ 
                               (ѕри нажатии на кнопку Play в главном меню)*/
@@ -72,8 +73,13 @@ public class ButtonController :OpenAndExitStore
         SceneManager.LoadScene(1);
         EventManager.Animation_Play?.Invoke(true);
         PauseImage.gameObject.SetActive(true);// делаем кнопку Stop видимой
-        
-    }
+  
+
+
+    
+
+
+}
 
     public void InputSettings()
     {
@@ -89,7 +95,7 @@ public class ButtonController :OpenAndExitStore
 
 
     }
-    
+  
 	public  override void ExitMenu()
     {
         EventManager.ButtonClicked.Invoke();// вызываем звук нажати€ 
@@ -147,11 +153,12 @@ public class ButtonController :OpenAndExitStore
    
     public void Change_Day_Time( )
 	{
+       
         EventManager.ButtonClicked.Invoke();// вызываем звук нажати€ 
-
+         
         switch (s)
         {
-
+             
             case "Day":
                 s = "Evening";
                 Image_Time_Now.sprite = Time_Sprites[0];
@@ -177,10 +184,13 @@ public class ButtonController :OpenAndExitStore
                 break;
 
             default:
-                throw new Exception();
+                print("ничего не выбрано");
+                break;
                  
 
         }
+      
+     
         RenderSettings.skybox = Time_Now;
     }
 
