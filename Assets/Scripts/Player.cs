@@ -12,9 +12,11 @@ public class Player : MonoBehaviour
 	[SerializeField] private GameObject mainMenu;
 	[SerializeField] private GameObject secondStartPoint;
 	private Transform playerСoordinates;
+	private float speed;
+	[SerializeField] private float distanceGravit = 3;
 
-	 
  
+
 	public float PlayerSpeed;
 
 	[SerializeField] private ShotGun shot;
@@ -22,7 +24,8 @@ public class Player : MonoBehaviour
 	public Animator Player_Anim;
 	public float TimeBeReady = 3;
 	[SerializeField] private SpawnManager spawnManager;
-	public float MinLenghtOfTouch = 8; // минимальная длина свайпа для перемещения игрока
+	private RaycastHit hit;
+
 
 	public Text TextTimeToStart;
 	[SerializeField] private Slider HealthSlider;
@@ -30,12 +33,10 @@ public class Player : MonoBehaviour
 
 	[SerializeField] private Sprite Play, Stop;
 	[SerializeField] private ParticleSystem ParticleInCoin;
-	private Rigidbody rb;
+	[HideInInspector] public Rigidbody rb;
 	public Image PauseImage;
 	private void Start()
-	{
-		
-	   
+	{	   
 		playerСoordinates = GetComponent<Transform>();
 		EventManager.Animation_Play += Set_Anim_Play_True;
 		EventManager.EventPlay += StartRunValues;
@@ -46,6 +47,7 @@ public class Player : MonoBehaviour
 		//EventManager.GameOverEvent.AddListener(GameOver);
 	}
 
+
     public void False()
 	{
 		Player_Anim.SetBool("PlayIsPressed", false);
@@ -55,27 +57,26 @@ public class Player : MonoBehaviour
 
 		rb = gameObject.GetComponent<Rigidbody>();
 		rb.freezeRotation = true;
+		rb.useGravity = false;
 
 	}
 
 	public void GameOver()//метод, отвечающий за конец игры
 	{
-		 
-		
-			Debug.Log(playerСoordinates.transform.position);
-			Player_Anim.SetFloat("Speed", 0);
-			EventManager.EventPlay?.Invoke(0);
-			gameOverMenu.SetActive(true);
-			EventManager.EventPlay += StartRunValues;
-
+		Debug.Log(playerСoordinates.transform.position);
+		Player_Anim.SetFloat("Speed", 0);
+		EventManager.EventPlay?.Invoke(0);
+		gameOverMenu.SetActive(true);
+		EventManager.EventPlay += StartRunValues;
+		Debug.Log("GameOver");
 
 	}
-
+	
 	public void ButtonExitToMainMenu()
 	{
-		 
+	 	 
 		SceneManager.LoadScene(0);
-		mainMenu.SetActive(true);
+		//mainMenu.SetActive(true);
 		gameOverMenu.SetActive(false);
 		playerСoordinates.transform.position = secondStartPoint.transform.position;
 		HealthSlider.value = 1;
@@ -107,9 +108,9 @@ public class Player : MonoBehaviour
 
 			HealthSlider.value -= EventManager.IsPunched.Invoke(0);// меняем значение здоровья игрока вызывая событие
 
-			Enemy enemy = other.transform.GetComponent<Enemy>();
+			 
 
-			StartCoroutine(enemy.Object_Disapear(enemy.gameObject));//передаем параметр предмета столкновения
+			 
 
 			Destroy(other.gameObject, 1f);// удаляем врага через 3 секунды
 
@@ -119,10 +120,13 @@ public class Player : MonoBehaviour
 
 
 
-
+			 
 
 		}
-    }
+		Enemy enemy = other.transform.GetComponent<Enemy>();
+
+		StartCoroutine(enemy.Object_Disapear(other.gameObject));//передаем параметр предмета столкновения
+	}
 
 	
 
@@ -142,6 +146,27 @@ public class Player : MonoBehaviour
 	private void FixedUpdate()
 	{
 		StartRunValues(PlayerSpeed);
+
+		Physics.Raycast(transform.position, Vector3.down, out hit); //создаем луч для проверки
+
+		if (hit.distance > distanceGravit && (hit.transform.tag.Equals("Road") || hit.transform.tag.Equals("Obstacle"))
+			&& rb != null) // если мы прыгнули выше высоты
+								  // прыжка и под нами дорога или препятствие - тогда падаем
+		{
+
+
+			rb.velocity = Vector3.zero;
+			rb.velocity = -transform.up * Time.deltaTime * 15_000;
+
+
+
+		}
+		else if (rb != null && hit.distance < distanceGravit)
+		{
+
+			rb.velocity= new Vector3(rb.velocity.x, 0, speed);// обнуляем ускорение
+
+		}
 	}
 
 	private void StartRunValues(float GameSpeed)
@@ -157,7 +182,8 @@ public class Player : MonoBehaviour
 	bool paused = true;
 	public void Pause()
 	{
- 
+
+		EventManager.ButtonClicked.Invoke();
 		if (paused)
 		{
 			EventManager.EventPlay?.Invoke(0);
@@ -212,14 +238,7 @@ public class Player : MonoBehaviour
 	}
 
 
-	public void StartJump()
-	{
-
-		rb.velocity = Vector3.up * Time.deltaTime * 20_000;// придаем силу вверх персонажу когда свайпнули вверх
-		rb.velocity += Vector3.forward * Time.deltaTime * 2000;
-
-
-	}
+	
 
 	private void Set_Anim_Play_True(bool b)
 	{
@@ -228,40 +247,7 @@ public class Player : MonoBehaviour
 
 	}
 
-	//public void MovePerson(Touch touch)
-
-	//{
-
-	//	Vector3 Moving = Vector3.zero;
-
-
-
-	//		Player_Anim.SetBool("MoveRight", true);
-
-	//		Moving = Vector3.Lerp(transform.position,
-	//				new Vector3(transform.position.x - 10, transform.position.y, transform.position.z),
-	//				20 * Time.fixedDeltaTime);
-
-
-
-
-
-	//		Player_Anim.SetBool("MoveLeft", true);
-
-
-	//		Moving = Vector3.Lerp(transform.position,
-	//				new Vector3(transform.position.x + 10, transform.position.y, transform.position.z),
-	//				20 * Time.fixedDeltaTime);
-
-
-
-
-
-	//	Moving.x = Mathf.Clamp(Moving.x, MinDistance, MaxDistance);
-
-	//	transform.position = Moving;
-
-	//}
+	
 
 
 	 
@@ -277,6 +263,16 @@ public class Player : MonoBehaviour
 	{
 		throw new NotImplementedException();
 	}
+	void Get_Speed()
+
+
+		=> speed = 300;
+
+
+
+	void ResetSpeed()
+
+		=> speed = 0;
 }
 
 

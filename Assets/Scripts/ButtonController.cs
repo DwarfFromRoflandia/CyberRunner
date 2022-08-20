@@ -37,6 +37,7 @@ public class ButtonController :OpenAndExitStore
     Material Time_Now;
     public Canvas PersonalCanvas;
     public bool PauseIsPressed;
+    [SerializeField] private Image PauseImage;
 
 
     private void Start()
@@ -45,7 +46,7 @@ public class ButtonController :OpenAndExitStore
     
         PhoneSource = GameObject.Find("MainMenuCanvas").GetComponent<AudioSource>();
         MusicImage = GameObject.Find("ButtonMusic").GetComponent<Image>();
-        Settings_Menu.SetActive(false);
+       // Settings_Menu.SetActive(false);
         PlayerPrefs.SetString("MusicCondition","On");
         Music();
        
@@ -55,10 +56,10 @@ public class ButtonController :OpenAndExitStore
 
 
 
-        Main_Menu_Condition.SetActive(false);
+       // Main_Menu_Condition.SetActive(false);
         EventManager.EventPlay?.Invoke(GameSpeed);
         EventManager.Animation_Play?.Invoke(true);
-        PersonalCanvas.gameObject.SetActive(true);
+        PersonalCanvas?.gameObject.SetActive(true);
 
 
     }
@@ -67,14 +68,16 @@ public class ButtonController :OpenAndExitStore
 	public void InputPlay() /* метод при использовании которого запускается игровая сессия 
                               (При нажатии на кнопку Play в главном меню)*/
     {
+        EventManager.ButtonClicked.Invoke();// вызываем звук нажатия 
         SceneManager.LoadScene(1);
         EventManager.Animation_Play?.Invoke(true);
+        PauseImage.gameObject.SetActive(true);// делаем кнопку Stop видимой
         
     }
 
     public void InputSettings()
     {
-       
+        EventManager.ButtonClicked.Invoke();// вызываем звук нажатия 
         Main_Menu_Condition.SetActive(false);
         Settings_Menu.SetActive(true);
         Input_Field_Trans = gameObject.transform.GetChild(3).GetChild(0).transform.GetComponent<Transform>();
@@ -89,6 +92,7 @@ public class ButtonController :OpenAndExitStore
     
 	public  override void ExitMenu()
     {
+        EventManager.ButtonClicked.Invoke();// вызываем звук нажатия 
         Settings_Menu.SetActive(false);
         Main_Menu_Condition.SetActive(true);
         Change_Name_Button.GetComponent<Image>().color = new Color(67, 180, 170,255);
@@ -108,8 +112,8 @@ public class ButtonController :OpenAndExitStore
 
     public void Music( )
     {
-    
 
+        EventManager.ButtonClicked.Invoke();// вызываем звук нажатия 
 
         if (PlayerPrefs.GetString("MusicCondition") == "On")
         {
@@ -143,8 +147,8 @@ public class ButtonController :OpenAndExitStore
    
     public void Change_Day_Time( )
 	{
-    
-         
+        EventManager.ButtonClicked.Invoke();// вызываем звук нажатия 
+
         switch (s)
         {
 
@@ -184,6 +188,7 @@ public class ButtonController :OpenAndExitStore
 
     public void Vk()
     {
+        EventManager.ButtonClicked.Invoke();// вызываем звук нажатия 
         Application.OpenURL("https://vk.com/id446930815");
         Application.OpenURL("https://vk.com/dwarffromroflandia");
     }
@@ -193,8 +198,8 @@ public class ButtonController :OpenAndExitStore
         public void Button_Change_Name_Down()
     {
 
- 
-         
+        EventManager.ButtonClicked.Invoke();// вызываем звук нажатия 
+
         Animation_Disapearing.Play();
 
         
@@ -217,7 +222,7 @@ public class ButtonController :OpenAndExitStore
     public void InputName()
     {
 
- 
+        TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default, false, false, true, true);
 
         if (Input_Field.text.Length > 17|| Input_Field.text.Length < 4)
         {
