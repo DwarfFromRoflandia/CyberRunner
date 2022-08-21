@@ -12,6 +12,7 @@ public class QuantityBulletsText : MonoBehaviour
     {
         quantityBulletsText = GetComponent<Text>();
         buyBullets = transform.parent.parent.GetComponent<BuyBullets>();
+        quantityBulletsText.text = buyBullets.QuantityBullets.ToString();
     }
 
     private void Update()

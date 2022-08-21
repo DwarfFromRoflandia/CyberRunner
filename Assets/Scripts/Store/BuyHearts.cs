@@ -22,6 +22,7 @@ public class BuyHearts : MonoBehaviour
     public bool IsThePurchaseHeartsAvailable { get => isThePurchaseHeartsAvailable; }
     private void Start()
     {
+        quantityHearts = PlayerPrefs.GetInt("Heart");
         EventManager.BuyHealth.AddListener(AddHearts);
     }
 
@@ -40,6 +41,8 @@ public class BuyHearts : MonoBehaviour
 
     public void Buy()
     {
+        
+
         if (EventManager.BuyHealth != null)
         {
             EventManager.ButtonClicked.Invoke();// вызываем звук нажатия 
@@ -50,7 +53,9 @@ public class BuyHearts : MonoBehaviour
     public void AddHearts()
     {
         quantityHearts++;
+        PlayerPrefs.SetInt("Heart", quantityHearts);
         _coin.Coins -= priceHearts;
+        PlayerPrefs.SetInt("Coin", _coin.Coins);
     }
 
 }
