@@ -53,13 +53,14 @@ public class ButtonController :OpenAndExitStore
         Animation_Disapearing = Change_Name_Button.GetComponent<Animation>();
       
 
-       if(SceneManager.GetActiveScene().buildIndex==1&& Time_Now!=null)
+       if(SceneManager.GetActiveScene().buildIndex==1&& Time_Now!=null) // если присутствует скайбокс и мы в сцене игры
+                                                                        // - тогда прнидаем скорость, разворачиваемся и меняем фон на заданный
         RenderSettings.skybox = Time_Now;
 
-       // Main_Menu_Condition.SetActive(false);
+       
         EventManager.EventPlay?.Invoke(GameSpeed);
         EventManager.Animation_Play?.Invoke(true);
-        PersonalCanvas?.gameObject.SetActive(true);
+      
 
 
     }
@@ -72,7 +73,7 @@ public class ButtonController :OpenAndExitStore
         EventManager.ButtonClicked.Invoke();// вызываем звук нажатия 
         SceneManager.LoadScene(1);
         EventManager.Animation_Play?.Invoke(true);
-        PauseImage.gameObject.SetActive(true);// делаем кнопку Stop видимой
+    
   
 
 
@@ -86,7 +87,7 @@ public class ButtonController :OpenAndExitStore
         EventManager.ButtonClicked.Invoke();// вызываем звук нажатия 
         Main_Menu_Condition.SetActive(false);
         Settings_Menu.SetActive(true);
-        Input_Field_Trans = gameObject.transform.GetChild(3).GetChild(0).transform.GetComponent<Transform>();
+        Input_Field_Trans = gameObject.transform.GetChild(4).GetChild(0).transform.GetComponent<Transform>();
         Input_Field = Input_Field_Trans.GetComponent<InputField>(); // инициализируем переменные перед переходом в настройки
         Input_Field.text = PlayerPrefs.GetString("Name");
         InputName();
@@ -232,7 +233,7 @@ public class ButtonController :OpenAndExitStore
     public void InputName()
     {
 
-        TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default, false, false, true, true);
+      
 
         if (Input_Field.text.Length > 17|| Input_Field.text.Length < 4)
         {

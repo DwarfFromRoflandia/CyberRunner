@@ -13,6 +13,7 @@ public class Coin : MonoBehaviour
     private void Start()
     {
         EventManager.PickUpCoinEvent.AddListener(AddingCoin);
+       Coins = PlayerPrefs.GetInt("Coin");
     }
 
     private void Update()
@@ -23,6 +24,7 @@ public class Coin : MonoBehaviour
     private void AddingCoin()
     { 
         quantityCoins++;
+        PlayerPrefs.SetInt("Coin", quantityCoins);
         //TransferQuantityCoin.transferQuantityCoin++;
     }
 

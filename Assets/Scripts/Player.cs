@@ -118,14 +118,14 @@ public class Player : MonoBehaviour
 			if (HealthSlider.value <= 0.1) GameOver(); // проверяем уровень жизни чтобы понять завершать ли игровую сессию
 
 
+			Enemy enemy = other.transform.GetComponent<Enemy>();
+
+			StartCoroutine(enemy.Object_Disapear(other.gameObject));//передаем параметр предмета столкновения
 
 
-			 
 
 		}
-		Enemy enemy = other.transform.GetComponent<Enemy>();
-
-		StartCoroutine(enemy.Object_Disapear(other.gameObject));//передаем параметр предмета столкновения
+		 
 	}
 
 	
