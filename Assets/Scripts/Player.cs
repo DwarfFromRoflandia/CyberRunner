@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
 	[SerializeField] private GameObject secondStartPoint;
 	private Transform playerСoordinates;
 	private float speed;
-	[SerializeField] private float distanceGravit = 3;
+	[SerializeField] private float distanceGravit = 7;
 
  
 
@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
 	public float TimeBeReady = 3;
 	[SerializeField] private SpawnManager spawnManager;
 	private RaycastHit hit;
-
+	
 
 	public Text TextTimeToStart;
 	[SerializeField] private Slider HealthSlider;
@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
 		playerСoordinates = GetComponent<Transform>();
 		EventManager.Animation_Play += Set_Anim_Play_True;
 		EventManager.EventPlay += StartRunValues;
-		EventManager.EventPlay?.Invoke(50);
+		EventManager.EventPlay?.Invoke(PlayerSpeed);
 		EventManager.Animation_Play?.Invoke(true);
 
 
@@ -48,17 +48,18 @@ public class Player : MonoBehaviour
 	}
 
 
-    public void False()
+    public void False()//метод добавляет Rigidbody после анимации поворота и передает скорость в аниматор
 	{
 		Player_Anim.SetBool("PlayIsPressed", false);
 		Player_Anim.SetFloat("Speed", 40);
 
 		gameObject.AddComponent<Rigidbody>();
-
+		 
 		rb = gameObject.GetComponent<Rigidbody>();
 		rb.freezeRotation = true;
 		rb.useGravity = false;
-
+		Player_Anim.applyRootMotion = false; //замораживаем повороты и перемещения анимаций после поворота нашей первой
+		 
 	}
 
 	public void GameOver()//метод, отвечающий за конец игры
@@ -71,7 +72,12 @@ public class Player : MonoBehaviour
 		Debug.Log("GameOver");
 
 	}
-	
+	float HealthAfterPunch;
+	private void Awake()
+	{
+		HealthAfterPunch = HealthSlider.value;
+	}
+
 	public void ButtonExitToMainMenu()
 	{
 	 	 
@@ -87,7 +93,7 @@ public class Player : MonoBehaviour
 		Destroy(gameObject, 0.1f);
 	
 	}
-
+	 
 	private void OnCollisionEnter(Collision other)
     {
         if (other.transform.tag == "SpawnTrigger")
@@ -106,17 +112,14 @@ public class Player : MonoBehaviour
 		if (other.transform.tag == "Obstacle")
 		{
 
-			HealthSlider.value -= EventManager.IsPunched.Invoke(0);// меняем значение здоровья игрока вызывая событие
-
-			 
-
-			 
+			HealthAfterPunch = HealthSlider.value - EventManager.IsPunched.Invoke(0);// меняем значение здоровья игрока вызывая событие
 
 			Destroy(other.gameObject, 1f);// удаляем врага через 3 секунды
 
 			Player_Anim.SetTrigger("Punched"); // запускаем анимацию спотыкания
 			if (HealthSlider.value <= 0.1) GameOver(); // проверяем уровень жизни чтобы понять завершать ли игровую сессию
 
+			
 
 			Enemy enemy = other.transform.GetComponent<Enemy>();
 
@@ -145,6 +148,8 @@ public class Player : MonoBehaviour
 	 
 	private void FixedUpdate()
 	{
+		HealthSlider.value = Mathf.MoveTowards(HealthSlider.value, HealthAfterPunch, 0.5f*Time.fixedDeltaTime);// плавное снижене здоровья после удара
+
 		StartRunValues(PlayerSpeed);
 
 		Physics.Raycast(transform.position, Vector3.down, out hit); //создаем луч для проверки
@@ -164,7 +169,7 @@ public class Player : MonoBehaviour
 		else if (rb != null && hit.distance < distanceGravit)
 		{
 
-			rb.velocity= new Vector3(rb.velocity.x, 0, speed);// обнуляем ускорение
+			rb.velocity = new Vector3(0, 0, speed);// обнуляем ускорение
 
 		}
 	}

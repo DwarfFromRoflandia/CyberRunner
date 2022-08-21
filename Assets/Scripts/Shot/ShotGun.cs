@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using System;
 public class ShotGun : MonoBehaviour
 {
     [SerializeField] private AudioSource SourceShot; // ссылка на ппоигрыватель 
@@ -10,16 +11,19 @@ public class ShotGun : MonoBehaviour
     [SerializeField] private GameObject  BulletPrefab; // летящий снаряд
    
     [SerializeField] private Animator Player_Anim;
-    [SerializeField] private int PatronQuantity; // количество патрон
-	
+  
+    [SerializeField]private Text QuantityBullets; // количество патрон
 	void Start()
     {
-         
+      if(QuantityBullets!=null)
+        QuantityBullets.text = PlayerPrefs.GetInt("Bullets").ToString();
     }
     public void ShotStart()
     {
     
         Player_Anim.SetBool("Shot",true);
+       
+
         return;
 
     }
@@ -35,15 +39,17 @@ public class ShotGun : MonoBehaviour
 
     public void Shot()
     {
-         
-         
-            GameObject bullet = Instantiate(BulletPrefab, transform.position, Quaternion.Euler(90, 0, 0));
+        if (Convert.ToInt32(QuantityBullets.text) > 0)
+        {
 
+            GameObject bullet = Instantiate(BulletPrefab, transform.position, Quaternion.Euler(90, 0, 0));
             SourceShot.PlayOneShot(ClipShot);
-        Destroy(bullet, 20f);
-            
-        
-    
+            Destroy(bullet, 20f);
+            PlayerPrefs.SetInt("Bullets", Convert.ToInt32(QuantityBullets.text) - 1);
+            QuantityBullets.text = PlayerPrefs.GetInt("Bullets").ToString();
+        }
+
+
     }
 
   
