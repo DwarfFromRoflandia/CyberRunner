@@ -48,14 +48,14 @@ public class TouchController : MonoBehaviour, IDragHandler,IEndDragHandler
 
 			}
 
-			if (eventData.delta.x > 0 && XGreatherY == true)
+			else if (eventData.delta.x > 0 && XGreatherY == true)
 			//тоесть если  длина перемещения пальца по x больше длины перемещения по y - тода поворачиваемся . Избавляет от багов
 			{
 				anim.SetBool("MoveRight", true);
 
 				StartCoroutine(StartRollingRight());
 			}
-			if (eventData.delta.x < 0 && XGreatherY == true)
+			else if (eventData.delta.x < 0 && XGreatherY == true)
 			{
 
 
@@ -79,10 +79,11 @@ public class TouchController : MonoBehaviour, IDragHandler,IEndDragHandler
 
 
 			}
-
+			 
 
 		}
-
+	 
+		
 	}
 
 
@@ -153,7 +154,8 @@ public class TouchController : MonoBehaviour, IDragHandler,IEndDragHandler
 	public void OnEndDrag(PointerEventData eventData)
 	{
 		anim.SetBool("Scroll", false);
-	
+
+		EventManager.AudioMove.Invoke();// запускаем звук перемещения
 
 		anim.SetBool("RollForw", false);
 	}

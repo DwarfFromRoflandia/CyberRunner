@@ -58,8 +58,8 @@ public class Player : MonoBehaviour
 		rb = gameObject.GetComponent<Rigidbody>();
 		rb.freezeRotation = true;
 		rb.useGravity = false;
-		Player_Anim.applyRootMotion = false; //замораживаем повороты и перемещения анимаций после поворота нашей первой
-		 
+		Player_Anim.applyRootMotion = false; //замораживаем повороты и перемещения анимаций после поворота нашей первой анимации
+		EventManager.AudioStartRun.Invoke();// запускаем звук бега после поворота
 	}
 
 	public void GameOver()//метод, отвечающий за конец игры
@@ -139,11 +139,14 @@ public class Player : MonoBehaviour
 		EventManager.EventPlay += StartRunValues;
 		 
 		 
+		 
 
 	}
 	void OnDisable()
 	{
 		EventManager.EventPlay -= StartRunValues;
+		 
+
 	}
 	 
 	private void FixedUpdate()

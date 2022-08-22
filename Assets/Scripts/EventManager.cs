@@ -18,5 +18,7 @@ public static class EventManager
 	public static Func<IEnumerator> Shoted;
 	public static UnityEvent GameOverEvent = new UnityEvent();
 	public static Action ButtonClicked;
+	public static Action AudioStartRun;
+	public static Action AudioMove;
 
 }
