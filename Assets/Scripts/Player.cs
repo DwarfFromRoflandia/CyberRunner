@@ -35,8 +35,10 @@ public class Player : MonoBehaviour
 	[SerializeField] private ParticleSystem ParticleInCoin;
 	[HideInInspector] public Rigidbody rb;
 	public Image PauseImage;
- 
-	private void Start()
+
+	private bool isGameOver;
+    public bool IsGameOver { get => isGameOver;}
+    private void Start()
 	{	   
 		player—oordinates = GetComponent<Transform>();
 		EventManager.Animation_Play += Set_Anim_Play_True;
@@ -46,6 +48,8 @@ public class Player : MonoBehaviour
 
 
 		//EventManager.GameOverEvent.AddListener(GameOver);
+
+		isGameOver = false;
 	}
 
 
@@ -71,6 +75,7 @@ public class Player : MonoBehaviour
 		gameOverMenu.SetActive(true);
 		EventManager.EventPlay += StartRunValues;
 		Debug.Log("GameOver");
+		isGameOver = true;
 
 	}
 	float HealthAfterPunch;
@@ -205,8 +210,9 @@ public class Player : MonoBehaviour
 	}
 
 	 
-	bool paused = true;
-	public void Pause()
+	private bool paused = true;
+    public bool Paused { get => paused;}
+    public void Pause()
 	{
 
 		EventManager.ButtonClicked.Invoke();

@@ -15,7 +15,7 @@ public class GameOver : MonoBehaviour
     private void Start()
     {
 
-
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         //if (EventManager.GameOverEvent!= null)
         //{
         //    EventManager.GameOverEvent.Invoke();
