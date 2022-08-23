@@ -14,7 +14,9 @@ public class TouchController : MonoBehaviour, IDragHandler,IEndDragHandler
 	[SerializeField] private Animator anim;
 	public float PlayerSpeed;
 	private Player player;
- 
+
+	private bool ObjectInside = false;
+
 	void Awake()
 	{
 		player = GameObject.Find("Player").GetComponent<Player>();
@@ -29,19 +31,25 @@ public class TouchController : MonoBehaviour, IDragHandler,IEndDragHandler
 		 
 
 	}
+	private void OnTriggerStay(Collider colider)
+	{
+
+		ObjectInside= true;
+
+	}
 	public void OnDrag(PointerEventData eventData)
 	{
 		if (SceneManager.GetActiveScene().buildIndex.Equals(1)) // если мы находимс€ в сцене PplayMode -тогда можем перемещатьс€
 		{
 			bool XGreatherY = Mathf.Abs(eventData.delta.y) < Mathf.Abs(eventData.delta.x); //переменна€ провер€юща€ какой свайп больше по длине
 
-			if (eventData.delta.y > 0 && hit.distance < 3 && XGreatherY == false) // если свайпнули вверх
+			if (eventData.delta.y > 0 && hit.distance < 3 && XGreatherY == false && !ObjectInside) // если свайпнули вверх
 			{
 
 				anim.SetBool("Scroll", true);
 
 
-
+				ObjectInside = false;
 
 
 
@@ -69,8 +77,9 @@ public class TouchController : MonoBehaviour, IDragHandler,IEndDragHandler
 
 
 
-			else if (eventData.delta.y < 0 && XGreatherY == false)//перекат 
+			else if (eventData.delta.y < 0 && XGreatherY == false && !ObjectInside)//перекат 
 			{
+				ObjectInside = false;
 
 				anim.SetBool("RollForw", true);
 
@@ -154,6 +163,9 @@ public class TouchController : MonoBehaviour, IDragHandler,IEndDragHandler
 	public void OnEndDrag(PointerEventData eventData)
 	{
 		anim.SetBool("Scroll", false);
+		anim.SetBool("MoveLeft", false);
+		anim.SetBool("MoveRight", false);
+
 
 		EventManager.AudioMove.Invoke();// запускаем звук перемещени€
 

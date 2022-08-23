@@ -45,10 +45,11 @@ public class ButtonController :OpenAndExitStore
        
     
         PhoneSource = GameObject.Find("MainMenuCanvas").GetComponent<AudioSource>();
+        
         MusicImage = GameObject.Find("ButtonMusic").GetComponent<Image>();
        // Settings_Menu.SetActive(false);
         PlayerPrefs.SetString("MusicCondition","On");
-        Music();
+         
        
         Animation_Disapearing = Change_Name_Button.GetComponent<Animation>();
       

@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
 	private Transform playerСoordinates;
 	private float speed;
 	[SerializeField] private float distanceGravit = 7;
-
+	[SerializeField] private Image HealthImage;
  
 
 	public float PlayerSpeed;
@@ -35,12 +35,13 @@ public class Player : MonoBehaviour
 	[SerializeField] private ParticleSystem ParticleInCoin;
 	[HideInInspector] public Rigidbody rb;
 	public Image PauseImage;
+ 
 	private void Start()
 	{	   
 		playerСoordinates = GetComponent<Transform>();
 		EventManager.Animation_Play += Set_Anim_Play_True;
 		EventManager.EventPlay += StartRunValues;
-		EventManager.EventPlay?.Invoke(PlayerSpeed);
+		EventManager.EventPlay?.Invoke(100);
 		EventManager.Animation_Play?.Invoke(true);
 
 
@@ -96,6 +97,7 @@ public class Player : MonoBehaviour
 	 
 	private void OnCollisionEnter(Collision other)
     {
+		 
         if (other.transform.tag == "SpawnTrigger")
         {
             spawnManager.SpawnTriggerEntered();
@@ -109,17 +111,32 @@ public class Player : MonoBehaviour
 			if (EventManager.AudioCoinEvent != null) EventManager.AudioCoinEvent.Invoke();
         }
 
-		if (other.transform.tag == "Obstacle")
+		if (other.transform.tag == "MetalObstacle" || other.transform.tag == "Car"|| other.transform.tag == "Obstacle")
 		{
 
 			HealthAfterPunch = HealthSlider.value - EventManager.IsPunched.Invoke(0);// меняем значение здоровья игрока вызывая событие
+
+			HealthImage = HealthSlider.transform.GetChild(1).GetChild(0).GetComponent<Image>();
 
 			Destroy(other.gameObject, 1f);// удаляем врага через 3 секунды
 
 			Player_Anim.SetTrigger("Punched"); // запускаем анимацию спотыкания
 			if (HealthSlider.value <= 0.1) GameOver(); // проверяем уровень жизни чтобы понять завершать ли игровую сессию
 
+			if (HealthAfterPunch < 0.7 && HealthAfterPunch > 0.3)
+			{
+
+				HealthImage.color = Color.yellow;
 			
+			
+			}
+
+			else if (HealthAfterPunch < 0.3f) 
+			{
+
+				HealthImage.color = Color.red;
+
+			}
 
 			Enemy enemy = other.transform.GetComponent<Enemy>();
 
@@ -130,6 +147,7 @@ public class Player : MonoBehaviour
 		}
 		 
 	}
+ 
 
 	
 
@@ -169,7 +187,7 @@ public class Player : MonoBehaviour
 
 
 		}
-		else if (rb != null && hit.distance < distanceGravit)
+		else if (rb != null && hit.distance < distanceGravit) // если мы на земле
 		{
 
 			rb.velocity = new Vector3(0, 0, speed);// обнуляем ускорение

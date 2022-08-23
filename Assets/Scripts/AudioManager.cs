@@ -36,9 +36,31 @@ public class AudioManager  : MonoBehaviour
 		{
 			Source_Crash.loop = false;
 			Source_Crash.PlayOneShot(Dict["Box"]);
-			 
+
 
 		}
+
+		else if (collision.gameObject.tag == "MetalObstacle")
+		{
+
+			Source_Crash.loop = false;
+			Source_Crash.PlayOneShot(Dict["Metal"]);
+
+
+
+		}
+
+		else if (collision.gameObject.tag == "Car")
+		{
+
+
+			Source_Crash.loop = false;
+			Source_Crash.PlayOneShot(Dict["Car"]);
+
+		}
+
+
+
 		Source_Crash.clip = Dict["Run"];
 		Source_Crash.loop = true;
 		Source_Crash.Play();
