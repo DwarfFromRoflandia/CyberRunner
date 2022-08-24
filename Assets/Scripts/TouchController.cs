@@ -37,6 +37,13 @@ public class TouchController : MonoBehaviour, IDragHandler,IEndDragHandler
 		ObjectInside= true;
 
 	}
+
+	private void OnTriggerExit(Collider colider)
+	{
+
+		ObjectInside = false;
+
+	}
 	public void OnDrag(PointerEventData eventData)
 	{
 		if (SceneManager.GetActiveScene().buildIndex.Equals(1)) // если мы находимся в сцене PplayMode -тогда можем перемещаться
@@ -48,8 +55,7 @@ public class TouchController : MonoBehaviour, IDragHandler,IEndDragHandler
 
 				anim.SetBool("Scroll", true);
 
-
-				ObjectInside = false;
+ 
 
 
 
@@ -79,7 +85,7 @@ public class TouchController : MonoBehaviour, IDragHandler,IEndDragHandler
 
 			else if (eventData.delta.y < 0 && XGreatherY == false && !ObjectInside)//перекат 
 			{
-				ObjectInside = false;
+				 
 
 				anim.SetBool("RollForw", true);
 

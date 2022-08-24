@@ -67936,7 +67936,14 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.7
+  - time: 0.6666667
+    functionName: ResetSpeed
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.76666665
     functionName: ResetSpeed
     data: 
     objectReferenceParameter: {fileID: 0}

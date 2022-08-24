@@ -29,11 +29,13 @@ public class AudioManager  : MonoBehaviour
 		EventManager.AudioStartRun -= StartRunClip;
 		EventManager.AudioMove -= AudioPlayJumpOrScroll;
 	}
-
+	
 	private void OnCollisionEnter(Collision collision)
 	{
+		 
 		if (collision.gameObject.tag == "Obstacle")
 		{
+			
 			Source_Crash.loop = false;
 			Source_Crash.PlayOneShot(Dict["Box"]);
 

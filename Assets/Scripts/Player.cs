@@ -75,6 +75,7 @@ public class Player : MonoBehaviour
 		gameOverMenu.SetActive(true);
 		EventManager.EventPlay += StartRunValues;
 		Debug.Log("GameOver");
+		StopCoroutine(IncreaseGame());
 		isGameOver = true;
 
 	}
@@ -82,6 +83,7 @@ public class Player : MonoBehaviour
 	private void Awake()
 	{
 		HealthAfterPunch = HealthSlider.value;
+		StartCoroutine(IncreaseGame());//увеличиваем постепенно скорость игры
 	}
 
 	public void ButtonExitToMainMenu()
@@ -99,7 +101,19 @@ public class Player : MonoBehaviour
 		Destroy(gameObject, 0.1f);
 	
 	}
-	 
+
+
+
+	private void OnCollisionExit(Collision other)
+	{
+
+
+		if (other.transform.tag == "MetalObstacle" || other.transform.tag == "Car" || other.transform.tag == "Obstacle")
+		{
+			speed = 0;
+		}
+	}
+
 	private void OnCollisionEnter(Collision other)
     {
 		 
@@ -108,24 +122,31 @@ public class Player : MonoBehaviour
             spawnManager.SpawnTriggerEntered();
         }
 
-        if (other.transform.tag == "Coin")
+        if (other.transform.tag == "Coin"||other.transform.tag == "GoldCoin")
+			
         { 
             Instantiate(ParticleInCoin, other.transform.position + new Vector3(0, 8f, 0), other.transform.rotation);//при соприкосновении коллайдера игрока с монеткой появляется дымка от исчезнувшей монеты
 			Destroy(other.gameObject);
-            if (EventManager.PickUpCoinEvent != null) EventManager.PickUpCoinEvent.Invoke();
+            if (EventManager.PickUpCoinEvent != null) EventManager.PickUpCoinEvent.Invoke(gameObject);
 			if (EventManager.AudioCoinEvent != null) EventManager.AudioCoinEvent.Invoke();
         }
+		 
 
-		if (other.transform.tag == "MetalObstacle" || other.transform.tag == "Car"|| other.transform.tag == "Obstacle")
+		if (other.transform.tag == "MetalObstacle" || other.transform.tag == "Car"|| other.transform.tag == "Obstacle"||other.transform.tag=="Gas")
 		{
-
+			 
 			HealthAfterPunch = HealthSlider.value - EventManager.IsPunched.Invoke(0);// меняем значение здоровья игрока вызывая событие
 
 			HealthImage = HealthSlider.transform.GetChild(1).GetChild(0).GetComponent<Image>();
 
 			Destroy(other.gameObject, 1f);// удаляем врага через 3 секунды
 
-			Player_Anim.SetTrigger("Punched"); // запускаем анимацию спотыкания
+			if (other.gameObject.tag != "Gas") // запускаем анимацию спотыкания
+			{
+
+				Player_Anim.SetTrigger("Punched");
+			}
+			   
 			if (HealthSlider.value <= 0.1) GameOver(); // проверяем уровень жизни чтобы понять завершать ли игровую сессию
 
 			if (HealthAfterPunch < 0.7 && HealthAfterPunch > 0.3)
@@ -151,13 +172,17 @@ public class Player : MonoBehaviour
 
 		}
 		 
+		 
 	}
- 
 
+	 
 	
 
 
-    private void OnEnable()
+
+
+
+	private void OnEnable()
 	{
 		EventManager.EventPlay += StartRunValues;
 		 
@@ -269,7 +294,17 @@ public class Player : MonoBehaviour
 
 	}
 
+	private IEnumerator IncreaseGame()//метод отвечающий за постепенное увеличение скорости игры
+	{
 
+		while (true)
+		{
+
+			yield return new WaitForSeconds(5f);
+			PlayerSpeed += 10;
+
+		}
+	}
 	
 
 	private void Set_Anim_Play_True(bool b)
@@ -280,8 +315,7 @@ public class Player : MonoBehaviour
 	}
 
 	
-
-
+	 
 	 
 	 
 	public void StartShot()

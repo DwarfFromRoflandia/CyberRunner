@@ -21,9 +21,15 @@ public class Coin : MonoBehaviour
         TransferQuantityCoin.transferQuantityCoin = Coins;
     }
 
-    private void AddingCoin()
-    { 
-        quantityCoins++;
+    private void AddingCoin(GameObject obj)
+    {
+        if (obj.tag == "Coin")
+
+            quantityCoins++;
+
+        else
+            quantityCoins += 10;
+
         PlayerPrefs.SetInt("Coin", quantityCoins);
         //TransferQuantityCoin.transferQuantityCoin++;
     }
