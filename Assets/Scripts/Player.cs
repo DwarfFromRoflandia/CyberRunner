@@ -38,6 +38,10 @@ public class Player : MonoBehaviour
 
 	private bool isGameOver;
     public bool IsGameOver { get => isGameOver;}
+
+	private bool isPauseOn = false;
+
+    public bool IsPauseOn { get => isPauseOn;}
     private void Start()
 	{	   
 		player—oordinates = GetComponent<Transform>();
@@ -248,6 +252,7 @@ public class Player : MonoBehaviour
 			paused = false;
 			PauseImage.sprite = Stop;
 
+			isPauseOn = true;
 		}
 		else
 		{
@@ -258,6 +263,7 @@ public class Player : MonoBehaviour
 			PauseImage.sprite = Play;
 
 			paused = true;
+			
 
 		}
 
@@ -283,6 +289,7 @@ public class Player : MonoBehaviour
 
 
 			yield return null;
+			
 		}
 
 
@@ -290,6 +297,7 @@ public class Player : MonoBehaviour
 		StopCoroutine(PauseReset());
 		EventManager.EventPlay?.Invoke(50);
 		Player_Anim.SetFloat("Speed", 50);
+		isPauseOn = false;
 
 
 	}

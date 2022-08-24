@@ -10,10 +10,11 @@ public class Coin : MonoBehaviour
 
     public int Coins { get { return quantityCoins; } set { quantityCoins = value; } }
 
+
     private void Start()
     {
         EventManager.PickUpCoinEvent.AddListener(AddingCoin);
-       Coins = PlayerPrefs.GetInt("Coin");
+        Coins = PlayerPrefs.GetInt("Coin");
     }
 
     private void Update()
@@ -24,14 +25,11 @@ public class Coin : MonoBehaviour
     private void AddingCoin(GameObject obj)
     {
         if (obj.tag == "Coin")
-
             quantityCoins++;
-
         else
             quantityCoins += 10;
-
+       
         PlayerPrefs.SetInt("Coin", quantityCoins);
-        //TransferQuantityCoin.transferQuantityCoin++;
     }
 
     private void OnEnable()
