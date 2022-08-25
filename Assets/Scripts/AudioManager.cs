@@ -21,12 +21,11 @@ public class AudioManager  : MonoBehaviour
 
 	private void OnEnable()
 	{
-		EventManager.AudioStartRun += StartRunClip;
+		
 		EventManager.AudioMove += AudioPlayJumpOrScroll;
 	}
 	private void OnDisable()
 	{
-		EventManager.AudioStartRun -= StartRunClip;
 		EventManager.AudioMove -= AudioPlayJumpOrScroll;
 	}
 	
@@ -63,10 +62,7 @@ public class AudioManager  : MonoBehaviour
 		}
 
 
-
-		Source_Crash.clip = Dict["Run"];
-		Source_Crash.loop = true;
-		Source_Crash.Play();
+;
 		
 	}
 	
@@ -85,14 +81,7 @@ public class AudioManager  : MonoBehaviour
 
 	}
 	
-	public void StartRunClip()//воспроизводит клип бега
-	{
-		Source_Crash.volume = 0.5f;
-		Source_Crash.clip = Dict["Run"];
-		Source_Crash.loop = true;
-		Source_Crash.Play();
-		
-	}
+
 
 	private void AudioPlayJumpOrScroll()
 	{

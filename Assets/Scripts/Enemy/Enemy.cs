@@ -24,7 +24,7 @@ public   class Enemy : MonoBehaviour
 	{
 		EventManager.IsPunched -= GetDamage;
 	}
-    public IEnumerator Object_Disapear(GameObject Body)
+    public IEnumerator Object_Disapear(GameObject Body)//делаем угасание при соприкосновении
     {
 
         Renderer rend = Body.GetComponent<Renderer>();//получаем компонент рендеринга обьекта
