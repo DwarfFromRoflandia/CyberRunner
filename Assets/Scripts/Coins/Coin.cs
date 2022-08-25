@@ -24,11 +24,13 @@ public class Coin : MonoBehaviour
 
     private void AddingCoin(GameObject obj)
     {
-        if (obj.tag == "Coin")
+        if (obj.transform.tag == "Coin")
             quantityCoins++;
+         
         else
             quantityCoins += 10;
-       
+      
+
         PlayerPrefs.SetInt("Coin", quantityCoins);
     }
 

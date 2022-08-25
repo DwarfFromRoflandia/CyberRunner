@@ -46,7 +46,6 @@ public class Player : MonoBehaviour
 	{	   
 		playerСoordinates = GetComponent<Transform>();
 		EventManager.Animation_Play += Set_Anim_Play_True;
-		EventManager.EventPlay += StartRunValues;
 		EventManager.EventPlay?.Invoke(100);
 		EventManager.Animation_Play?.Invoke(true);
 
@@ -70,7 +69,7 @@ public class Player : MonoBehaviour
 		Player_Anim.applyRootMotion = false; //замораживаем повороты и перемещения анимаций после поворота нашей первой анимации
 		EventManager.AudioStartRun.Invoke();// запускаем звук бега после поворота
 	}
-
+	 
 	public void GameOver()//метод, отвечающий за конец игры
 	{
 		Debug.Log(playerСoordinates.transform.position);
@@ -131,7 +130,7 @@ public class Player : MonoBehaviour
         { 
             Instantiate(ParticleInCoin, other.transform.position + new Vector3(0, 8f, 0), other.transform.rotation);//при соприкосновении коллайдера игрока с монеткой появляется дымка от исчезнувшей монеты
 			Destroy(other.gameObject);
-            if (EventManager.PickUpCoinEvent != null) EventManager.PickUpCoinEvent.Invoke(gameObject);
+            if (EventManager.PickUpCoinEvent != null) EventManager.PickUpCoinEvent.Invoke(other.gameObject);
 			if (EventManager.AudioCoinEvent != null) EventManager.AudioCoinEvent.Invoke();
         }
 		 
@@ -231,7 +230,7 @@ public class Player : MonoBehaviour
 
 	private void StartRunValues(float GameSpeed)
 	{
-		PlayerSpeed = GameSpeed;
+		
  
 		transform.Translate(0, 0, GameSpeed * Time.deltaTime, Space.World);
 
@@ -241,17 +240,19 @@ public class Player : MonoBehaviour
 	 
 	private bool paused = true;
     public bool Paused { get => paused;}
+	private float BufferPlayerSpeed;
     public void Pause()
 	{
 
-		EventManager.ButtonClicked.Invoke();
+		EventManager.ButtonClicked.Invoke();//звук
 		if (paused)
 		{
-			EventManager.EventPlay?.Invoke(0);
+			BufferPlayerSpeed = PlayerSpeed;//сохраняем значение скорости
+			PlayerSpeed = 0;//придаем ноль сколости
 			Player_Anim.SetFloat("Speed",0);
 			paused = false;
 			PauseImage.sprite = Stop;
-
+			StopAllCoroutines();//останавливаем ускорение игры
 			isPauseOn = true;
 		}
 		else
@@ -260,6 +261,8 @@ public class Player : MonoBehaviour
 
 			StartCoroutine(PauseReset());
 			TextTimeToStart.gameObject.SetActive(true);
+
+			
 			PauseImage.sprite = Play;
 
 			paused = true;
@@ -295,10 +298,12 @@ public class Player : MonoBehaviour
 
 		TextTimeToStart.gameObject.SetActive(false) ;
 		StopCoroutine(PauseReset());
-		EventManager.EventPlay?.Invoke(50);
-		Player_Anim.SetFloat("Speed", 50);
-		isPauseOn = false;
 
+		PlayerSpeed = BufferPlayerSpeed;//снова придаем телу данную ему скорость 
+		Player_Anim.SetFloat("Speed", 50);
+
+		isPauseOn = false;
+		StartCoroutine(IncreaseGame());
 
 	}
 
@@ -309,7 +314,7 @@ public class Player : MonoBehaviour
 		{
 
 			yield return new WaitForSeconds(5f);
-			PlayerSpeed += 10;
+			PlayerSpeed += 5;
 
 		}
 	}

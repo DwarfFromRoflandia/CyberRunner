@@ -4800,8 +4800,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63eb7db6fc4460b4484061972c9ceff5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ForceBullet: 300
-  Force: 1400000
+  ForceBullet: 700
+  Force: 1200000
   ParticleBullet: {fileID: 198435890141970726, guid: 8333d50130027574ca8b4e0268fdd047, type: 3}
 --- !u!1 &5001173674260975807
 GameObject:

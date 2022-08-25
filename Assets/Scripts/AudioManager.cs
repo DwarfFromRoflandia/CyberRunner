@@ -10,7 +10,7 @@ public class AudioManager  : MonoBehaviour
 	[SerializeField] private List <AudioClip> Clips;
 	[SerializeField] private List<string> Values;
 	private Dictionary<string, AudioClip> Dict = new Dictionary<string, AudioClip>();
-
+	bool StayIn;
 	private void Awake()
 	{
 		Source_Crash = GetComponent<AudioSource>();
@@ -32,8 +32,9 @@ public class AudioManager  : MonoBehaviour
 	
 	private void OnCollisionEnter(Collision collision)
 	{
+		StayIn = false;
 		 
-		if (collision.gameObject.tag == "Obstacle")
+		if (collision.gameObject.tag == "Obstacle" )
 		{
 			
 			Source_Crash.loop = false;
@@ -42,7 +43,7 @@ public class AudioManager  : MonoBehaviour
 
 		}
 
-		else if (collision.gameObject.tag == "MetalObstacle")
+		else if (collision.gameObject.tag == "MetalObstacle" )
 		{
 
 			Source_Crash.loop = false;
@@ -52,7 +53,7 @@ public class AudioManager  : MonoBehaviour
 
 		}
 
-		else if (collision.gameObject.tag == "Car")
+		else if (collision.gameObject.tag == "Car" )
 		{
 
 
@@ -68,6 +69,7 @@ public class AudioManager  : MonoBehaviour
 		Source_Crash.Play();
 		
 	}
+	
 	private void SerializeDict(Dictionary<string,AudioClip> dict) // заполняет переданный словарь 
 	{
 		int i = 0;
@@ -82,7 +84,8 @@ public class AudioManager  : MonoBehaviour
 		}
 
 	}
-	private void StartRunClip()//воспроизводит клип бега
+	
+	public void StartRunClip()//воспроизводит клип бега
 	{
 		Source_Crash.volume = 0.5f;
 		Source_Crash.clip = Dict["Run"];
@@ -94,10 +97,9 @@ public class AudioManager  : MonoBehaviour
 	private void AudioPlayJumpOrScroll()
 	{
 
-		 
+		Source_Crash.Stop();
 		Source_Crash.PlayOneShot(Dict["Jump"]);//оспроизводит клип прыжка и отскоков
-	 
-		
+
 		 
 	}
 	
