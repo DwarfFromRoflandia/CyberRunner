@@ -109,23 +109,23 @@ public class Player : MonoBehaviour
 
 	private void OnCollisionExit(Collision other)
 	{
-
-
 		if (other.transform.tag == "MetalObstacle" || other.transform.tag == "Car" || other.transform.tag == "Obstacle")
 		{
 			speed = 0;
 		}
 	}
 
-	private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
-		 
-        if (other.transform.tag == "SpawnTrigger")
+        if (other.gameObject.tag == "SpawnTrigger")
         {
             spawnManager.SpawnTriggerEntered();
+            Debug.Log("SpawnTrigger ON");
         }
-
-        if (other.transform.tag == "Coin"||other.transform.tag == "GoldCoin")
+    }
+    private void OnCollisionEnter(Collision other)
+    {
+		if (other.transform.tag == "Coin"||other.transform.tag == "GoldCoin")
 			
         { 
             Instantiate(ParticleInCoin, other.transform.position + new Vector3(0, 8f, 0), other.transform.rotation);//при соприкосновении коллайдера игрока с монеткой появляется дымка от исчезнувшей монеты
