@@ -6,6 +6,11 @@ TagManager:
   tags:
   - SpawnTrigger
   - Coin
+  - Obstacle
+  - Change-Button
+  - Road
+  - MetalObstacle
+  - Car
   layers:
   - Default
   - TransparentFX

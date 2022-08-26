@@ -6,7 +6,7 @@ using System.Linq;
 public class RoadSpawner : MonoBehaviour
 {
     public List<GameObject> roads;//создаём список дорог
-    private float offset = 2000f;//переменная, которая отвечает за смещение новой появившейся панели по оси Z
+    private float offset = 100f;//переменная, которая отвечает за смещение новой появившейся панели по оси Z
 
     private void Start()
     {

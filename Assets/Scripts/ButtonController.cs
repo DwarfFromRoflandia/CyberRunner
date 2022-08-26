@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class ButtonController :OpenAndExitStore
 {
    
-   public float GameSpeed;
+   public float GameSpeed=100;
     public GameObject Main_Menu_Condition; // ссылка на главное меню
     public GameObject Settings_Menu;
     public Text TextWarnings;// предупреждение текста для ввода имени
@@ -34,36 +34,39 @@ public class ButtonController :OpenAndExitStore
 
     Animation Input_Field_Anim;
     Transform Input_Field_Trans;
-    Material Time_Now;
+    static Material Time_Now;
     public Canvas PersonalCanvas;
     public bool PauseIsPressed;
     [SerializeField] private Image PauseImage;
-
-
+    [SerializeField] private Light Light;
+    public TouchScreenKeyboard keyboard;
     private void Start()
 	{
-
+       
     
         PhoneSource = GameObject.Find("MainMenuCanvas").GetComponent<AudioSource>();
+        
         MusicImage = GameObject.Find("ButtonMusic").GetComponent<Image>();
        // Settings_Menu.SetActive(false);
         PlayerPrefs.SetString("MusicCondition","On");
-        Music();
+         
        
         Animation_Disapearing = Change_Name_Button.GetComponent<Animation>();
-        Time_Now = Time_Cond[0];
+      
 
+       if(SceneManager.GetActiveScene().buildIndex==1&& Time_Now!=null) // если присутствует скайбокс и мы в сцене игры
+                                                                        // - тогда прнидаем скорость, разворачиваемся и меняем фон на заданный
+        RenderSettings.skybox = Time_Now;
 
-
-
-       // Main_Menu_Condition.SetActive(false);
+       
         EventManager.EventPlay?.Invoke(GameSpeed);
         EventManager.Animation_Play?.Invoke(true);
-        PersonalCanvas?.gameObject.SetActive(true);
+      
 
 
     }
-	 
+ 
+
 
 	public void InputPlay() /* метод при использовании которого запускается игровая сессия 
                               (При нажатии на кнопку Play в главном меню)*/
@@ -71,16 +74,21 @@ public class ButtonController :OpenAndExitStore
         EventManager.ButtonClicked.Invoke();// вызываем звук нажатия 
         SceneManager.LoadScene(1);
         EventManager.Animation_Play?.Invoke(true);
-        PauseImage.gameObject.SetActive(true);// делаем кнопку Stop видимой
-        
-    }
+    
+  
+
+
+    
+
+
+}
 
     public void InputSettings()
     {
         EventManager.ButtonClicked.Invoke();// вызываем звук нажатия 
         Main_Menu_Condition.SetActive(false);
         Settings_Menu.SetActive(true);
-        Input_Field_Trans = gameObject.transform.GetChild(3).GetChild(0).transform.GetComponent<Transform>();
+        Input_Field_Trans = gameObject.transform.GetChild(4).GetChild(0).transform.GetComponent<Transform>();
         Input_Field = Input_Field_Trans.GetComponent<InputField>(); // инициализируем переменные перед переходом в настройки
         Input_Field.text = PlayerPrefs.GetString("Name");
         InputName();
@@ -89,7 +97,7 @@ public class ButtonController :OpenAndExitStore
 
 
     }
-    
+  
 	public  override void ExitMenu()
     {
         EventManager.ButtonClicked.Invoke();// вызываем звук нажатия 
@@ -147,11 +155,12 @@ public class ButtonController :OpenAndExitStore
    
     public void Change_Day_Time( )
 	{
+       
         EventManager.ButtonClicked.Invoke();// вызываем звук нажатия 
-
+         
         switch (s)
         {
-
+             
             case "Day":
                 s = "Evening";
                 Image_Time_Now.sprite = Time_Sprites[0];
@@ -177,10 +186,13 @@ public class ButtonController :OpenAndExitStore
                 break;
 
             default:
-                throw new Exception();
+                print("ничего не выбрано");
+                break;
                  
 
         }
+      
+     
         RenderSettings.skybox = Time_Now;
     }
 
@@ -222,7 +234,7 @@ public class ButtonController :OpenAndExitStore
     public void InputName()
     {
 
-        TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default, false, false, true, true);
+      
 
         if (Input_Field.text.Length > 17|| Input_Field.text.Length < 4)
         {

@@ -23,6 +23,7 @@ public class BuyBullets : MonoBehaviour
     public bool IsThePurchaseBulletsAvailable { get => isThePurchaseBulletsAvailable; }
     private void Start()
     {
+        quantityBullets =  PlayerPrefs.GetInt("Bullets");
         EventManager.BuyBullets.AddListener(AddBullets);
         
     }
@@ -42,7 +43,7 @@ public class BuyBullets : MonoBehaviour
 
     public void Buy()
     {
-        
+         
         if (EventManager.BuyBullets != null)
         {
             EventManager.BuyBullets.Invoke();
@@ -52,8 +53,11 @@ public class BuyBullets : MonoBehaviour
 
     public void AddBullets()
     {
+        
         quantityBullets++;
+        PlayerPrefs.SetInt("Bullets", quantityBullets);
         _coin.Coins -= priceBullets;
+        PlayerPrefs.SetInt("Coin", _coin.Coins);
     }
 
 }

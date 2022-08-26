@@ -12,6 +12,7 @@ public class QuantityHeartsText : MonoBehaviour
     {
         quantityHeartsText = GetComponent<Text>();
         buyHearts = transform.parent.parent.GetComponent<BuyHearts>();
+        quantityHeartsText.text =buyHearts.QuantityHearts.ToString();
     }
 
     private void Update()
