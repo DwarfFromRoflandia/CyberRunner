@@ -22,15 +22,7 @@ public class TouchController : MonoBehaviour, IDragHandler,IEndDragHandler
 		player = GameObject.Find("Player").GetComponent<Player>();
 	}
 
-	void FixedUpdate()
-	{
-	 
-
-		//блок гравитации
-		 
-		 
-
-	}
+	
 	private void OnTriggerStay(Collider colider)
 	{
 
