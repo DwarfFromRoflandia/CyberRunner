@@ -18,11 +18,12 @@ public class AudioManager  : MonoBehaviour
 		SerializeDict(Dict);
 	 
 	}
-
+	
 	private void OnEnable()
 	{
 		
 		EventManager.AudioMove += AudioPlayJumpOrScroll;
+	
 	}
 	private void OnDisable()
 	{
@@ -31,7 +32,7 @@ public class AudioManager  : MonoBehaviour
 	
 	private void OnCollisionEnter(Collision collision)
 	{
-		StayIn = false;
+		StayIn = true;
 		 
 		if (collision.gameObject.tag == "Obstacle" )
 		{
@@ -52,7 +53,7 @@ public class AudioManager  : MonoBehaviour
 
 		}
 
-		else if (collision.gameObject.tag == "Car" )
+		else if (collision.gameObject.tag == "Car")
 		{
 
 
@@ -91,6 +92,6 @@ public class AudioManager  : MonoBehaviour
 
 		 
 	}
-	
-	
+
+
 }

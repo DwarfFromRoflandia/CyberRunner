@@ -142,7 +142,7 @@ public class Player : MonoBehaviour
 
 			HealthImage = HealthSlider.transform.GetChild(1).GetChild(0).GetComponent<Image>();
 
-			Destroy(other.gameObject, 1f);// удаляем врага через 3 секунды
+			Destroy(other.gameObject, 1f);// удаляем врага через 1 секунды
 
 			if (other.gameObject.tag != "Gas") // запускаем анимацию спотыкания
 			{

@@ -26,10 +26,12 @@ public   class Enemy : MonoBehaviour
 	}
     public IEnumerator Object_Disapear(GameObject Body)//делаем угасание при соприкосновении
     {
-
+		
         Renderer rend = Body.GetComponent<Renderer>();//получаем компонент рендеринга обьекта
+		
 
-        Color color = rend.material.color;
+
+		Color color = rend.material.color;
 
 
         while (color.a > 0)
