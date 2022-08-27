@@ -23,7 +23,7 @@ public class EnemySpawner : MonoBehaviour
 
 
 	 
-			if (Vector3.Distance(gameObject.transform.position, EnemyLeft.transform.position) >= 1000)
+			if (Vector3.Distance(gameObject.transform.position, EnemyLeft.transform.position) >= 500)
 			{
 				switch (switcher)
 				{
@@ -43,9 +43,9 @@ public class EnemySpawner : MonoBehaviour
 						break;
 				}
 			} 
-
+	yield return null;
 		}
-			yield return null;
+		
 
 	}
 

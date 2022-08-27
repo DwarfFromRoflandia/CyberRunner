@@ -11,6 +11,10 @@ TagManager:
   - Road
   - MetalObstacle
   - Car
+  - Gas
+  - GoldCoin
+  - Bullet
+  - Destroyer
   layers:
   - Default
   - TransparentFX

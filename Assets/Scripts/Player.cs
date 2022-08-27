@@ -120,7 +120,7 @@ public class Player : MonoBehaviour
         if (other.gameObject.tag == "SpawnTrigger")
         {
             spawnManager.SpawnTriggerEntered();
-            Debug.Log("SpawnTrigger ON");
+           
         }
     }
     private void OnCollisionEnter(Collision other)
@@ -143,6 +143,9 @@ public class Player : MonoBehaviour
 			HealthImage = HealthSlider.transform.GetChild(1).GetChild(0).GetComponent<Image>();
 
 			Destroy(other.gameObject, 1f);// удаляем врага через 1 секунды
+			Enemy enemy = other.transform.GetComponent<Enemy>();
+
+			StartCoroutine(enemy.Object_Disapear(other.gameObject));//передаем параметр предмета столкновения
 
 			if (other.gameObject.tag != "Gas") // запускаем анимацию спотыкания
 			{
@@ -167,9 +170,7 @@ public class Player : MonoBehaviour
 
 			}
 
-			Enemy enemy = other.transform.GetComponent<Enemy>();
-
-			StartCoroutine(enemy.Object_Disapear(other.gameObject));//передаем параметр предмета столкновения
+		 
 
 
 

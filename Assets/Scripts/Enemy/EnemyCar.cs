@@ -9,11 +9,29 @@ public class EnemyCar : Enemy
     [SerializeField] private float speed = 0;
     [SerializeField] private float SignalStartDistance = 400;
     private Rigidbody rb;
-     
+    [SerializeField] private Material CarMaterial;
+    [SerializeField] private Texture CarText;
+	private void OnCollisionEnter(Collision collision)
+	{
+        if(collision.transform.CompareTag("Player"))
+        GetComponent<AudioSource>().Play();
 
+        if (collision.transform.CompareTag("Bullet")|| collision.transform.CompareTag("Player"))
+        {
+            CarMaterial.mainTexture = CarText;
+            gameObject.GetComponent<Renderer>().material = CarMaterial;// придаем обьекту материал прозрачности
+            StartCoroutine(Object_Disapear(gameObject));
+        }
 
-    // Start is called before the first frame update
-    void Start()
+        if (collision.transform.CompareTag("Destroyer"))//уничтожаем машину когда игрок пробежал ее
+		{
+            Destroy(gameObject);
+		}
+        
+	}
+
+	// Start is called before the first frame update
+	void Start()
     {
         ObstacleDamage = 0.4f;
         rb = GetComponent<Rigidbody>();
