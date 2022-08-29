@@ -20,5 +20,6 @@ public static class EventManager
 	public static Action ButtonClicked;
 	public static Action AudioStartRun;
 	public static Action AudioMove;
+	public static UnityEvent<float> SetSpeedCar = new UnityEvent<float>();
 
 }

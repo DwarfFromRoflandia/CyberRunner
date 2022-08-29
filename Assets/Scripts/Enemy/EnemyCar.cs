@@ -29,6 +29,17 @@ public class EnemyCar : Enemy
 		}
         
 	}
+	private void OnEnable()
+	{
+        EventManager.SetSpeedCar.AddListener(Speed_Car);
+	}
+
+	private void OnDisable()
+	{
+        EventManager.SetSpeedCar.RemoveListener(Speed_Car);
+    }
+
+
 
 	// Start is called before the first frame update
 	void Start()
@@ -47,5 +58,10 @@ public class EnemyCar : Enemy
 
         rb.velocity = transform.forward*speed * Time.fixedDeltaTime;
         
+    }
+
+    void Speed_Car(float speed)
+    {
+        this.speed = speed;
     }
 }

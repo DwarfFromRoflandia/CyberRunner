@@ -5,11 +5,11 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
 	public List<GameObject> Enemys;
-	GameObject EnemyLeft;
+	GameObject Enemy;
 	private void Start()
 	{
 		 
-		EnemyLeft = Instantiate(Enemys[Random.Range(0, 4)],
+		Enemy = Instantiate(Enemys[Random.Range(0, Enemys.Count)],
 					   transform.position - new Vector3(70, 0, 0),
 					   Quaternion.Euler(0, 180, 0));
 		StartCoroutine(StartSpawn());
@@ -17,35 +17,42 @@ public class EnemySpawner : MonoBehaviour
 	bool switcher = true;
 	public IEnumerator StartSpawn()
 	{
+if (Enemy != null)
 
-		while (true)
+			while (true)
 		{
 
 
-	 
-			if (Vector3.Distance(gameObject.transform.position, EnemyLeft.transform.position) >= 500)
+ 
+			if (Vector3.Distance(gameObject.transform.position, Enemy.transform.position) >= 500)
 			{
+				float changeX;
 				switch (switcher)
 				{
 					case true:
+						changeX = 70;
+						switcher = false;
 
-				EnemyLeft = Instantiate(Enemys[Random.Range(0, 4)],
-					  transform.position - new Vector3(70, 0, 0),
-					  Quaternion.Euler(0, 180, 0));
-						 switcher = false;
 						break;
 
 					case false:
-				EnemyLeft = Instantiate(Enemys[Random.Range(0, 4)],
-					  transform.position + new Vector3(70, 0, 0),
-					  Quaternion.Euler(0, 180, 0));
-						 switcher = true;
+						changeX = -70;
+						switcher =true;
 						break;
 				}
+
+
+				Enemy = Instantiate(Enemys[Random.Range(0, Enemys.Count)],
+					  transform.position - new Vector3(changeX, 0, 0),
+					  Quaternion.Euler(0, 180, 0));
+				 
 			} 
+	 
 	yield return null;
 		}
-		
+else
+	StopCoroutine(StartSpawn());
+
 
 	}
 

@@ -72,13 +72,23 @@ public class Player : MonoBehaviour
 	 
 	public void GameOver()//метод, отвечающий за конец игры
 	{
-		Debug.Log(playerСoordinates.transform.position);
+		
 		Player_Anim.SetFloat("Speed", 0);
+
 		EventManager.EventPlay?.Invoke(0);
+
 		gameOverMenu.SetActive(true);
+
 		EventManager.EventPlay += StartRunValues;
-		Debug.Log("GameOver");
+
+		EventManager.SetSpeedCar?.Invoke(0);
+
+		PlayerSpeed = 0;
+
 		StopCoroutine(IncreaseGame());
+
+		rb.velocity = Vector3.zero;
+
 		isGameOver = true;
 
 	}
@@ -255,16 +265,21 @@ public class Player : MonoBehaviour
 			PauseImage.sprite = Stop;
 			StopAllCoroutines();//останавливаем ускорение игры
 			isPauseOn = true;
-		}
+			EventManager.SetSpeedCar.Invoke(0f);// останавливаем машины
+
+				}
 		else
 		{
 
 
 			StartCoroutine(PauseReset());
+
 			TextTimeToStart.gameObject.SetActive(true);
 
 			
 			PauseImage.sprite = Play;
+
+			 
 
 			paused = true;
 			
@@ -295,6 +310,7 @@ public class Player : MonoBehaviour
 			yield return null;
 			
 		}
+	
 
 
 		TextTimeToStart.gameObject.SetActive(false) ;
@@ -305,6 +321,8 @@ public class Player : MonoBehaviour
 
 		isPauseOn = false;
 		StartCoroutine(IncreaseGame());
+
+		EventManager.SetSpeedCar.Invoke(6000f);//обратно придаем скорость машинам
 
 	}
 
