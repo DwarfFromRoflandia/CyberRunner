@@ -116,7 +116,9 @@ public class ButtonController :OpenAndExitStore
         Input_Field.gameObject.SetActive(false);
         TextWarnings.text = "";
         Change_Name_Button.gameObject.SetActive(true);
+
         
+
 
 
     }
@@ -260,17 +262,18 @@ public class ButtonController :OpenAndExitStore
 		else
 		{
 
-            print("Все ровно!");
+          
             TextWarnings.color = Color.green;
             TextWarnings.text = "Имя подходит!";
-            EventManager.ChangeNameEvent?.Invoke(Input_Field.text);
+            PlayerPrefs.SetString("Name", Input_Field.text);// фиксируем в базе измененное имя
+
 
 
         }
         Animation Anim_Text = TextWarnings.GetComponent<Animation>();
         Anim_Text.Play();
 
-
+       
        
     }
 

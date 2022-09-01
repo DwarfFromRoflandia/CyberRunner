@@ -42,6 +42,8 @@ public class Player : MonoBehaviour
 	private bool isPauseOn = false;
 
     public bool IsPauseOn { get => isPauseOn;}
+
+	private Vector3 Velocity;
     private void Start()
 	{	   
 		playerСoordinates = GetComponent<Transform>();
@@ -49,8 +51,9 @@ public class Player : MonoBehaviour
 		EventManager.EventPlay?.Invoke(100);
 		EventManager.Animation_Play?.Invoke(true);
 
+		Player_Anim.SetBool("Die", false);
 
-		//EventManager.GameOverEvent.AddListener(GameOver);
+
 
 		isGameOver = false;
 	}
@@ -71,24 +74,41 @@ public class Player : MonoBehaviour
 	 
 	public void GameOver()//метод, отвечающий за конец игры
 	{
-		
-		Player_Anim.SetFloat("Speed", 0);
-
-		EventManager.EventPlay?.Invoke(0);
-
-		gameOverMenu.SetActive(true);
-
 		 
+
+		Player_Anim.SetFloat("Speed", 0);
 
 		EventManager.SetSpeedCar?.Invoke(0);
 
 		PlayerSpeed = 0;
 
-		StopCoroutine(IncreaseGame());
+		EventManager.EventPlay?.Invoke(0);
 
-		rb.velocity = Vector3.zero;
+		
+
+		StopCoroutine(IncreaseGame());//останавливаем увеличичение  скорости игры
+
+	
 
 		isGameOver = true;
+
+		rb.AddForce(Vector3.forward * -1 * Time.deltaTime * 3_000);
+
+
+
+
+		Physics.OverlapSphere(position:transform.position, radius: 5f);
+
+
+
+
+
+	}
+	public void Velocity_Null()
+	{
+		Time.timeScale = 0;
+		gameOverMenu.SetActive(true);
+
 
 	}
 	float HealthAfterPunch;
@@ -101,9 +121,8 @@ public class Player : MonoBehaviour
 
 	public void ButtonExitToMainMenu()
 	{
-	 	 
+
 		SceneManager.LoadScene(0);
-		//mainMenu.SetActive(true);
 		gameOverMenu.SetActive(false);
 		playerСoordinates.transform.position = secondStartPoint.transform.position;
 		HealthSlider.value = 1;
@@ -152,8 +171,10 @@ public class Player : MonoBehaviour
 
 			HealthImage = HealthSlider.transform.GetChild(1).GetChild(0).GetComponent<Image>();
 
-			Destroy(other.gameObject, 1f);// удаляем врага через 1 секунды
+			Destroy(other.gameObject, 0.6f);// удаляем врага через 0.6 секунды
 			Enemy enemy = other.transform.GetComponent<Enemy>();
+
+		
 
 			StartCoroutine(enemy.Object_Disapear(other.gameObject));//передаем параметр предмета столкновения
 
@@ -162,10 +183,17 @@ public class Player : MonoBehaviour
 
 				Player_Anim.SetTrigger("Punched");
 			}
-			   
-			if (HealthSlider.value <= 0.1) GameOver(); // проверяем уровень жизни чтобы понять завершать ли игровую сессию
 
-			if (HealthAfterPunch < 0.7 && HealthAfterPunch > 0.3)
+			if (HealthSlider.value <= 0.1)
+			{
+				Player_Anim.SetTrigger("Die");
+
+			
+
+				GameOver();// переключаем на анимацию смерти  // проверяем уровень жизни чтобы понять завершать ли игровую сессию
+				
+			}
+				if (HealthAfterPunch < 0.7 && HealthAfterPunch > 0.3)
 			{
 
 				HealthImage.color = Color.yellow;
@@ -217,7 +245,7 @@ public class Player : MonoBehaviour
 	 
 	private void FixedUpdate()
 	{
-		HealthSlider.value = Mathf.MoveTowards(HealthSlider.value, HealthAfterPunch, 0.5f*Time.fixedDeltaTime);// плавное снижене здоровья после удара
+		HealthSlider.value = Mathf.MoveTowards(HealthSlider.value, HealthAfterPunch, 0.3f*Time.fixedDeltaTime);// плавное снижене здоровья после удара
 
 		StartRunValues(PlayerSpeed);
 

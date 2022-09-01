@@ -16,16 +16,8 @@ public class InformationFollow:CameraFollow
 
     }
    
-    private void OnEnable()
-    {
-        EventManager.ChangeNameEvent += GetInfo;
-      
-    }
-    private void OnDisable()
-    {
-        EventManager.ChangeNameEvent -= GetInfo;
-    
-    }
+   
+   
     // Update is called once per frame
     void LateUpdate()
     {
@@ -35,12 +27,6 @@ public class InformationFollow:CameraFollow
         
     }
 
-    void GetInfo(string name)
-    {
-        PlayerPrefs.SetString("Name",name);
-
-       Name.text = PlayerPrefs.GetString("Name");
-    
-    }
+   
    
 }

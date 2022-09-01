@@ -10,7 +10,6 @@ public static class EventManager
 	public static Action<float> EventPlay;
 	public static Action<bool> Animation_Play;
 	public static UnityEvent <GameObject> PickUpCoinEvent = new UnityEvent<GameObject>() ;
-	public static Action<string> ChangeNameEvent;
 	public static UnityEvent BuyHealth = new UnityEvent();
 	public static UnityEvent BuyBullets = new UnityEvent();
 	public static Func<float,float> IsPunched;
