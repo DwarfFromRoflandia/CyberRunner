@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
     private void Start()
 	{	   
 		playerСoordinates = GetComponent<Transform>();
-		EventManager.Animation_Play += Set_Anim_Play_True;
+		 
 		EventManager.EventPlay?.Invoke(100);
 		EventManager.Animation_Play?.Invoke(true);
 
@@ -54,8 +54,7 @@ public class Player : MonoBehaviour
 
 		isGameOver = false;
 	}
-
-
+	 
     public void False()//метод добавляет Rigidbody после анимации поворота и передает скорость в аниматор
 	{
 		Player_Anim.SetBool("PlayIsPressed", false);
@@ -79,7 +78,7 @@ public class Player : MonoBehaviour
 
 		gameOverMenu.SetActive(true);
 
-		EventManager.EventPlay += StartRunValues;
+		 
 
 		EventManager.SetSpeedCar?.Invoke(0);
 
@@ -93,6 +92,7 @@ public class Player : MonoBehaviour
 
 	}
 	float HealthAfterPunch;
+	 
 	private void Awake()
 	{
 		HealthAfterPunch = HealthSlider.value;
@@ -199,16 +199,20 @@ public class Player : MonoBehaviour
 	private void OnEnable()
 	{
 		EventManager.EventPlay += StartRunValues;
-		 
-		 
-		 
+
+		EventManager.Animation_Play += Set_Anim_Play_True;
+
+		
+
 
 	}
 	void OnDisable()
 	{
 		EventManager.EventPlay -= StartRunValues;
-		 
 
+		EventManager.Animation_Play -= Set_Anim_Play_True;
+
+		
 	}
 	 
 	private void FixedUpdate()
