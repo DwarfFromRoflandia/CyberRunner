@@ -20,6 +20,8 @@ public class TouchController : MonoBehaviour, IDragHandler,IEndDragHandler
 	void Awake()
 	{
 		player = GameObject.Find("Player").GetComponent<Player>();
+
+		if (SceneManager.GetActiveScene().buildIndex.Equals(1) == false) gameObject.SetActive(false); // если мы находимся в сцене PplayMode -тогда можем перемещаться
 	}
 
 	

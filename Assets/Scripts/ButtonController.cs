@@ -54,6 +54,7 @@ public class ButtonController :OpenAndExitStore
         PhoneSource = GameObject.Find("MainMenuCanvas").GetComponent<AudioSource>();
         
         MusicImage = GameObject.Find("ButtonMusic").GetComponent<Image>();
+
         Music();
        
 

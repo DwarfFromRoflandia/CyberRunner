@@ -9,7 +9,7 @@ public class GameOver : MonoBehaviour
     [SerializeField] private Coin _coin;
 
     [SerializeField] private Text scoreMeter;
-    [SerializeField] private Text coinCount;
+    
     
     private Player player;
 
@@ -25,7 +25,7 @@ public class GameOver : MonoBehaviour
         GameOverMenu();
 
         scoreMeter.text = _meterCounter.MeterCount + " m";
-        coinCount.text = _coin.Coins.ToString();
+       
     }
     private void GameOverMenu()
     {

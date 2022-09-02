@@ -34,10 +34,7 @@ public class EnemyCar : Enemy
         EventManager.SetSpeedCar.AddListener(Speed_Car);
 	}
 
-	private void OnDisable()
-	{
-        EventManager.SetSpeedCar.RemoveListener(Speed_Car);
-    }
+	
 
 
 

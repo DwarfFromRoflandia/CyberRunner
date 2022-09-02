@@ -6,8 +6,13 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 
+
+
+
 public class Player : MonoBehaviour
 {
+	
+
 	[SerializeField] private GameObject gameOverMenu;
 	[SerializeField] private GameObject mainMenu;
 	[SerializeField] private GameObject secondStartPoint;
@@ -92,13 +97,12 @@ public class Player : MonoBehaviour
 
 		isGameOver = true;
 
-		rb.AddForce(Vector3.forward * -1 * Time.deltaTime * 3_000);
+		rb.AddForce(Vector3.forward * -1 * Time.deltaTime * 5_000);
 
 
 
 
-		Physics.OverlapSphere(position:transform.position, radius: 5f);
-
+	
 
 
 
@@ -117,6 +121,8 @@ public class Player : MonoBehaviour
 	{
 		HealthAfterPunch = HealthSlider.value;
 		StartCoroutine(IncreaseGame());//увеличиваем постепенно скорость игры
+		Time.timeScale = 1;
+
 	}
 
 	public void ButtonExitToMainMenu()
