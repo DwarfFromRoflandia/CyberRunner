@@ -52,6 +52,8 @@ public class Ads : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowListener, 
 	public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
 	{
 		Advertisement.Load("Rewarded_Android", this);
+
+		//здесь будет награда за просмотр
 	}
 
 	public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)

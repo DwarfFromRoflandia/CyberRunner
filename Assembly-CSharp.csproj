@@ -125,6 +125,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemySpawner.cs" />
     <Compile Include="Assets\Scripts\Advertisement\Ads.cs" />
+    <Compile Include="Assets\Scripts\Advertisement\AdvertistGoing.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Toon Gas Station\ToonShading\Shaders\ToonBasicOutline.shader" />

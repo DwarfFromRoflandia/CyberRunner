@@ -5,9 +5,7 @@ using System;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
-
-
-
+using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
@@ -48,7 +46,8 @@ public class Player : MonoBehaviour
 
     public bool IsPauseOn { get => isPauseOn;}
 
-	private Vector3 Velocity;
+	public AdvertistGoing SliderAdver;
+	
     private void Start()
 	{	   
 		player—oordinates = GetComponent<Transform>();
@@ -110,8 +109,10 @@ public class Player : MonoBehaviour
 	}
 	public void Velocity_Null()
 	{
-		Time.timeScale = 0;
+		 
 		gameOverMenu.SetActive(true);
+		StartCoroutine(SliderAdver.IncreaseSlider());
+
 
 
 	}

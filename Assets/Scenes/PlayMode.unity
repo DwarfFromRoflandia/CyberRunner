@@ -25634,7 +25634,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 46.336872, y: -1}
   m_SizeDelta: {x: 84.57374, y: -26.666878}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -25663,7 +25663,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0
+  m_FillAmount: 0.993
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -53356,7 +53356,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1180866560
 Transform:
   m_ObjectHideFlags: 0
@@ -63106,6 +63106,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1436562261}
   - component: {fileID: 1436562262}
+  - component: {fileID: 1436562263}
   m_Layer: 5
   m_Name: Circle
   m_TagString: Untagged
@@ -63181,10 +63182,22 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.993
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1436562263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436562260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5751d245a85a00419190f39e9f5df35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1437680441
 GameObject:
   m_ObjectHideFlags: 0
@@ -69102,6 +69115,7 @@ MonoBehaviour:
   ParticleInCoin: {fileID: 4154548249226513299, guid: 8b619e9d8377dc04bafd4c1d1bdf350b, type: 3}
   rb: {fileID: 0}
   PauseImage: {fileID: 1312608579}
+  SliderAdver: {fileID: 1436562263}
 --- !u!111 &1562854445
 Animation:
   m_ObjectHideFlags: 0
@@ -69116,7 +69130,7 @@ Animation:
   - {fileID: 7400000, guid: 23561cd3fe4af15498ef8e0af627c83a, type: 2}
   - {fileID: 7400000, guid: f90c4353caaa4064b97ec4a8aaa748ff, type: 2}
   m_WrapMode: 0
-  m_PlayAutomatically: 0
+  m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
 --- !u!95 &1562854446
