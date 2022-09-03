@@ -53,7 +53,7 @@ public class Ads : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowListener, 
 	{
 		Advertisement.Load("Rewarded_Android", this);
 
-		//здесь будет награда за просмотр
+		EventManager.AdvertisIsShowed.Invoke();//Уведомление о просмотренной рекламе
 	}
 
 	public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)

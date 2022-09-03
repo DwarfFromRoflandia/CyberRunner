@@ -22,16 +22,12 @@ public class GameOver : MonoBehaviour
 
     private void Update()
     {
-        GameOverMenu();
+      
 
         scoreMeter.text = _meterCounter.MeterCount + " m";
        
     }
-    private void GameOverMenu()
-    {
-        player.GameOver();
-    }
-
+   
    
 
 }

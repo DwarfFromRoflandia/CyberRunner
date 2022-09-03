@@ -272,7 +272,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 19590163}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 26, y: -3, z: -943}
+  m_LocalPosition: {x: 26, y: -8.1, z: -943}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3319,7 +3319,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0
+  m_Text: 100
 --- !u!222 &889057408
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5021,7 +5021,6 @@ MonoBehaviour:
   _meterCounter: {fileID: 0}
   _coin: {fileID: 0}
   scoreMeter: {fileID: 0}
-  coinCount: {fileID: 0}
 --- !u!1 &1222785179
 GameObject:
   m_ObjectHideFlags: 0
