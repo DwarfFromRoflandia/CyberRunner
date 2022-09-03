@@ -6,28 +6,50 @@ using UnityEngine.UI;
 public class MeterCounter : MonoBehaviour
 {
     private Text text;
-    private float speed = 1;//чем больше значение данной переменной, тем с большей скоростью будут набираться метры у игрока
-    
+    public float speedCounter = 1;//чем больше значение данной переменной, тем с большей скоростью будут набираться метры у игрока
+    public float SpeedCounter { get { return speedCounter; } set { speedCounter = value; } }
+
     private int meterCount = 0;//переменная в которую будет присваиваться значение того, сколько пробежал игрок
     public int MeterCount { get => meterCount;}
 
     private Player player;
+    
 
     private void Start()
     {
         text = GetComponent<Text>();
-
-        InvokeRepeating("Counter", 0, 1 / speed);//метод InvokeRepeating() вызывает метод Counter() начиная с 0 секунд после запуска игры и повторяет вызов данного метода и интервалом, который задаём в переменной speed
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
+        StartCoroutine(ChangeSpeedCounterMeter());
+        StartCoroutine(CounterMeter());
     }
 
-    private void Counter()
+    private void Update()
     {
         if (player.IsGameOver == false && player.IsPauseOn == false)
         {
-            meterCount += 1;
             text.text = meterCount.ToString();
         }
-       
     }
+
+    private IEnumerator ChangeSpeedCounterMeter()//метод отвечающий за постепенное увеличение скорости игры
+    {
+        while (player.IsGameOver == false && player.IsPauseOn == false)
+        {
+            yield return new WaitForSeconds(5f);
+            speedCounter -= 0.01f;
+        }
+    }
+
+    private IEnumerator CounterMeter()
+    {
+        while (player.IsGameOver == false && player.IsPauseOn == false)
+        {
+            yield return new WaitForSeconds(speedCounter);
+            text.text = meterCount.ToString();
+            meterCount++;
+        }
+    }
+
+    
 }
