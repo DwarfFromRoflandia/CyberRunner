@@ -27,10 +27,12 @@ public class Bullet : MonoBehaviour
 			rb.AddForce(Vector3.forward*Time.deltaTime*Force); //Time.deltaTime нужен для того чтобы сила была одинаковой на всех устройствах
 
 			Enemy enemy = collision.gameObject.GetComponent<Enemy>();//получаем класс Враг при столкновении пули
-
-			StartCoroutine(enemy.Object_Disapear(collision.gameObject)); // запускаем коротину исчезновения
-
-			Destroy(collision.gameObject,1f);//удаляем через 2 секунд врага
+			if (collision.transform.tag != "Car")
+			{
+				StartCoroutine(enemy.Object_Disapear(collision.gameObject)); // запускаем коротину исчезновения
+			}
+			Destroy(collision.gameObject,0.5f);//удаляем через 2 секунд врага
+			 
 
 		}
 	}

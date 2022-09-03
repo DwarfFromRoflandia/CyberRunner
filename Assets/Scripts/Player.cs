@@ -5,9 +5,12 @@ using System;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
+	
+
 	[SerializeField] private GameObject gameOverMenu;
 	[SerializeField] private GameObject mainMenu;
 	[SerializeField] private GameObject secondStartPoint;
@@ -42,20 +45,23 @@ public class Player : MonoBehaviour
 	private bool isPauseOn = false;
 
     public bool IsPauseOn { get => isPauseOn;}
+
+	public AdvertistGoing SliderAdver;
+	
     private void Start()
 	{	   
 		playerСoordinates = GetComponent<Transform>();
-		EventManager.Animation_Play += Set_Anim_Play_True;
+		 
 		EventManager.EventPlay?.Invoke(100);
 		EventManager.Animation_Play?.Invoke(true);
 
+		Player_Anim.SetBool("Die", false);
 
-		//EventManager.GameOverEvent.AddListener(GameOver);
+
 
 		isGameOver = false;
 	}
-
-
+	 
     public void False()//метод добавляет Rigidbody после анимации поворота и передает скорость в аниматор
 	{
 		Player_Anim.SetBool("PlayIsPressed", false);
@@ -72,28 +78,58 @@ public class Player : MonoBehaviour
 	 
 	public void GameOver()//метод, отвечающий за конец игры
 	{
-		Debug.Log(playerСoordinates.transform.position);
+		 
+
 		Player_Anim.SetFloat("Speed", 0);
+
+		EventManager.SetSpeedCar?.Invoke(0);
+
+		PlayerSpeed = 0;
+
 		EventManager.EventPlay?.Invoke(0);
-		gameOverMenu.SetActive(true);
-		EventManager.EventPlay += StartRunValues;
-		Debug.Log("GameOver");
-		StopCoroutine(IncreaseGame());
+
+		
+
+		StopCoroutine(IncreaseGame());//останавливаем увеличичение  скорости игры
+
+	
+
 		isGameOver = true;
+
+		rb.AddForce(Vector3.forward * -1 * Time.deltaTime * 5_000);
+
+
+
+
+	
+
+
+
+
+	}
+	public void Velocity_Null()
+	{
+		 
+		gameOverMenu.SetActive(true);
+		StartCoroutine(SliderAdver.IncreaseSlider());
+
+
 
 	}
 	float HealthAfterPunch;
+	 
 	private void Awake()
 	{
 		HealthAfterPunch = HealthSlider.value;
 		StartCoroutine(IncreaseGame());//увеличиваем постепенно скорость игры
+		Time.timeScale = 1;
+
 	}
 
 	public void ButtonExitToMainMenu()
 	{
-	 	 
+
 		SceneManager.LoadScene(0);
-		//mainMenu.SetActive(true);
 		gameOverMenu.SetActive(false);
 		playerСoordinates.transform.position = secondStartPoint.transform.position;
 		HealthSlider.value = 1;
@@ -120,7 +156,7 @@ public class Player : MonoBehaviour
         if (other.gameObject.tag == "SpawnTrigger")
         {
             spawnManager.SpawnTriggerEntered();
-            Debug.Log("SpawnTrigger ON");
+           
         }
     }
     private void OnCollisionEnter(Collision other)
@@ -142,17 +178,29 @@ public class Player : MonoBehaviour
 
 			HealthImage = HealthSlider.transform.GetChild(1).GetChild(0).GetComponent<Image>();
 
-			Destroy(other.gameObject, 1f);// удаляем врага через 3 секунды
+			Destroy(other.gameObject, 0.6f);// удаляем врага через 0.6 секунды
+			Enemy enemy = other.transform.GetComponent<Enemy>();
+
+		
+
+			StartCoroutine(enemy.Object_Disapear(other.gameObject));//передаем параметр предмета столкновения
 
 			if (other.gameObject.tag != "Gas") // запускаем анимацию спотыкания
 			{
 
 				Player_Anim.SetTrigger("Punched");
 			}
-			   
-			if (HealthSlider.value <= 0.1) GameOver(); // проверяем уровень жизни чтобы понять завершать ли игровую сессию
 
-			if (HealthAfterPunch < 0.7 && HealthAfterPunch > 0.3)
+			if (HealthSlider.value <= 0.1)
+			{
+				Player_Anim.SetTrigger("Die");
+
+			
+
+				GameOver();// переключаем на анимацию смерти  // проверяем уровень жизни чтобы понять завершать ли игровую сессию
+				
+			}
+				if (HealthAfterPunch < 0.7 && HealthAfterPunch > 0.3)
 			{
 
 				HealthImage.color = Color.yellow;
@@ -167,9 +215,7 @@ public class Player : MonoBehaviour
 
 			}
 
-			Enemy enemy = other.transform.GetComponent<Enemy>();
-
-			StartCoroutine(enemy.Object_Disapear(other.gameObject));//передаем параметр предмета столкновения
+		 
 
 
 
@@ -188,21 +234,25 @@ public class Player : MonoBehaviour
 	private void OnEnable()
 	{
 		EventManager.EventPlay += StartRunValues;
-		 
-		 
-		 
+
+		EventManager.Animation_Play += Set_Anim_Play_True;
+
+		
+
 
 	}
 	void OnDisable()
 	{
 		EventManager.EventPlay -= StartRunValues;
-		 
 
+		EventManager.Animation_Play -= Set_Anim_Play_True;
+
+		
 	}
 	 
 	private void FixedUpdate()
 	{
-		HealthSlider.value = Mathf.MoveTowards(HealthSlider.value, HealthAfterPunch, 0.5f*Time.fixedDeltaTime);// плавное снижене здоровья после удара
+		HealthSlider.value = Mathf.MoveTowards(HealthSlider.value, HealthAfterPunch, 0.3f*Time.fixedDeltaTime);// плавное снижене здоровья после удара
 
 		StartRunValues(PlayerSpeed);
 
@@ -254,16 +304,21 @@ public class Player : MonoBehaviour
 			PauseImage.sprite = Stop;
 			StopAllCoroutines();//останавливаем ускорение игры
 			isPauseOn = true;
-		}
+			EventManager.SetSpeedCar.Invoke(0f);// останавливаем машины
+
+				}
 		else
 		{
 
 
 			StartCoroutine(PauseReset());
+
 			TextTimeToStart.gameObject.SetActive(true);
 
 			
 			PauseImage.sprite = Play;
+
+			 
 
 			paused = true;
 			
@@ -294,6 +349,7 @@ public class Player : MonoBehaviour
 			yield return null;
 			
 		}
+	
 
 
 		TextTimeToStart.gameObject.SetActive(false) ;
@@ -304,6 +360,8 @@ public class Player : MonoBehaviour
 
 		isPauseOn = false;
 		StartCoroutine(IncreaseGame());
+
+		EventManager.SetSpeedCar.Invoke(6000f);//обратно придаем скорость машинам
 
 	}
 

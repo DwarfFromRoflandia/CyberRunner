@@ -4,33 +4,40 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+
 public class ButtonController :OpenAndExitStore
 {
-   
-   public float GameSpeed=100;
+    [Range(100,300)]
+    public float GameSpeed=100; // задаем ограничения скорости
+
     public GameObject Main_Menu_Condition; // ссылка на главное меню
     public GameObject Settings_Menu;
+    public GameObject Change_Name_Button;
+
     public Text TextWarnings;// предупреждение текста для ввода имени
+
     private AudioSource PhoneSource;
+
     private Image MusicImage;
+
     [SerializeField]
     private List<Material> Time_Cond  = new List<Material>();
-
     [SerializeField]
     private List<Sprite> Time_Sprites = new List<Sprite>(3);
     [SerializeField]
+
     private Image Image_Time_Now;
     
     public Sprite MusicOn, MusicOff;
-
     public Slider MusicSlider;
 
-    public GameObject Change_Name_Button;
+  
+
     private   InputField  Input_Field;
 
     private Animation Animation_Disapearing;
 
-    public bool MusicIsPressed = false; 
+    public static bool MusicIsPressed = true; 
 
     Animation Input_Field_Anim;
     Transform Input_Field_Trans;
@@ -47,10 +54,12 @@ public class ButtonController :OpenAndExitStore
         PhoneSource = GameObject.Find("MainMenuCanvas").GetComponent<AudioSource>();
         
         MusicImage = GameObject.Find("ButtonMusic").GetComponent<Image>();
-       // Settings_Menu.SetActive(false);
-        PlayerPrefs.SetString("MusicCondition","On");
-         
+
+        Music();
        
+
+
+
         Animation_Disapearing = Change_Name_Button.GetComponent<Animation>();
       
 
@@ -108,7 +117,9 @@ public class ButtonController :OpenAndExitStore
         Input_Field.gameObject.SetActive(false);
         TextWarnings.text = "";
         Change_Name_Button.gameObject.SetActive(true);
+
         
+
 
 
     }
@@ -123,21 +134,21 @@ public class ButtonController :OpenAndExitStore
 
         EventManager.ButtonClicked.Invoke();// вызываем звук нажатия 
 
-        if (PlayerPrefs.GetString("MusicCondition") == "On")
+        if (MusicIsPressed)
         {
 
             PhoneSource.Play();
-            PlayerPrefs.SetString("MusicCondition", "Off");
+            MusicIsPressed = false;
             MusicImage.sprite = MusicOn;
 
 
         }
 
-        else if(PlayerPrefs.GetString("MusicCondition") =="Off")
+        else if(!MusicIsPressed)
          {
 
             PhoneSource.Stop();
-            PlayerPrefs.SetString("MusicCondition", "On");
+            MusicIsPressed = true;
             MusicImage.sprite = MusicOff;
         }
     
@@ -252,17 +263,18 @@ public class ButtonController :OpenAndExitStore
 		else
 		{
 
-            print("Все ровно!");
+          
             TextWarnings.color = Color.green;
             TextWarnings.text = "Имя подходит!";
-            EventManager.ChangeNameEvent?.Invoke(Input_Field.text);
+            PlayerPrefs.SetString("Name", Input_Field.text);// фиксируем в базе измененное имя
+
 
 
         }
         Animation Anim_Text = TextWarnings.GetComponent<Animation>();
         Anim_Text.Play();
 
-
+       
        
     }
 
