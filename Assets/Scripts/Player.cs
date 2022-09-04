@@ -55,7 +55,10 @@ public class Player : MonoBehaviour
 	public bool Paused { get => paused; }
 
 	private float BufferPlayerSpeed;
+
 	private ParticleSystem ParticleReBorn;
+
+	[SerializeField] private GameObject ClicPlatform;
 	private void Start()
 	{	   
 		playerСoordinates = GetComponent<Transform>();
@@ -67,6 +70,9 @@ public class Player : MonoBehaviour
 		Player_Anim.SetBool("Die", false);
 
 		TextHealth = ButtonHealth.transform.GetChild(0).GetComponent<Text>();
+
+		if (TextHealth.text == "0")
+			ButtonHealth.GetComponent<Button>().interactable = false;
 
 		TextHealth.text = PlayerPrefs.GetInt("Heart").ToString();
 
@@ -93,9 +99,11 @@ public class Player : MonoBehaviour
 	 
 	public void GameOver()//метод, отвечающий за конец игры
 	{
-		 
+		ClicPlatform.SetActive(false);
 
 		Player_Anim.SetFloat("Speed", 0);
+
+		
 
 		if (PlayerSpeed > 0) // так как колайдер вывзывается несколько раз - BufferSpeed Обнуляется
 		{
@@ -478,6 +486,8 @@ public class Player : MonoBehaviour
 	{
 
 		Time.timeScale = 1;
+
+		ClicPlatform.SetActive(true);
 
 		PlayerSpeed = BufferPlayerSpeed;
 

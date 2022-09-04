@@ -13,10 +13,19 @@ public class ShotGun : MonoBehaviour
     [SerializeField] private Animator Player_Anim;
   
     [SerializeField]private Text QuantityBullets; // количество патрон
+
+    [SerializeField] private Button ShotButton;
 	void Start()
     {
       if(QuantityBullets!=null)
         QuantityBullets.text = PlayerPrefs.GetInt("Bullets").ToString();
+
+        if (QuantityBullets.text == "0") //делаем кнопку активной или не активной в зависимости от количества патрон 
+            ShotButton.interactable = false;
+
+        else ShotButton.interactable = true;
+
+
     }
     public void ShotStart()
     {
@@ -49,6 +58,8 @@ public class ShotGun : MonoBehaviour
             PlayerPrefs.SetInt("Bullets", Convert.ToInt32(QuantityBullets.text) - 1);
             QuantityBullets.text = PlayerPrefs.GetInt("Bullets").ToString();
         }
+        else
+            ShotButton.interactable = false;
 
 
     }
