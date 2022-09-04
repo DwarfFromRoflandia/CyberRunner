@@ -47,17 +47,28 @@ public class Player : MonoBehaviour
     public bool IsPauseOn { get => isPauseOn;}
 
 	public AdvertistGoing SliderAdver;
-	
-    private void Start()
+
+	[SerializeField] private GameObject ButtonHealth;
+	private Text TextHealth;
+
+	private bool paused = true;
+	public bool Paused { get => paused; }
+
+	private float BufferPlayerSpeed;
+
+	private void Start()
 	{	   
 		playerСoordinates = GetComponent<Transform>();
 		 
 		EventManager.EventPlay?.Invoke(100);
+		
 		EventManager.Animation_Play?.Invoke(true);
 
 		Player_Anim.SetBool("Die", false);
 
+		TextHealth = ButtonHealth.transform.GetChild(0).GetComponent<Text>();
 
+		TextHealth.text = PlayerPrefs.GetInt("Heart").ToString();
 
 		isGameOver = false;
 	}
@@ -82,15 +93,13 @@ public class Player : MonoBehaviour
 
 		Player_Anim.SetFloat("Speed", 0);
 
+
+
 		EventManager.SetSpeedCar?.Invoke(0);
-
-		PlayerSpeed = 0;
-
-		EventManager.EventPlay?.Invoke(0);
 
 		
 
-		StopCoroutine(IncreaseGame());//останавливаем увеличичение  скорости игры
+		StopAllCoroutines();//останавливаем увеличичение  скорости игры
 
 	
 
@@ -107,10 +116,49 @@ public class Player : MonoBehaviour
 
 
 	}
+	public void UseHealth()// увеличиваем жизнь за счет купленных сердечек
+	{
+		Button ButtonHeart = ButtonHealth.GetComponent<Button>();
+
+		int heart = PlayerPrefs.GetInt("Heart");
+
+		EventManager.ButtonClicked.Invoke();
+
+		if (heart > 0)
+		{
+		 
+
+			ButtonHeart.interactable = true;
+
+			PlayerPrefs.SetInt("Heart", heart - 1);
+
+			TextHealth.text = heart.ToString();
+
+			HealthAfterPunch += 0.5f;
+
+			CheckColorHealth();
+
+		}
+
+		else //если жизни закончились - деактивируем кнопочку
+		{
+		TextHealth.text = "0";
+
+		ButtonHeart.interactable = false;
+		
+		}
+	
+	}
+
 	public void Velocity_Null()
 	{
 		 
+
+	 
+
 		gameOverMenu.SetActive(true);
+		
+
 		StartCoroutine(SliderAdver.IncreaseSlider());
 
 
@@ -123,6 +171,8 @@ public class Player : MonoBehaviour
 		HealthAfterPunch = HealthSlider.value;
 		StartCoroutine(IncreaseGame());//увеличиваем постепенно скорость игры
 		Time.timeScale = 1;
+
+		EventManager.AdvertisIsShowed.AddListener(RewardPlayer);// подписка на награду за рекламу
 
 	}
 
@@ -191,30 +241,20 @@ public class Player : MonoBehaviour
 				Player_Anim.SetTrigger("Punched");
 			}
 
-			if (HealthSlider.value <= 0.1)
+			if (HealthSlider.value <= 0.1) // проверяем уровень жизни чтобы понять завершать ли игровую сессию
 			{
+				BufferPlayerSpeed = PlayerSpeed;
+
 				Player_Anim.SetTrigger("Die");
 
-			
+				PlayerSpeed = 0;
 
-				GameOver();// переключаем на анимацию смерти  // проверяем уровень жизни чтобы понять завершать ли игровую сессию
+				GameOver();// переключаем на анимацию смерти  
 				
 			}
-				if (HealthAfterPunch < 0.7 && HealthAfterPunch > 0.3)
-			{
 
-				HealthImage.color = Color.yellow;
-			
-			
-			}
 
-			else if (HealthAfterPunch < 0.3f) 
-			{
-
-				HealthImage.color = Color.red;
-
-			}
-
+			CheckColorHealth();
 		 
 
 
@@ -252,6 +292,8 @@ public class Player : MonoBehaviour
 	 
 	private void FixedUpdate()
 	{
+
+		print(BufferPlayerSpeed);
 		HealthSlider.value = Mathf.MoveTowards(HealthSlider.value, HealthAfterPunch, 0.3f*Time.fixedDeltaTime);// плавное снижене здоровья после удара
 
 		StartRunValues(PlayerSpeed);
@@ -288,9 +330,7 @@ public class Player : MonoBehaviour
 	}
 
 	 
-	private bool paused = true;
-    public bool Paused { get => paused;}
-	private float BufferPlayerSpeed;
+	 
     public void Pause()
 	{
 
@@ -410,6 +450,49 @@ public class Player : MonoBehaviour
 	void ResetSpeed()
 
 		=> speed = 0;
+
+	private void CheckColorHealth()
+	{
+		if (HealthAfterPunch < 0.7 && HealthAfterPunch > 0.3)  HealthImage.color = Color.yellow;
+
+		else if (HealthAfterPunch < 0.3f)					   HealthImage.color = Color.red;
+
+		else if (HealthAfterPunch >= 0.9f)					   HealthImage.color = Color.green;
+		
+		
+	}
+
+	public void RewardPlayer()
+	{
+
+		Time.timeScale = 1;
+
+		PlayerSpeed = BufferPlayerSpeed;
+
+		
+
+		Player_Anim.SetTrigger("ReBorn");
+
+		Player_Anim.SetFloat("Speed",PlayerSpeed);
+
+		EventManager.SetSpeedCar?.Invoke(6000);
+
+		 
+
+
+
+
+		StartCoroutine(IncreaseGame());//останавливаем увеличичение  скорости игры
+
+
+		gameOverMenu.SetActive(false);
+
+		isGameOver = false;
+
+		
+
+
+	}
 }
 
 

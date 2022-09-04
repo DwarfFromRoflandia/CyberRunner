@@ -23,6 +23,7 @@ public class BuyHearts : MonoBehaviour
     private void Start()
     {
         quantityHearts = PlayerPrefs.GetInt("Heart");
+        quantityHearts = 10;
         EventManager.BuyHealth.AddListener(AddHearts);
     }
 

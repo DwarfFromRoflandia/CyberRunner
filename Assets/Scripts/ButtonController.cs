@@ -60,7 +60,7 @@ public class ButtonController :OpenAndExitStore
 
 
 
-        Animation_Disapearing = Change_Name_Button.GetComponent<Animation>();
+        Animation_Disapearing = Change_Name_Button?.GetComponent<Animation>();
       
 
        if(SceneManager.GetActiveScene().buildIndex==1&& Time_Now!=null) // если присутствует скайбокс и мы в сцене игры
