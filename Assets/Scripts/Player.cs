@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
 	public bool Paused { get => paused; }
 
 	private float BufferPlayerSpeed;
-
+	private ParticleSystem ParticleReBorn;
 	private void Start()
 	{	   
 		playerСoordinates = GetComponent<Transform>();
@@ -85,6 +85,7 @@ public class Player : MonoBehaviour
 		rb.useGravity = false;
 		Player_Anim.applyRootMotion = false; //замораживаем повороты и перемещения анимаций после поворота нашей первой анимации
 		
+		 
 	}
 	 
 	public void GameOver()//метод, отвечающий за конец игры
@@ -469,17 +470,15 @@ public class Player : MonoBehaviour
 
 		PlayerSpeed = BufferPlayerSpeed;
 
-		
+		ParticleReBorn = gameObject.transform.GetChild(0).GetComponent<ParticleSystem>();
+
+		ParticleReBorn.Play();
 
 		Player_Anim.SetTrigger("ReBorn");
 
 		Player_Anim.SetFloat("Speed",PlayerSpeed);
 
 		EventManager.SetSpeedCar?.Invoke(6000);
-
-		 
-
-
 
 
 		StartCoroutine(IncreaseGame());//останавливаем увеличичение  скорости игры

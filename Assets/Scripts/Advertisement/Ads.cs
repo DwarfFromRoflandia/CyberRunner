@@ -53,7 +53,7 @@ public class Ads : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowListener, 
 	{
 		Advertisement.Load("Rewarded_Android", this);
 
-		EventManager.AdvertisIsShowed.Invoke();//Уведомление о просмотренной рекламе
+		EventManager.AdvertisIsShowed.Invoke();//Уведомление о просмотренной рекламе и возрождение
 	}
 
 	public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
@@ -66,10 +66,6 @@ public class Ads : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowListener, 
 		print("Смотрим рекламку");
 	}
 
-	// Start is called before the first frame update
-	
-
-    // Update is called once per frame
     void Update()
     {
         
