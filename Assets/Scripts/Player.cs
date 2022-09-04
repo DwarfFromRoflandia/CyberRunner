@@ -71,6 +71,9 @@ public class Player : MonoBehaviour
 		TextHealth.text = PlayerPrefs.GetInt("Heart").ToString();
 
 		isGameOver = false;
+
+		
+
 	}
 	 
     public void False()//метод добавляет Rigidbody после анимации поворота и передает скорость в аниматор
@@ -94,7 +97,12 @@ public class Player : MonoBehaviour
 
 		Player_Anim.SetFloat("Speed", 0);
 
+		if (PlayerSpeed > 0) // так как колайдер вывзывается несколько раз - BufferSpeed Обнуляется
+		{
+			BufferPlayerSpeed = PlayerSpeed;
+		}
 
+		PlayerSpeed = 0;
 
 		EventManager.SetSpeedCar?.Invoke(0);
 
@@ -158,7 +166,9 @@ public class Player : MonoBehaviour
 	 
 
 		gameOverMenu.SetActive(true);
-		
+
+	 
+
 
 		StartCoroutine(SliderAdver.IncreaseSlider());
 
@@ -230,6 +240,7 @@ public class Player : MonoBehaviour
 			HealthImage = HealthSlider.transform.GetChild(1).GetChild(0).GetComponent<Image>();
 
 			Destroy(other.gameObject, 0.6f);// удаляем врага через 0.6 секунды
+
 			Enemy enemy = other.transform.GetComponent<Enemy>();
 
 		
@@ -244,11 +255,11 @@ public class Player : MonoBehaviour
 
 			if (HealthSlider.value <= 0.1) // проверяем уровень жизни чтобы понять завершать ли игровую сессию
 			{
-				BufferPlayerSpeed = PlayerSpeed;
+				 
 
 				Player_Anim.SetTrigger("Die");
 
-				PlayerSpeed = 0;
+				 
 
 				GameOver();// переключаем на анимацию смерти  
 				
@@ -480,9 +491,11 @@ public class Player : MonoBehaviour
 
 		EventManager.SetSpeedCar?.Invoke(6000);
 
+		HealthAfterPunch = 1;
 
 		StartCoroutine(IncreaseGame());//останавливаем увеличичение  скорости игры
 
+		CheckColorHealth();
 
 		gameOverMenu.SetActive(false);
 
