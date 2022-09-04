@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
 	[SerializeField] private float distanceGravit = 7;
 	[SerializeField] private Image HealthImage;
  
-
+	[Range(100,400)]
 	public float PlayerSpeed;
 
 	[SerializeField] private ShotGun shot;

@@ -22,8 +22,7 @@ public class BuyHearts : MonoBehaviour
     public bool IsThePurchaseHeartsAvailable { get => isThePurchaseHeartsAvailable; }
     private void Start()
     {
-        quantityHearts = PlayerPrefs.GetInt("Heart");
-        quantityHearts = 10;
+       
         EventManager.BuyHealth.AddListener(AddHearts);
     }
 
