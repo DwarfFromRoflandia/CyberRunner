@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
 	[SerializeField] private GameObject gameOverMenu;
 	[SerializeField] private GameObject mainMenu;
 	[SerializeField] private GameObject secondStartPoint;
+	[SerializeField] private MeterCounter meterCounter;
 	private Transform playerСoordinates;
 	private float speed;
 	[SerializeField] private float distanceGravit = 7;
@@ -189,6 +190,11 @@ public class Player : MonoBehaviour
 	{
 		HealthAfterPunch = HealthSlider.value;
 		StartCoroutine(IncreaseGame());//увеличиваем постепенно скорость игры
+
+		StartCoroutine(meterCounter.MeterCounterCoroutine());//включение счётчика метров      
+		StartCoroutine(meterCounter.MeterCounterSpeedCoroutine());//постепенное увеличение счётчика метров
+		
+
 		Time.timeScale = 1;
 
 		EventManager.AdvertisIsShowed.AddListener(RewardPlayer);// подписка на награду за рекламу
@@ -420,6 +426,11 @@ public class Player : MonoBehaviour
 
 		isPauseOn = false;
 		StartCoroutine(IncreaseGame());
+
+		StartCoroutine(meterCounter.MeterCounterCoroutine());//включение счётчика метров
+		StartCoroutine(meterCounter.MeterCounterSpeedCoroutine());//постепенное увеличение счётчика метров
+
+
 
 		EventManager.SetSpeedCar.Invoke(6000f);//обратно придаем скорость машинам
 
