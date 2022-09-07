@@ -6,24 +6,64 @@ using System.Linq;
 public class RoadSpawner : MonoBehaviour
 {
     public List<GameObject> roads;//создаём список дорог
-    private float offset = 14000f;//переменная, которая отвечает за смещение новой появившейся панели по оси Z
+    public Player PlayerCoord;
+   [SerializeField] private float offset = 1000f;//переменная, которая отвечает за смещение новой появившейся панели по оси Z
+    private int num = 0;
+    private int NumRoad
+    #region    
 
-    private void Start()
+    {
+        get
+        {
+            NumRoad = num;
+            return num; 
+        
+        } 
+        set
+
+        {
+
+            if (value == 1)num = 0;
+            
+            else if (value == 0) num = 1;
+       }
+
+
+    }
+    #endregion  
+private void Start()
     {
         if (roads != null && roads.Count > 0)
         {
-            roads = roads.OrderBy(r => r.transform.position.z).ToList();//сортируем массив для того, чтобы в нём сохранялся тот порядок элементов, который мы назначили изначально
+            roads = roads.OrderBy(r => r.transform.position.z).ToList(); //сортируем массив для того, чтобы в нём сохранялся тот порядок элементов, который мы назначили изначально
         }
     }
 
     public void MoveRoad()
     {
-        GameObject moveRoad;//создаём временную переменную в которую присвоим первый элемент из списка, т.е. ту дорогу, которая стоит перед персонажем (объект FirstRoad(1))
-        moveRoad = roads[0];
-        roads.Remove(moveRoad);//удаляем первый элемент из списка. Т.е. эта строчка позволит удалять те участки дороги, которые игрок пробежал и это благоприятно повлияет на производительность
-        float newZ = roads[roads.Count - 1].transform.position.z + offset;//вычисляем новую координату Z на основе положения последнего элемента по оси Z и смещения (переменной offset)
-        moveRoad.transform.position = new Vector3(0, 0, newZ);//устанавливаем положение новой появившейся дороге
-        roads.Add(moveRoad);//в конец списка добавляем новую появившеюся дорогу
+         
+
+        print("Новая дорога должна появится " + NumRoad);
+
+        GameObject NewRoad; 
+        //создаём временную переменную в которую присвоим первый элемент из списка, т.е. ту дорогу, которая стоит перед персонажем (объект FirstRoad(1))
+        NewRoad = roads[NumRoad];
+      
+        float newZ = PlayerCoord.transform.position.z + offset;  //вычисляем новую координату Z на основе положения последнего элемента по оси Z и смещения (переменной offset)
+
+      Instantiate(NewRoad, new Vector3(0, 0, newZ), Quaternion.identity);
+
+        if (NumRoad.Equals(1))
+            Destroy(NewRoad);
+         
+
+
+       
+
+
+
+
+
     }
 
 }

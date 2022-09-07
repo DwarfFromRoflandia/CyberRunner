@@ -16,6 +16,6 @@ public class AudioCoin : MonoBehaviour
     {
         audioSource.clip = audioClip;
         audioSource.PlayOneShot(audioClip);
-        Debug.Log("Music");
+    
     }
 }

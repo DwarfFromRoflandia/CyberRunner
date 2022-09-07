@@ -3,71 +3,72 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
 using System;
-//public class Ads : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowListener, IUnityAdsInitializationListener
-//{
-//	public bool TestMode;
+public class Ads : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowListener, IUnityAdsInitializationListener
+{
+	public bool TestMode;
 
-//	public string AndroidId;
+	public string AndroidId;
 
-//	void Start()
-//	{
-//		Advertisement.Initialize(AndroidId,TestMode,this);
-	
-		 
-//	}
-//	public void ShowAd()
-//	{
-//		Advertisement.Show("Rewarded_Android",this);
-	
-//	}
-//	public void OnInitializationComplete()
-//	{
-//		Debug.Log("Инициализация прошла успешно");
-//		Advertisement.Load("Rewarded_Android",this);
-//	}
-
-//	public void OnInitializationFailed(UnityAdsInitializationError error, string message)
-//	{
-//		Debug.Log(" Ошибка Инициализации");
-//	}
-
-//	public void OnUnityAdsAdLoaded(string placementId)
-//	{
-//		Debug.Log("Реклама загрузилась");
-//	}
-
-//	public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message)
-//	{
-//		Debug.Log("Реклама не загрузилась");
-
-//		Debug.Log(error.ToString()+" "+message);
-	
-//	}
-
-//	public void OnUnityAdsShowClick(string placementId)
-//	{
-//		///
-//	}
-
-//	public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
-//	{
-//		Advertisement.Load("Rewarded_Android", this);
-
-//		EventManager.AdvertisIsShowed.Invoke();//Уведомление о просмотренной рекламе и возрождение
-//	}
-
-//	public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
-//	{
+	void Start()
+	{
 		
-//	}
+		Advertisement.Initialize(AndroidId, TestMode, this);
+		
 
-//	public void OnUnityAdsShowStart(string placementId)
-//	{
-//		print("Смотрим рекламку");
-//	}
+	}
+	public void ShowAd()
+	{
+		Advertisement.Show("Rewarded_Android", this);
 
-//    void Update()
-//    {
-        
-//    }
-//}
+	}
+	public void OnInitializationComplete()
+	{
+		Debug.Log("Инициализация прошла успешно");
+		Advertisement.Load("Rewarded_Android", this);
+	}
+
+	public void OnInitializationFailed(UnityAdsInitializationError error, string message)
+	{
+		Debug.Log(" Ошибка Инициализации");
+	}
+
+	public void OnUnityAdsAdLoaded(string placementId)
+	{
+		Debug.Log("Реклама загрузилась");
+	}
+
+	public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message)
+	{
+		Debug.Log("Реклама не загрузилась");
+
+		Debug.Log(error.ToString() + " " + message);
+
+	}
+
+	public void OnUnityAdsShowClick(string placementId)
+	{
+		///
+	}
+
+	public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
+	{
+		Advertisement.Load("Rewarded_Android", this);
+
+		EventManager.AdvertisIsShowed.Invoke();//Уведомление о просмотренной рекламе и возрождение
+	}
+
+	public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
+	{
+
+	}
+
+	public void OnUnityAdsShowStart(string placementId)
+	{
+		print("Смотрим рекламку");
+	}
+
+	void Update()
+	{
+
+	}
+}

@@ -225,14 +225,17 @@ public class Player : MonoBehaviour
 			speed = 0;
 		}
 	}
-
-    private void OnTriggerEnter(Collider other)
+	 
+	private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "SpawnTrigger")
+		 
+
+        if (other.gameObject.tag == "SpawnTrigger"  )
         {
             spawnManager.SpawnTriggerEntered();
-           
+			 
         }
+		  
     }
     private void OnCollisionEnter(Collision other)
     {
@@ -259,7 +262,7 @@ public class Player : MonoBehaviour
 
 		
 
-			StartCoroutine(enemy.Object_Disapear(other.gameObject));//передаем параметр предмета столкновения
+			StartCoroutine(enemy?.Object_Disapear(other.gameObject));//передаем параметр предмета столкновения
 
 			if (other.gameObject.tag != "Gas") // запускаем анимацию спотыкания
 			{
@@ -319,7 +322,7 @@ public class Player : MonoBehaviour
 	private void FixedUpdate()
 	{
 
-		print(BufferPlayerSpeed);
+	 
 		HealthSlider.value = Mathf.MoveTowards(HealthSlider.value, HealthAfterPunch, 0.3f*Time.fixedDeltaTime);// плавное снижене здоровья после удара
 
 		StartRunValues(PlayerSpeed);
