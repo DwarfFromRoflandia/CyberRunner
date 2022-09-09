@@ -226,17 +226,7 @@ public class Player : MonoBehaviour
 		}
 	}
 	 
-	private void OnTriggerEnter(Collider other)
-    {
-		 
-
-        if (other.gameObject.tag == "SpawnTrigger"  )
-        {
-            spawnManager.SpawnTriggerEntered();
-			 
-        }
-		  
-    }
+	
     private void OnCollisionEnter(Collision other)
     {
 		if (other.transform.tag == "Coin"||other.transform.tag == "GoldCoin")
@@ -252,7 +242,7 @@ public class Player : MonoBehaviour
 		if (other.transform.tag == "MetalObstacle" || other.transform.tag == "Car"|| other.transform.tag == "Obstacle"||other.transform.tag=="Gas")
 		{
 			 
-			HealthAfterPunch = HealthSlider.value - EventManager.IsPunched.Invoke(0);// меняем значение здоровья игрока вызывая событие
+			HealthAfterPunch = HealthSlider.value - EventManager.IsPunched.Invoke();// меняем значение здоровья игрока вызывая событие
 
 			HealthImage = HealthSlider.transform.GetChild(1).GetChild(0).GetComponent<Image>();
 
@@ -323,7 +313,7 @@ public class Player : MonoBehaviour
 	{
 
 	 
-		HealthSlider.value = Mathf.MoveTowards(HealthSlider.value, HealthAfterPunch, 0.3f*Time.fixedDeltaTime);// плавное снижене здоровья после удара
+		HealthSlider.value = Mathf.MoveTowards(HealthSlider.value, HealthAfterPunch, 0.6f*Time.fixedDeltaTime);// плавное снижене здоровья после удара
 
 		StartRunValues(PlayerSpeed);
 
@@ -331,7 +321,7 @@ public class Player : MonoBehaviour
 
 		if (hit.distance > distanceGravit && (hit.transform.tag.Equals("Road") || hit.transform.tag.Equals("Obstacle"))
 			&& rb != null) // если мы прыгнули выше высоты
-								  // прыжка и под нами дорога или препятствие - тогда падаем
+						   // прыжка и под нами дорога или препятствие - тогда падаем
 		{
 
 

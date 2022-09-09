@@ -217,8 +217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObstacleDamage: 0.4
-  speed: 6000
-  SignalStartDistance: 500
+  speed: 150
   CarMaterial: {fileID: 2100000, guid: 94c6414d5f3427546835dbcd45349873, type: 2}
   CarText: {fileID: 2800000, guid: 870aa2313f3c49c4882b13dce19e4f9b, type: 3}
 --- !u!65 &3725307921382911267
