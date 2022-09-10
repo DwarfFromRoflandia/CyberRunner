@@ -12,9 +12,10 @@ public class AdvertistGoing : MonoBehaviour
 	
 	public IEnumerator  IncreaseSlider()
     {
+        EventManager.ButtonClicked.Invoke();
         Slider = gameObject.GetComponent<Slider>();//хэшируем 
         ButtonAds = GameObject.Find("Advertis_Button").GetComponent<Button>();
-
+ 
         while (ValueNow>-0.05)
         {
            

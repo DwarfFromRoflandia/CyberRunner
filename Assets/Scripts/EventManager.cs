@@ -12,7 +12,7 @@ public static class EventManager
 	public static UnityEvent <GameObject> PickUpCoinEvent = new UnityEvent<GameObject>() ;
 	public static UnityEvent BuyHealth = new UnityEvent();
 	public static UnityEvent BuyBullets = new UnityEvent();
-	public static Func<float,float> IsPunched;
+	public static Func<float> IsPunched;
 	public static UnityEvent AudioCoinEvent = new UnityEvent();
 	public static Func<IEnumerator> Shoted;
 	public static UnityEvent GameOverEvent = new UnityEvent();
@@ -20,6 +20,6 @@ public static class EventManager
 	public static Action AudioStartRun;
 	public static Action AudioMove;
 	public static UnityEvent<float> SetSpeedCar = new UnityEvent<float>();
-	 
+	public static UnityEvent AdvertisIsShowed = new UnityEvent();
 
 }

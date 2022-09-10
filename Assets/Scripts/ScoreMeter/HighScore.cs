@@ -21,7 +21,7 @@ public class HighScore : MonoBehaviour
 
     private void Update()
     {
-        text.text = "Наивысший счёт: " + highScoreMeter + " m";
+        text.text = "Record: " + highScoreMeter + " M";
         ReassignHighScore();
     }
 

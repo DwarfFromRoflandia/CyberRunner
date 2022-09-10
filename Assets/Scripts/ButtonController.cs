@@ -45,8 +45,10 @@ public class ButtonController :OpenAndExitStore
     public Canvas PersonalCanvas;
     public bool PauseIsPressed;
     [SerializeField] private Image PauseImage;
-    [SerializeField] private Light Light;
-    public TouchScreenKeyboard keyboard;
+
+    [SerializeField] private Text ProgressText;
+    [SerializeField] private Image CirleProgress;
+    [SerializeField] private GameObject LoadPanel;
     private void Start()
 	{
        
@@ -60,7 +62,7 @@ public class ButtonController :OpenAndExitStore
 
 
 
-        Animation_Disapearing = Change_Name_Button.GetComponent<Animation>();
+        Animation_Disapearing = Change_Name_Button?.GetComponent<Animation>();
       
 
        if(SceneManager.GetActiveScene().buildIndex==1&& Time_Now!=null) // если присутствует скайбокс и мы в сцене игры
@@ -81,7 +83,7 @@ public class ButtonController :OpenAndExitStore
                               (При нажатии на кнопку Play в главном меню)*/
     {
         EventManager.ButtonClicked.Invoke();// вызываем звук нажатия 
-        SceneManager.LoadScene(1);
+        StartCoroutine(LoadLevel());
         EventManager.Animation_Play?.Invoke(true);
     
   
@@ -251,7 +253,7 @@ public class ButtonController :OpenAndExitStore
         {
             TextWarnings.color = Color.red;
       
-            TextWarnings.text = "У кибервоина слишком длинное или короткое имя.\n Не больше 17 и не меньше 4 знаков,Измените его!";
+            TextWarnings.text = "Your name is too long or too short.\n is no more than 17 and no less than 4 characters, Change it!";
             TextWarnings.gameObject.SetActive(true);
             
 
@@ -265,7 +267,7 @@ public class ButtonController :OpenAndExitStore
 
           
             TextWarnings.color = Color.green;
-            TextWarnings.text = "Имя подходит!";
+            TextWarnings.text = "The name fits!";
             PlayerPrefs.SetString("Name", Input_Field.text);// фиксируем в базе измененное имя
 
 
@@ -278,7 +280,26 @@ public class ButtonController :OpenAndExitStore
        
     }
 
- 
+    public IEnumerator LoadLevel()
+    {
+        LoadPanel.SetActive(true);
+         
+        AsyncOperation async = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+
+        while (!async.isDone)
+        {
+            CirleProgress.fillAmount = async.progress/0.9f;
+
+            ProgressText.text = string.Format("{0:0}%", async.progress / 0.9*100);
+
+            yield return new WaitForSeconds(0.1f);
+        
+        
+        }
+       
+
+
+    }
 
 
 }

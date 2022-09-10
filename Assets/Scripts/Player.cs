@@ -14,12 +14,13 @@ public class Player : MonoBehaviour
 	[SerializeField] private GameObject gameOverMenu;
 	[SerializeField] private GameObject mainMenu;
 	[SerializeField] private GameObject secondStartPoint;
+	[SerializeField] private MeterCounter meterCounter;
 	private Transform playerСoordinates;
 	private float speed;
 	[SerializeField] private float distanceGravit = 7;
 	[SerializeField] private Image HealthImage;
  
-
+	[Range(100,400)]
 	public float PlayerSpeed;
 
 	[SerializeField] private ShotGun shot;
@@ -47,19 +48,39 @@ public class Player : MonoBehaviour
     public bool IsPauseOn { get => isPauseOn;}
 
 	public AdvertistGoing SliderAdver;
-	
-    private void Start()
+
+	[SerializeField] private GameObject ButtonHealth;
+	private Text TextHealth;
+
+	private bool paused = true;
+	public bool Paused { get => paused; }
+
+	private float BufferPlayerSpeed;
+
+	private ParticleSystem ParticleReBorn;
+
+	[SerializeField] private GameObject ClicPlatform;
+	private void Start()
 	{	   
 		playerСoordinates = GetComponent<Transform>();
 		 
 		EventManager.EventPlay?.Invoke(100);
+		
 		EventManager.Animation_Play?.Invoke(true);
 
 		Player_Anim.SetBool("Die", false);
 
+		TextHealth = ButtonHealth.transform.GetChild(0).GetComponent<Text>();
 
+		if (TextHealth.text == "0")
+			ButtonHealth.GetComponent<Button>().interactable = false;
+
+		TextHealth.text = PlayerPrefs.GetInt("Heart").ToString();
 
 		isGameOver = false;
+
+		
+
 	}
 	 
     public void False()//метод добавляет Rigidbody после анимации поворота и передает скорость в аниматор
@@ -74,23 +95,29 @@ public class Player : MonoBehaviour
 		rb.useGravity = false;
 		Player_Anim.applyRootMotion = false; //замораживаем повороты и перемещения анимаций после поворота нашей первой анимации
 		
+		 
 	}
 	 
 	public void GameOver()//метод, отвечающий за конец игры
 	{
-		 
+		ClicPlatform.SetActive(false);
 
 		Player_Anim.SetFloat("Speed", 0);
 
-		EventManager.SetSpeedCar?.Invoke(0);
+		
+
+		if (PlayerSpeed > 0) // так как колайдер вывзывается несколько раз - BufferSpeed Обнуляется
+		{
+			BufferPlayerSpeed = PlayerSpeed;
+		}
 
 		PlayerSpeed = 0;
 
-		EventManager.EventPlay?.Invoke(0);
+		EventManager.SetSpeedCar?.Invoke(0);
 
 		
 
-		StopCoroutine(IncreaseGame());//останавливаем увеличичение  скорости игры
+		StopAllCoroutines();//останавливаем увеличичение  скорости игры
 
 	
 
@@ -107,10 +134,51 @@ public class Player : MonoBehaviour
 
 
 	}
+	public void UseHealth()// увеличиваем жизнь за счет купленных сердечек
+	{
+		Button ButtonHeart = ButtonHealth.GetComponent<Button>();
+
+		int heart = PlayerPrefs.GetInt("Heart");
+
+		EventManager.ButtonClicked.Invoke();
+
+		if (heart > 0)
+		{
+		 
+
+			ButtonHeart.interactable = true;
+
+			PlayerPrefs.SetInt("Heart", heart - 1);
+
+			TextHealth.text = heart.ToString();
+
+			HealthAfterPunch += 0.5f;
+
+			CheckColorHealth();
+
+		}
+
+		else //если жизни закончились - деактивируем кнопочку
+		{
+		TextHealth.text = "0";
+
+		ButtonHeart.interactable = false;
+		
+		}
+	
+	}
+
 	public void Velocity_Null()
 	{
 		 
+
+	 
+
 		gameOverMenu.SetActive(true);
+
+	 
+
+
 		StartCoroutine(SliderAdver.IncreaseSlider());
 
 
@@ -122,7 +190,14 @@ public class Player : MonoBehaviour
 	{
 		HealthAfterPunch = HealthSlider.value;
 		StartCoroutine(IncreaseGame());//увеличиваем постепенно скорость игры
+
+		StartCoroutine(meterCounter.MeterCounterCoroutine());//включение счётчика метров      
+		StartCoroutine(meterCounter.MeterCounterSpeedCoroutine());//постепенное увеличение счётчика метров
+		
+
 		Time.timeScale = 1;
+
+		EventManager.AdvertisIsShowed.AddListener(RewardPlayer);// подписка на награду за рекламу
 
 	}
 
@@ -150,15 +225,8 @@ public class Player : MonoBehaviour
 			speed = 0;
 		}
 	}
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "SpawnTrigger")
-        {
-            spawnManager.SpawnTriggerEntered();
-           
-        }
-    }
+	 
+	
     private void OnCollisionEnter(Collision other)
     {
 		if (other.transform.tag == "Coin"||other.transform.tag == "GoldCoin")
@@ -174,16 +242,17 @@ public class Player : MonoBehaviour
 		if (other.transform.tag == "MetalObstacle" || other.transform.tag == "Car"|| other.transform.tag == "Obstacle"||other.transform.tag=="Gas")
 		{
 			 
-			HealthAfterPunch = HealthSlider.value - EventManager.IsPunched.Invoke(0);// меняем значение здоровья игрока вызывая событие
+			HealthAfterPunch = HealthSlider.value - EventManager.IsPunched.Invoke();// меняем значение здоровья игрока вызывая событие
 
 			HealthImage = HealthSlider.transform.GetChild(1).GetChild(0).GetComponent<Image>();
 
 			Destroy(other.gameObject, 0.6f);// удаляем врага через 0.6 секунды
+
 			Enemy enemy = other.transform.GetComponent<Enemy>();
 
 		
 
-			StartCoroutine(enemy.Object_Disapear(other.gameObject));//передаем параметр предмета столкновения
+			StartCoroutine(enemy?.Object_Disapear(other.gameObject));//передаем параметр предмета столкновения
 
 			if (other.gameObject.tag != "Gas") // запускаем анимацию спотыкания
 			{
@@ -191,30 +260,20 @@ public class Player : MonoBehaviour
 				Player_Anim.SetTrigger("Punched");
 			}
 
-			if (HealthSlider.value <= 0.1)
+			if (HealthSlider.value <= 0.1) // проверяем уровень жизни чтобы понять завершать ли игровую сессию
 			{
+				 
+
 				Player_Anim.SetTrigger("Die");
 
-			
+				 
 
-				GameOver();// переключаем на анимацию смерти  // проверяем уровень жизни чтобы понять завершать ли игровую сессию
+				GameOver();// переключаем на анимацию смерти  
 				
 			}
-				if (HealthAfterPunch < 0.7 && HealthAfterPunch > 0.3)
-			{
 
-				HealthImage.color = Color.yellow;
-			
-			
-			}
 
-			else if (HealthAfterPunch < 0.3f) 
-			{
-
-				HealthImage.color = Color.red;
-
-			}
-
+			CheckColorHealth();
 		 
 
 
@@ -252,7 +311,9 @@ public class Player : MonoBehaviour
 	 
 	private void FixedUpdate()
 	{
-		HealthSlider.value = Mathf.MoveTowards(HealthSlider.value, HealthAfterPunch, 0.3f*Time.fixedDeltaTime);// плавное снижене здоровья после удара
+
+	 
+		HealthSlider.value = Mathf.MoveTowards(HealthSlider.value, HealthAfterPunch, 0.6f*Time.fixedDeltaTime);// плавное снижене здоровья после удара
 
 		StartRunValues(PlayerSpeed);
 
@@ -260,7 +321,7 @@ public class Player : MonoBehaviour
 
 		if (hit.distance > distanceGravit && (hit.transform.tag.Equals("Road") || hit.transform.tag.Equals("Obstacle"))
 			&& rb != null) // если мы прыгнули выше высоты
-								  // прыжка и под нами дорога или препятствие - тогда падаем
+						   // прыжка и под нами дорога или препятствие - тогда падаем
 		{
 
 
@@ -288,9 +349,7 @@ public class Player : MonoBehaviour
 	}
 
 	 
-	private bool paused = true;
-    public bool Paused { get => paused;}
-	private float BufferPlayerSpeed;
+	 
     public void Pause()
 	{
 
@@ -361,6 +420,11 @@ public class Player : MonoBehaviour
 		isPauseOn = false;
 		StartCoroutine(IncreaseGame());
 
+		StartCoroutine(meterCounter.MeterCounterCoroutine());//включение счётчика метров
+		StartCoroutine(meterCounter.MeterCounterSpeedCoroutine());//постепенное увеличение счётчика метров
+
+
+
 		EventManager.SetSpeedCar.Invoke(6000f);//обратно придаем скорость машинам
 
 	}
@@ -410,6 +474,51 @@ public class Player : MonoBehaviour
 	void ResetSpeed()
 
 		=> speed = 0;
+
+	private void CheckColorHealth()
+	{
+		if (HealthAfterPunch < 0.7 && HealthAfterPunch > 0.3)  HealthImage.color = Color.yellow;
+
+		else if (HealthAfterPunch < 0.3f)					   HealthImage.color = Color.red;
+
+		else if (HealthAfterPunch >= 0.9f)					   HealthImage.color = Color.green;
+		
+		
+	}
+
+	public void RewardPlayer()
+	{
+
+		Time.timeScale = 1;
+
+		ClicPlatform.SetActive(true);
+
+		PlayerSpeed = BufferPlayerSpeed;
+
+		ParticleReBorn = gameObject.transform.GetChild(0).GetComponent<ParticleSystem>();
+
+		ParticleReBorn.Play();
+
+		Player_Anim.SetTrigger("ReBorn");
+
+		Player_Anim.SetFloat("Speed",PlayerSpeed);
+
+		EventManager.SetSpeedCar?.Invoke(6000);
+
+		HealthAfterPunch = 1;
+
+		StartCoroutine(IncreaseGame());//останавливаем увеличичение  скорости игры
+
+		CheckColorHealth();
+
+		gameOverMenu.SetActive(false);
+
+		isGameOver = false;
+
+		
+
+
+	}
 }
 
 

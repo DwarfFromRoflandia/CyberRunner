@@ -15,6 +15,8 @@ public class AudioManager  : MonoBehaviour
 	{
 		Source_Crash = GetComponent<AudioSource>();
 
+		EventManager.AdvertisIsShowed.AddListener(AudioPlayReborn);
+
 		SerializeDict(Dict);
 	 
 	}
@@ -91,6 +93,15 @@ public class AudioManager  : MonoBehaviour
 		Source_Crash.PlayOneShot(Dict["Jump"]);//оспроизводит клип прыжка и отскоков
 
 		 
+	}
+
+	private void AudioPlayReborn()  // производит клип возрождения
+	{
+		Source_Crash.Stop();
+		Source_Crash.PlayOneShot(Dict["Reborn"]);
+
+
+
 	}
 
 

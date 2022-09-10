@@ -23,15 +23,15 @@ public class PurchaseHeartsIsNotAvailable : MonoBehaviour
     {
         if (buyHearts.NumberOfMissingCoins % 10 == 1 && buyHearts.NumberOfMissingCoins != 11)
         {
-            text.text = "Для покупки не хватает " + buyHearts.NumberOfMissingCoins + " монеты.";
+            text.text = "There is not enough to buy " + buyHearts.NumberOfMissingCoins + " coins.";
         }
         else if ((buyHearts.NumberOfMissingCoins % 10 >= 2 && buyHearts.NumberOfMissingCoins % 10 <= 4) && (buyHearts.NumberOfMissingCoins % 100 != 12 && buyHearts.NumberOfMissingCoins % 100 != 13 && buyHearts.NumberOfMissingCoins % 100 != 14))
         {
-            text.text = "Для покупки не хватает " + buyHearts.NumberOfMissingCoins + " монеты.";
+            text.text = "There is not enough to buy " + buyHearts.NumberOfMissingCoins + " coins.";
         }
         else
         {
-            text.text = "Для покупки не хватает " + buyHearts.NumberOfMissingCoins + " монет.";
+            text.text = "There is not enough to buy" + buyHearts.NumberOfMissingCoins + " coins.";
         }
     }
 }

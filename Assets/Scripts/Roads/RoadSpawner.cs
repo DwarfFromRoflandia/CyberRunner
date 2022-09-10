@@ -6,24 +6,61 @@ using System.Linq;
 public class RoadSpawner : MonoBehaviour
 {
     public List<GameObject> roads;//создаём список дорог
-    private float offset = 14000f;//переменная, которая отвечает за смещение новой появившейся панели по оси Z
-
-    private void Start()
+    public GameObject FirstRoad;
+    private Queue<GameObject> SpawnedRoads = new Queue<GameObject>(2); // список появившихся дорог
+    public Player PlayerCoord;
+   [SerializeField] private float offset = 1000f;//переменная, которая отвечает за смещение новой появившейся панели по оси Z
+    private Light[] Lights = new Light[2];
+    private RoadsType RoadNow;
+    private  enum RoadsType
+    { 
+    CityRoad = 0,
+    Draught = 1
+    }
+     
+private void Start()
     {
+         RoadNow = RoadsType.CityRoad;
+
+        SpawnedRoads.Enqueue(FirstRoad);
+
         if (roads != null && roads.Count > 0)
         {
-            roads = roads.OrderBy(r => r.transform.position.z).ToList();//сортируем массив для того, чтобы в нём сохранялся тот порядок элементов, который мы назначили изначально
+            roads = roads.OrderBy(r => r.transform.position.z).ToList(); //сортируем массив для того, чтобы в нём сохранялся тот порядок элементов, который мы назначили изначально
         }
     }
 
     public void MoveRoad()
     {
-        GameObject moveRoad;//создаём временную переменную в которую присвоим первый элемент из списка, т.е. ту дорогу, которая стоит перед персонажем (объект FirstRoad(1))
-        moveRoad = roads[0];
-        roads.Remove(moveRoad);//удаляем первый элемент из списка. Т.е. эта строчка позволит удалять те участки дороги, которые игрок пробежал и это благоприятно повлияет на производительность
-        float newZ = roads[roads.Count - 1].transform.position.z + offset;//вычисляем новую координату Z на основе положения последнего элемента по оси Z и смещения (переменной offset)
-        moveRoad.transform.position = new Vector3(0, 0, newZ);//устанавливаем положение новой появившейся дороге
-        roads.Add(moveRoad);//в конец списка добавляем новую появившеюся дорогу
-    }
+    RoadNow = RoadNow.Equals(RoadsType.CityRoad) ? RoadsType.Draught : RoadsType.CityRoad;//меняем тип следующей дороги которая создасться
+        
+     float newZ = PlayerCoord.transform.position.z + offset;  //вычисляем новую координату Z на основе положения последнего элемента по оси Z и смещения (переменной offset)
+
+     GameObject gm =  Instantiate(roads[(int)RoadNow], new Vector3(0, SpawnedRoads.Last().transform.position.y-0.5f, newZ), Quaternion.identity);//создаем дорогу и сохраняем на нее экземляр
+
+     SpawnedRoads.Enqueue(gm);
+
+    print(SpawnedRoads.Count());
+
+	if (SpawnedRoads.Count() > 2)
+		Destroy(SpawnedRoads.Dequeue());//удаляем начальный элемент очереди
+
+
+    /*Юнити создает свет автоматически при добавлении сцены.
+     * Оно не распространяется на билд игры но в инспекторе видно.
+     * Для перестраховки удаляем лишнее освещение*/
+        Lights = FindObjectsOfType<Light>();          
+        Destroy(Lights[1]);
+        
+        
+
+
+
+
+
+
+	}
 
 }
+
+ 

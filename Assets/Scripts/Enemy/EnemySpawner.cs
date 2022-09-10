@@ -2,13 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(BoxCollider))]
 public class EnemySpawner : MonoBehaviour
 {
+	 
 	public List<GameObject> Enemys;
-	GameObject Enemy;
+	private GameObject Enemy;
+	[SerializeField]
+	private short  QuantityCars = 15;
+	  
 	private void Start()
-	{
-		 
+	{ 
 		Enemy = Instantiate(Enemys[Random.Range(0, Enemys.Count)],
 					   transform.position - new Vector3(70, 0, 0),
 					   Quaternion.Euler(0, 180, 0));
@@ -19,12 +23,12 @@ public class EnemySpawner : MonoBehaviour
 	{
 if (Enemy != null)
 
-			while (true)
+			while (QuantityCars>0)
 		{
 
 
  
-			if (Vector3.Distance(gameObject.transform.position, Enemy.transform.position) >= 500)
+			if (Vector3.Distance(gameObject.transform.position, Enemy.transform.position) >= 600)
 			{
 				float changeX;
 				switch (switcher)
@@ -45,17 +49,17 @@ if (Enemy != null)
 				Enemy = Instantiate(Enemys[Random.Range(0, Enemys.Count)],
 					  transform.position - new Vector3(changeX, 0, 0),
 					  Quaternion.Euler(0, 180, 0));
-				 
+						  Enemy.transform.parent = transform;
+					QuantityCars--;
 			} 
 	 
 	yield return null;
 		}
-else
+ 
 	StopCoroutine(StartSpawn());
 
 
 	}
 
 
-	
 }

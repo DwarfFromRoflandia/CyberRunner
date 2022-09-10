@@ -7,10 +7,16 @@ public class Bullet : MonoBehaviour
  [SerializeField] private float ForceBullet = 2;
 	[SerializeField] private float Force; // значение силлы отталкивани€
 	[SerializeField] private ParticleSystem ParticleBullet; // столкновение
-														 
+	private Player Player;
+	private void Awake()
+	{
+		Player = GameObject.Find("Player").GetComponent<Player>();
+		 
+	}
 	void FixedUpdate()
     {
-        transform.position += new Vector3(0,0,ForceBullet*Time.fixedDeltaTime);
+		
+        transform.Translate(0, (((Player.PlayerSpeed)+ForceBullet)*Time.fixedDeltaTime), 0,Space.Self);
     }
 	public void OnCollisionEnter(Collision collision)
 	{
@@ -35,5 +41,6 @@ public class Bullet : MonoBehaviour
 			 
 
 		}
+		Player = GameObject.Find("Player").GetComponent<Player>();
 	}
 }

@@ -5,10 +5,8 @@ using System;
 
 public class EnemyCar : Enemy
 {
-
-    [SerializeField] private float speed = 0;
-    [SerializeField] private float SignalStartDistance = 400;
-    private Rigidbody rb;
+     
+  
     [SerializeField] private Material CarMaterial;
     [SerializeField] private Texture CarText;
 	private void OnCollisionEnter(Collision collision)
@@ -19,7 +17,9 @@ public class EnemyCar : Enemy
         if (collision.transform.CompareTag("Bullet")|| collision.transform.CompareTag("Player"))
         {
             CarMaterial.mainTexture = CarText;
+
             gameObject.GetComponent<Renderer>().material = CarMaterial;// придаем обьекту материал прозрачности
+
             StartCoroutine(Object_Disapear(gameObject));
         }
 
@@ -39,12 +39,8 @@ public class EnemyCar : Enemy
 
 
 	// Start is called before the first frame update
-	void Start()
-    {
-        ObstacleDamage = 0.4f;
-        rb = GetComponent<Rigidbody>();
-
-    }
+ 
+  
     
 
 
@@ -53,7 +49,7 @@ public class EnemyCar : Enemy
     {
 
 
-        rb.velocity = transform.forward*speed * Time.fixedDeltaTime;
+       transform.Translate(Vector3.forward * -speed * Time.fixedDeltaTime,Space.World);
         
     }
 

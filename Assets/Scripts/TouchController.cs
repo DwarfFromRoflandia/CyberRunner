@@ -10,7 +10,7 @@ public class TouchController : MonoBehaviour, IDragHandler,IEndDragHandler
 	//[SerializeField] private ButtonController ButtonPress;
 	[SerializeField] private GameObject Player;
 
-	private RaycastHit hit;
+	
 	[SerializeField] private Animator anim;
 	public float PlayerSpeed;
 	private Player player;
@@ -44,7 +44,7 @@ public class TouchController : MonoBehaviour, IDragHandler,IEndDragHandler
 		{
 			bool XGreatherY = Mathf.Abs(eventData.delta.y) < Mathf.Abs(eventData.delta.x); //переменна€ провер€юща€ какой свайп больше по длине
 
-			if (eventData.delta.y > 0 && hit.distance < 3 && XGreatherY == false && !ObjectInside) // если свайпнули вверх
+			if (eventData.delta.y > 0  && XGreatherY == false && !ObjectInside) // если свайпнули вверх
 			{
 
 				anim.SetBool("Scroll", true);
