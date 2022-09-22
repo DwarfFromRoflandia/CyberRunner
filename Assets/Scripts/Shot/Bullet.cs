@@ -35,8 +35,11 @@ public class Bullet : MonoBehaviour
 			Enemy enemy = collision.gameObject.GetComponent<Enemy>();//получаем класс Враг при столкновении пули
 			if (collision.transform.tag != "Car")
 			{
-				StartCoroutine(enemy.Object_Disapear(collision.gameObject)); // запускаем коротину исчезновения
+				StartCoroutine(enemy.Object_DisapearSecondRoad(collision.gameObject)); // запускаем коротину исчезновения
 			}
+
+			Destroy(collision.gameObject.GetComponent<BoxCollider>());
+
 			Destroy(collision.gameObject,0.5f);//удаляем через 2 секунд врага
 			 
 

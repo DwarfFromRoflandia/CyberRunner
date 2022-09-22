@@ -14,28 +14,33 @@ public class EnemyCar : Enemy
         if(collision.transform.CompareTag("Player"))
         GetComponent<AudioSource>().Play();
 
-        if (collision.transform.CompareTag("Bullet")|| collision.transform.CompareTag("Player"))
-        {
-            CarMaterial.mainTexture = CarText;
+        Object_DiapearRoad(collision,CarText,CarMaterial);
 
-            gameObject.GetComponent<Renderer>().material = CarMaterial;// придаем обьекту материал прозрачности
-
-            StartCoroutine(Object_Disapear(gameObject));
-        }
-
-        if (collision.transform.CompareTag("Destroyer"))//уничтожаем машину когда игрок пробежал ее
-		{
-            Destroy(gameObject);
-		}
-        
-	}
+    }
 	private void OnEnable()
 	{
         EventManager.SetSpeedCar.AddListener(Speed_Car);
 	}
 
-	
 
+    public void Object_DiapearRoad(Collision collision,Texture texture,Material material)
+    {
+
+        if (collision.transform.CompareTag("Bullet") || collision.transform.CompareTag("Player"))
+        {
+            material.mainTexture = CarText;
+
+            gameObject.GetComponent<Renderer>().material = material;// придаем обьекту материал прозрачности
+
+            StartCoroutine(Object_DisapearSecondRoad(gameObject));
+        }
+
+        if (collision.transform.CompareTag("Destroyer"))//уничтожаем машину когда игрок пробежал ее
+        {
+            Destroy(gameObject);
+        }
+
+    }
 
 
 	// Start is called before the first frame update
@@ -48,13 +53,13 @@ public class EnemyCar : Enemy
     void FixedUpdate()
     {
 
-
-       transform.Translate(Vector3.forward * -speed * Time.fixedDeltaTime,Space.World);
+        print(Speed);
+       transform.Translate(Vector3.forward * -Speed * Time.fixedDeltaTime,Space.World);
         
     }
 
     void Speed_Car(float speed)
     {
-        this.speed = speed;
+        Speed = speed;
     }
 }

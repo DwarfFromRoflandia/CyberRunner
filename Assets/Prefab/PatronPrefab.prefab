@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 2848555298814882458}
   m_LocalRotation: {x: 0.7071068, y: -0, z: 0.00000006181724, w: -0.7071068}
   m_LocalPosition: {x: -155.93864, y: 0, z: -991.28467}
-  m_LocalScale: {x: 0.16035, y: 0.33047003, z: 0.16035002}
+  m_LocalScale: {x: 0.45795956, y: 0.9438224, z: 0.45795965}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6353838917707677962}
@@ -4801,7 +4801,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ForceBullet: 1000
-  Force: 500
+  Force: 1000000
   ParticleBullet: {fileID: 198435890141970726, guid: 8333d50130027574ca8b4e0268fdd047, type: 3}
 --- !u!1 &5001173674260975807
 GameObject:

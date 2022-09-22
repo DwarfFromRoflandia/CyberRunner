@@ -12,7 +12,7 @@ public class BuyHearts : MonoBehaviour
 
     private const int priceHearts = 100; //100
 
-    private int quantityHearts;
+    public int quantityHearts;
     public int QuantityHearts { get => quantityHearts; }
 
     private int numberOfMissingCoins;//переменная, которая отвечает за количество недостающих монет для покупки сердец
@@ -22,15 +22,17 @@ public class BuyHearts : MonoBehaviour
     public bool IsThePurchaseHeartsAvailable { get => isThePurchaseHeartsAvailable; }
     private void Start()
     {
-       
+
+        quantityHearts = PlayerPrefs.GetInt("Heart");
         EventManager.BuyHealth.AddListener(AddHearts);
+
     }
 
     private void Update()
     {
         if (_coin.Coins < priceHearts)
         {
-            //ButtonBuyHearts.enabled = false;//Позже изменить эту строчку на появление текста о недоступности покупки
+           
             ButtonBuyHearts.gameObject.SetActive(false);
             textTheUnavailabilityPurchaseHearts.gameObject.SetActive(true);
             isThePurchaseHeartsAvailable = false;
@@ -47,6 +49,8 @@ public class BuyHearts : MonoBehaviour
         {
             EventManager.ButtonClicked.Invoke();// вызываем звук нажатия 
             EventManager.BuyHealth.Invoke();
+
+
         }
     }
 

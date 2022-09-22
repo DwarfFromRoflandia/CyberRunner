@@ -216,8 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23c8bc66a3455db42a3c19fbfce7ca72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObstacleDamage: 0.4
-  speed: 150
+  Speed: 200
   CarMaterial: {fileID: 2100000, guid: 94c6414d5f3427546835dbcd45349873, type: 2}
   CarText: {fileID: 2800000, guid: 870aa2313f3c49c4882b13dce19e4f9b, type: 3}
 --- !u!65 &3725307921382911267

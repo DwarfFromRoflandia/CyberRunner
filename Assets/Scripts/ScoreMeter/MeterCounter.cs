@@ -6,10 +6,11 @@ using UnityEngine.UI;
 public class MeterCounter : MonoBehaviour
 {
     private Text text;
+   
 
     private float speedCounter = 1;//чем меньше значение данной переменной, тем больше скорость счётчика
-
-    private int meterCount = 0;//переменная в которую будет присваиваться значение того, сколько пробежал игрок
+    [HideInInspector]
+    public int meterCount = 0;//переменная в которую будет присваиваться значение того, сколько пробежал игрок
     public int MeterCount { get => meterCount;}
 
     private void Start()
