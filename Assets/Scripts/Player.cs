@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
 
+
 public class Player : MonoBehaviour
 {
 	
@@ -18,11 +19,10 @@ public class Player : MonoBehaviour
 	private Transform playerСoordinates;
 	private float speed;
 	[SerializeField] private float distanceGravit = 7;
-	[SerializeField] private Image HealthImage;
- 
-	[Range(100,400)]
-	public float PlayerSpeed;
+	private Image HealthImage;
 
+	public float PlayerSpeed=100;
+		
 	[SerializeField] private ShotGun shot;
 	public Transform StartPoint;
 	public Animator Player_Anim;
@@ -33,6 +33,8 @@ public class Player : MonoBehaviour
 
 	public Text TextTimeToStart;
 	[SerializeField] private Slider HealthSlider;
+
+
 	 
 
 	[SerializeField] private Sprite Play, Stop;
@@ -49,6 +51,8 @@ public class Player : MonoBehaviour
 
 	public AdvertistGoing SliderAdver;
 
+	public Text MetersOnMenu;
+
 	[SerializeField] private GameObject ButtonHealth;
 	private Text TextHealth;
 
@@ -60,8 +64,18 @@ public class Player : MonoBehaviour
 	private ParticleSystem ParticleReBorn;
 
 	[SerializeField] private GameObject ClicPlatform;
+
+
+	private int QuantityHealth;
+
+	private List<Collider> EnemiesCol = new List<Collider>();
+
+
 	private void Start()
-	{	   
+	{
+		 
+		HealthImage = HealthSlider.transform.GetChild(1).GetChild(0).GetComponent<Image>();
+
 		playerСoordinates = GetComponent<Transform>();
 		 
 		EventManager.EventPlay?.Invoke(100);
@@ -72,9 +86,10 @@ public class Player : MonoBehaviour
 
 		TextHealth = ButtonHealth.transform.GetChild(0).GetComponent<Text>();
 
-		if (TextHealth.text == "0")
-			ButtonHealth.GetComponent<Button>().interactable = false;
+		QuantityHealth = PlayerPrefs.GetInt("Heart");
 
+		if (QuantityHealth < 1) ButtonHealth.GetComponent<Button>().interactable = false;
+			
 		TextHealth.text = PlayerPrefs.GetInt("Heart").ToString();
 
 		isGameOver = false;
@@ -82,6 +97,10 @@ public class Player : MonoBehaviour
 		
 
 	}
+	private Button ButtonHeart;
+	
+		 
+	
 	 
     public void False()//метод добавляет Rigidbody после анимации поворота и передает скорость в аниматор
 	{
@@ -94,17 +113,22 @@ public class Player : MonoBehaviour
 		rb.freezeRotation = true;
 		rb.useGravity = false;
 		Player_Anim.applyRootMotion = false; //замораживаем повороты и перемещения анимаций после поворота нашей первой анимации
+
+		if (gameObject.transform.rotation.y > 0) // если наш персонаж до конца не развернулся - разворачиваем его до конца
+		{
+			transform.rotation = Quaternion.Euler(transform.rotation.x, 0, transform.rotation.z);
+			 
 		
-		 
+		}
 	}
 	 
 	public void GameOver()//метод, отвечающий за конец игры
 	{
 		ClicPlatform.SetActive(false);
 
-		Player_Anim.SetFloat("Speed", 0);
+		Player_Anim.SetFloat("Speed", 0); 
 
-		
+		MetersOnMenu.text = string.Format($"{meterCounter.meterCount}");
 
 		if (PlayerSpeed > 0) // так как колайдер вывзывается несколько раз - BufferSpeed Обнуляется
 		{
@@ -119,11 +143,11 @@ public class Player : MonoBehaviour
 
 		StopAllCoroutines();//останавливаем увеличичение  скорости игры
 
-	
+		ButtonHeart.interactable = false;
 
 		isGameOver = true;
 
-		rb.AddForce(Vector3.forward * -1 * Time.deltaTime * 5_000);
+	
 
 
 
@@ -134,23 +158,24 @@ public class Player : MonoBehaviour
 
 
 	}
+ 
 	public void UseHealth()// увеличиваем жизнь за счет купленных сердечек
 	{
-		Button ButtonHeart = ButtonHealth.GetComponent<Button>();
+	 
 
-		int heart = PlayerPrefs.GetInt("Heart");
+		 
 
 		EventManager.ButtonClicked.Invoke();
 
-		if (heart > 0)
+		if (QuantityHealth > 0)
 		{
+
+			
 		 
 
-			ButtonHeart.interactable = true;
+			PlayerPrefs.SetInt("Heart", QuantityHealth -= 1);
 
-			PlayerPrefs.SetInt("Heart", heart - 1);
-
-			TextHealth.text = heart.ToString();
+			TextHealth.text = QuantityHealth.ToString();
 
 			HealthAfterPunch += 0.5f;
 
@@ -175,9 +200,11 @@ public class Player : MonoBehaviour
 	 
 
 		gameOverMenu.SetActive(true);
+		 
 
-	 
 
+
+		
 
 		StartCoroutine(SliderAdver.IncreaseSlider());
 
@@ -198,6 +225,8 @@ public class Player : MonoBehaviour
 		Time.timeScale = 1;
 
 		EventManager.AdvertisIsShowed.AddListener(RewardPlayer);// подписка на награду за рекламу
+
+		ButtonHeart = ButtonHealth.GetComponent<Button>();
 
 	}
 
@@ -241,19 +270,23 @@ public class Player : MonoBehaviour
 
 		if (other.transform.tag == "MetalObstacle" || other.transform.tag == "Car"|| other.transform.tag == "Obstacle"||other.transform.tag=="Gas")
 		{
-			 
+			
 			HealthAfterPunch = HealthSlider.value - EventManager.IsPunched.Invoke();// меняем значение здоровья игрока вызывая событие
 
-			HealthImage = HealthSlider.transform.GetChild(1).GetChild(0).GetComponent<Image>();
+	 
+
+			Destroy(other.gameObject.GetComponent<BoxCollider>());
 
 			Destroy(other.gameObject, 0.6f);// удаляем врага через 0.6 секунды
 
-			Enemy enemy = other.transform.GetComponent<Enemy>();
+			 
 
-		
 
-			StartCoroutine(enemy?.Object_Disapear(other.gameObject));//передаем параметр предмета столкновения
-
+			
+			
+			 
+			
+			
 			if (other.gameObject.tag != "Gas") // запускаем анимацию спотыкания
 			{
 
@@ -284,7 +317,7 @@ public class Player : MonoBehaviour
 	}
 
 	 
-	
+ 
 
 
 
@@ -296,7 +329,7 @@ public class Player : MonoBehaviour
 
 		EventManager.Animation_Play += Set_Anim_Play_True;
 
-		
+	 
 
 
 	}
@@ -306,7 +339,9 @@ public class Player : MonoBehaviour
 
 		EventManager.Animation_Play -= Set_Anim_Play_True;
 
-		
+	 
+
+
 	}
 	 
 	private void FixedUpdate()
@@ -348,22 +383,24 @@ public class Player : MonoBehaviour
 	 
 	}
 
-	 
-	 
-    public void Pause()
+ 
+
+	public void Pause()
 	{
 
 		EventManager.ButtonClicked.Invoke();//звук
 		if (paused)
 		{
 			BufferPlayerSpeed = PlayerSpeed;//сохраняем значение скорости
-			PlayerSpeed = 0;//придаем ноль сколости
+			PlayerSpeed = 0;//придаем ноль скорости
 			Player_Anim.SetFloat("Speed",0);
 			paused = false;
 			PauseImage.sprite = Stop;
 			StopAllCoroutines();//останавливаем ускорение игры
 			isPauseOn = true;
 			EventManager.SetSpeedCar.Invoke(0f);// останавливаем машины
+
+	
 
 				}
 		else
@@ -378,8 +415,7 @@ public class Player : MonoBehaviour
 			PauseImage.sprite = Play;
 
 			 
-
-			paused = true;
+		   paused = true;
 			
 
 		}
@@ -394,7 +430,7 @@ public class Player : MonoBehaviour
 		Player_Anim.SetBool("MoveLeft", false);
 		 
 	}
-
+	 
 	IEnumerator PauseReset()
 	{
 		float TimeStart = Time.time;
@@ -423,9 +459,9 @@ public class Player : MonoBehaviour
 		StartCoroutine(meterCounter.MeterCounterCoroutine());//включение счётчика метров
 		StartCoroutine(meterCounter.MeterCounterSpeedCoroutine());//постепенное увеличение счётчика метров
 
+		 
 
-
-		EventManager.SetSpeedCar.Invoke(6000f);//обратно придаем скорость машинам
+		EventManager.SetSpeedCar.Invoke(200f);//обратно придаем скорость машинам
 
 	}
 
@@ -435,8 +471,8 @@ public class Player : MonoBehaviour
 		while (true)
 		{
 
-			yield return new WaitForSeconds(5f);
-			PlayerSpeed += 5;
+			yield return new WaitForSeconds(4f);
+			PlayerSpeed += 3;
 
 		}
 	}
@@ -444,6 +480,7 @@ public class Player : MonoBehaviour
 
 	private void Set_Anim_Play_True(bool b)
 	{
+		
 
 		Player_Anim.SetBool("PlayIsPressed", b);
 
@@ -462,7 +499,7 @@ public class Player : MonoBehaviour
 
 	public void OnDrag(PointerEventData eventData)
 	{
-		throw new NotImplementedException();
+		
 	}
 	void Get_Speed()
 
@@ -477,11 +514,20 @@ public class Player : MonoBehaviour
 
 	private void CheckColorHealth()
 	{
-		if (HealthAfterPunch < 0.7 && HealthAfterPunch > 0.3)  HealthImage.color = Color.yellow;
+	 
 
-		else if (HealthAfterPunch < 0.3f)					   HealthImage.color = Color.red;
+		if (HealthAfterPunch < 0.7 && HealthAfterPunch > 0.3) HealthImage.color = Color.yellow;
 
-		else if (HealthAfterPunch >= 0.9f)					   HealthImage.color = Color.green;
+		if (HealthAfterPunch < 0.3f) HealthImage.color = Color.red;
+
+		if (HealthAfterPunch >= 0.9f)
+		{
+			ButtonHeart.interactable = false;
+			HealthImage.color = Color.green;
+		}
+		else if (HealthAfterPunch < 0.9 && HealthAfterPunch > 0.1f)
+			ButtonHeart.interactable = true;
+	
 		
 		
 	}
@@ -503,7 +549,7 @@ public class Player : MonoBehaviour
 
 		Player_Anim.SetFloat("Speed",PlayerSpeed);
 
-		EventManager.SetSpeedCar?.Invoke(6000);
+		EventManager.SetSpeedCar?.Invoke(200);
 
 		HealthAfterPunch = 1;
 
@@ -514,11 +560,30 @@ public class Player : MonoBehaviour
 		gameOverMenu.SetActive(false);
 
 		isGameOver = false;
+		StartCoroutine(meterCounter.MeterCounterCoroutine());//включение счётчика метров      
+		StartCoroutine(meterCounter.MeterCounterSpeedCoroutine());//постепенное увеличение счётчика метров
 
+		EnemiesCol.AddRange(Physics.OverlapSphere(gameObject.transform.position, 800));// добавляем всех врагов в радиусе 1000 метров и удвляем их
+
+		foreach (var Enemy in EnemiesCol)
+		{
+			if(Enemy.gameObject.CompareTag("Car") 
+				|| Enemy.gameObject.CompareTag("MetalObstacle") 
+				|| Enemy.gameObject.CompareTag("Obstacle") 
+				|| Enemy.gameObject.CompareTag("Gas"))
+
+			Destroy(Enemy.gameObject);
+
+		 
 		
+		}
+
+
 
 
 	}
+
+		 
 }
 
 

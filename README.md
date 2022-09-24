@@ -1,2 +1,2 @@
-# CyberRunner
+# City Jogger
 Проект Семёна и Арсения

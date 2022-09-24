@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
  private RoadSpawner roadSpawner;
-    private Light[] Lights;
+    
 
     private void OnTriggerEnter(Collider other)
     {
@@ -20,13 +20,11 @@ public class SpawnManager : MonoBehaviour
             /*Юнити создает свет автоматически при добавлении сцены.
  * Оно не распространяется на билд игры но в инспекторе видно.
  * Для перестраховки удаляем лишнее освещение*/
-            Lights = FindObjectsOfType<Light>();
-          
-            Destroy(Lights[1]);
+
            
          
 
-            Destroy(gameObject);
+          Destroy(gameObject);
         }
 
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+
 public class RoadSpawner : MonoBehaviour
 {
     public List<GameObject> roads;//создаём список дорог
@@ -10,7 +11,7 @@ public class RoadSpawner : MonoBehaviour
     private Queue<GameObject> SpawnedRoads = new Queue<GameObject>(2); // список появившихся дорог
     public Player PlayerCoord;
    [SerializeField] private float offset = 1000f;//переменная, которая отвечает за смещение новой появившейся панели по оси Z
-    private Light[] Lights = new Light[2];
+    private Light[] Lights = new Light[5];
     private RoadsType RoadNow;
     private  enum RoadsType
     { 
@@ -20,6 +21,7 @@ public class RoadSpawner : MonoBehaviour
      
 private void Start()
     {
+       
          RoadNow = RoadsType.CityRoad;
 
         SpawnedRoads.Enqueue(FirstRoad);
@@ -40,17 +42,13 @@ private void Start()
 
      SpawnedRoads.Enqueue(gm);
 
-    print(SpawnedRoads.Count());
+    
 
 	if (SpawnedRoads.Count() > 2)
 		Destroy(SpawnedRoads.Dequeue());//удаляем начальный элемент очереди
 
-
-    /*Юнити создает свет автоматически при добавлении сцены.
-     * Оно не распространяется на билд игры но в инспекторе видно.
-     * Для перестраховки удаляем лишнее освещение*/
-        Lights = FindObjectsOfType<Light>();          
-        Destroy(Lights[1]);
+        DestroyLights();
+ 
         
         
 
@@ -60,6 +58,28 @@ private void Start()
 
 
 	}
+	private void DestroyLights()
+	{
+        try
+        {
+            Lights = FindObjectsOfType<Light>();
+            /*Юнити создает свет автоматически при добавлении сцены.
+             * Оно не распространяется на билд игры но в инспекторе видно.
+             * Для перестраховки удаляем лишнее освещение*/
+            if (Lights.Length > 2)
+            {
+                 
+                for (int i = 1; i < Lights.Length - 1; i++)
+                    Destroy(Lights[i]);
+            }
+        }
+        catch (System.Exception)
+        { 
+        
+        //не вызываем ошибки
+        }
+        
+    }
 
 }
 

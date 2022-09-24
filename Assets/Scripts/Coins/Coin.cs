@@ -13,7 +13,7 @@ public class Coin : MonoBehaviour
 
     private void Start()
     {
-       
+        
         EventManager.PickUpCoinEvent.AddListener(AddingCoin);
         
         Coins = PlayerPrefs.GetInt("Coin");

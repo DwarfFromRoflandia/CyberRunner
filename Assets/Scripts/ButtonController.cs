@@ -280,7 +280,7 @@ public class ButtonController :OpenAndExitStore
        
     }
 
-    public IEnumerator LoadLevel()
+    public IEnumerator LoadLevel() // загружаем 2 сцену и показываем степень загрузки
     {
         LoadPanel.SetActive(true);
          

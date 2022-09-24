@@ -21,5 +21,5 @@ public static class EventManager
 	public static Action AudioMove;
 	public static UnityEvent<float> SetSpeedCar = new UnityEvent<float>();
 	public static UnityEvent AdvertisIsShowed = new UnityEvent();
-
+	 
 }

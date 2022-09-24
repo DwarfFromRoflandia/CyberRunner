@@ -17,19 +17,24 @@ public class EnemySpawner : MonoBehaviour
 					   transform.position - new Vector3(70, 0, 0),
 					   Quaternion.Euler(0, 180, 0));
 		StartCoroutine(StartSpawn());
+
+		 
 	}
 	bool switcher = true;
 	public IEnumerator StartSpawn()
 	{
-if (Enemy != null)
+		 
 
-			while (QuantityCars>0)
+		if (Enemy != null)
+
+			while (QuantityCars>0 )  
 		{
 
 
  
-			if (Vector3.Distance(gameObject.transform.position, Enemy.transform.position) >= 600)
+			if (Vector3.Distance(gameObject.transform.position, Enemy.transform.position) >= 1000 && Enemy!=null)
 			{
+					
 				float changeX;
 				switch (switcher)
 				{
@@ -57,6 +62,7 @@ if (Enemy != null)
 		}
  
 	StopCoroutine(StartSpawn());
+	 
 
 
 	}
